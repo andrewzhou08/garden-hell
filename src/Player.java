@@ -1,5 +1,5 @@
 
-public abstract class Player {
+public abstract class Player implements Drawable{
 
 	public Player(){
 		

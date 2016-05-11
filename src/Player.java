@@ -10,14 +10,13 @@ public class Player extends Actor {
 
 	@Override
 	public void act() {
-		// TODO Auto-generated method stub
-		
+		moveBy(1, 1);
 	}
 
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		
+		g.fillOval(getX(), getY(), getWidth(), getHeight());
 	}
 	
 	

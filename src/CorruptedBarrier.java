@@ -14,8 +14,7 @@ public class CorruptedBarrier extends Barrier {
 	public void move(){
 		velX += 3*Math.random()-1;
 		velY += 3*Math.random()-1;
-		
-		super.moveBy(velX, velY);
+		super.moveBy((int)velX, (int)velY);
 	}
 	
 	public Turret getTurret(){

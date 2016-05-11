@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 
 public class BreakableBarrier extends Barrier {
 	
@@ -7,11 +8,7 @@ public class BreakableBarrier extends Barrier {
 		super(x, y, width, height);
 	}
 	
-	public HitBox getHitBox(){
-		return super.getHitBox();
-	}
-	
-	public void draw(){
+	public void draw(Graphics g){
 		
 	}
 	

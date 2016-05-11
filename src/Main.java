@@ -9,17 +9,20 @@ public class Main extends JFrame {
 	public static final int CELL_WIDTH = WINDOW_WIDTH / GRID_COLS;
 	public static final int CELL_HEIGHT= WINDOW_HEIGHT / GRID_ROWS;
 		
+	private GamePanel game;
+	
 	public Main() {
 		setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
+		game = new GamePanel();
+		add(game);
 		setVisible(true);
+		game.loop();
 	}
 	
 	public static void main(String[] args) {
 		Main main = new Main();
-		GamePanel game = new GamePanel();
-		main.add(game);
-		game.loop();
 	}
 	
 }

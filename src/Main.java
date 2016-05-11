@@ -2,8 +2,8 @@ import javax.swing.JFrame;
 
 public class Main extends JFrame {
 	
-	public static final int WINDOW_WIDTH = 1440;
-	public static final int WINDOW_HEIGHT = 810;
+	public static final int WINDOW_WIDTH = 1280;
+	public static final int WINDOW_HEIGHT = 720;
 	public static final int GRID_COLS = 32;
 	public static final int GRID_ROWS = 18;
 	public static final int CELL_WIDTH = WINDOW_WIDTH / GRID_COLS;

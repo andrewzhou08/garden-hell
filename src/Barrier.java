@@ -1,7 +1,4 @@
-import java.awt.Graphics;
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
+import java.awt.Graphics2D;
 
 public class Barrier extends Actor {
 			
@@ -34,10 +31,10 @@ public class Barrier extends Actor {
 	 * Draws the barrier at specified coordinates
 	 */
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics2D g2) {
 		for (int x = 0; x < getWidth(); x += Main.CELL_WIDTH) {
 			for (int y = 0; y < getHeight(); y += Main.CELL_HEIGHT) {
-				g.drawImage(getSprite(), getX() + x, getY() + y,
+				g2.drawImage(getSprite(), getX() + x, getY() + y,
 						Main.CELL_WIDTH, Main.CELL_HEIGHT, null);
 			}
 		}

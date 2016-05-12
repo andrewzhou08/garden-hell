@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -142,12 +143,13 @@ public class GamePanel extends JPanel implements KeyListener {
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
 		g.drawImage(background, 0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT, null);
 		for (Actor a : actors) {
-			a.draw(g);
+			a.draw(g2);
 		}
 		for(Projectile p : bullets){
-			p.draw(g);
+			p.draw(g2);
 		}
 	}
 

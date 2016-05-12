@@ -1,4 +1,4 @@
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -167,7 +167,7 @@ public abstract class Actor implements Drawable {
 	public abstract void act(); 
 
 	@Override
-	public abstract void draw(Graphics g);
+	public abstract void draw(Graphics2D g2);
 	
 
 }

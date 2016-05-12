@@ -1,7 +1,4 @@
-import java.awt.Graphics;
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
+import java.awt.Graphics2D;
 
 public class PowerOrbBullet extends Projectile {
 	
@@ -34,8 +31,8 @@ public class PowerOrbBullet extends Projectile {
 	 * Draws bullet at given location
 	 */
 	@Override
-	public void draw(Graphics g) {
-		g.drawImage(moveAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+	public void draw(Graphics2D g2) {
+		g2.drawImage(moveAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
 	}
 
 }

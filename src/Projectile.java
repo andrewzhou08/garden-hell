@@ -1,6 +1,4 @@
-import java.awt.Graphics;
-
-import javax.swing.ImageIcon;
+import java.awt.Graphics2D;
 
 public class Projectile extends Actor {
 	
@@ -87,7 +85,7 @@ public class Projectile extends Actor {
 	 * Draws projectile at given coordinates
 	 */
 	@Override
-	public void draw(Graphics g) {
-		g.drawImage(getSprite(), getX(), getY(), getWidth(), getHeight(), null);
+	public void draw(Graphics2D g2) {
+		g2.drawImage(getSprite(), getX(), getY(), getWidth(), getHeight(), null);
 	}
 }

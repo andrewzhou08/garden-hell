@@ -1,8 +1,6 @@
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class LaserTurret extends Actor implements Turret {
-	
-	
 	
 	public LaserTurret(int x, int y, int width, int height){
 		super(x,y,width,height);
@@ -19,7 +17,7 @@ public class LaserTurret extends Actor implements Turret {
 	}
 
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics2D g2) {
 		
 	}
 

@@ -1,5 +1,5 @@
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class TankBullet extends Projectile {
 	
@@ -21,11 +21,11 @@ public class TankBullet extends Projectile {
 		super.act();
 	}
 	
-	public void draw(Graphics g){
-		super.draw(g);
+	public void draw(Graphics2D g2){
+		super.draw(g2);
 		
-		g.setColor(Color.BLACK);
-		g.fillOval(super.getX(), super.getY(), super.getHeight(), super.getWidth());
+		g2.setColor(Color.BLACK);
+		g2.fillOval(super.getX(), super.getY(), super.getHeight(), super.getWidth());
 	}
 
 }

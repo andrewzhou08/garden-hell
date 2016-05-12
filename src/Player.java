@@ -1,5 +1,7 @@
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
 
 public class Player extends Actor {
 
@@ -30,8 +32,8 @@ public class Player extends Actor {
 	}
 
 	@Override
-	public void draw(Graphics g) {
-		g.drawImage(getAnimationFrame(), getX(), getY(), getWidth(), getHeight(), null);
+	public void draw(Graphics2D g2) {
+		g2.drawImage(getAnimationFrame(), getX(), getY(), getWidth(), getHeight(), null);
 	}
 	
 	public Image getAnimationFrame() {

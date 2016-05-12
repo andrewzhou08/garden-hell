@@ -23,13 +23,13 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		keyPressed = new boolean[8];
 		background = (new ImageIcon("assets/background.png")).getImage();
 		actors = new ArrayList<Actor>();
-		actors.add(new Barrier(3, 2, 20, 2));
 		Player p1 = new Damager(5, 5);
 		actors.add(p1);
 		Player p2 = new Tank(10, 5);
 		actors.add(p2);
 		actors.add(new Barrier(3, 3, 20, 1));
 		actors.add(new Barrier(3, 3, 1, 1));
+		actors.add(new Barrier(3, 2, 20, 2));
 		actors.add(new PowerOrbBullet(20, 20));
 		
 	}
@@ -56,38 +56,53 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	public void update() {
 		
 		if(keyPressed[0]){
-			if(!actors.get(0).willCollide(actors, 1))
-			actors.get(0).moveBy(0, -1);
+			if(actors.get(0).willCollide(actors, 1)==null)
+				actors.get(0).moveBy(0, -1);
 		}
 		if(keyPressed[1]){
-			if(!actors.get(0).willCollide(actors, 3))
-			actors.get(0).moveBy(-1, 0);
+			if(actors.get(0).willCollide(actors, 3)==null)
+				actors.get(0).moveBy(-1, 0);
 		}if(keyPressed[2]){
-			if(!actors.get(0).willCollide(actors, 2))
-			actors.get(0).moveBy(0, 1);
+			if(actors.get(0).willCollide(actors, 2)==null)
+				actors.get(0).moveBy(0, 1);
 		}if(keyPressed[3]){
-			if(!actors.get(0).willCollide(actors, 4))
-			actors.get(0).moveBy(1, 0);
+			if(actors.get(0).willCollide(actors, 4)==null)
+				actors.get(0).moveBy(1, 0);
 		}if(keyPressed[4]){
-			if(!actors.get(1).willCollide(actors, 1))
-			actors.get(1).moveBy(0, -1);
+			if(actors.get(1).willCollide(actors, 1)==null)
+				actors.get(1).moveBy(0, -1);
 		}if(keyPressed[5]){
-			if(!actors.get(1).willCollide(actors, 2))
-			actors.get(1).moveBy(0, 1);
+			if(actors.get(1).willCollide(actors, 2)==null)
+				actors.get(1).moveBy(0, 1);
 		}if(keyPressed[6]){
-			if(!actors.get(1).willCollide(actors, 3))
-			actors.get(1).moveBy(-1, 0);
+			if(actors.get(1).willCollide(actors, 3)==null)
+				actors.get(1).moveBy(-1, 0);
 		}if(keyPressed[7]){
-			if(!actors.get(1).willCollide(actors, 4))
-			actors.get(1).moveBy(1, 0);
+			if(actors.get(1).willCollide(actors, 4)==null)
+				actors.get(1).moveBy(1, 0);
 		}
 		for(int i = 2;i<actors.size();i++){
-			if(!actors.get(i).willCollide(actors, 4)&&(!actors.get(1).willCollide(actors, 2)))
+			Actor a = actors.get(i).willCollide(actors, 4);
+			Actor b = actors.get(i).willCollide(actors, 2);
+			if(a==null&&b==null)
 				actors.get(i).act();
 			else{
 				if(actors.get(i)instanceof Projectile)
+//					if(a!=null && a instanceof Player){
+//						a.loseHP(40);
+//						System.out.println("test");
+//					}else if(b!=null && b instanceof Player){
+//						b.loseHP(40);
+//						System.out.println("test");
+//					}
 					actors.remove(i);
 			}
+		}
+		if(actors.get(0).getHP()<0){
+			System.out.println("dead");
+		}
+		if(actors.get(1).getHP()<0){
+			System.out.println("dead");
 		}
 	}
 	

@@ -28,6 +28,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		actors.add(p1);
 		Player p2 = new Player(10, 5);
 		actors.add(p2);
+		actors.add(new PowerOrbBullet(20, 20));
 	}
 	
 	public void loop() {

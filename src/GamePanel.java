@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	public GamePanel() {
 		background = (new ImageIcon("assets/background.png")).getImage();
 		actors = new ArrayList<Actor>();
-		actors.add(new Barrier(3, 3, 20, 1));
+		actors.add(new Barrier(3, 3, 1, 1));
 		Player p1 = new Player(5, 5);
 		actors.add(p1);
 		Player p2 = new Player(10, 5);

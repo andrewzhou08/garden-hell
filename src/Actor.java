@@ -1,8 +1,11 @@
 import java.awt.Graphics;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 
 public abstract class Actor implements Drawable {
 	
-	private String sprite;
+	private Image sprite;
 	private HitBox h;
 	private int width, height;
 	private int x, y;
@@ -17,7 +20,11 @@ public abstract class Actor implements Drawable {
 	
 	public Actor(String sprite, int x, int y, int width, int height) {
 		this(x, y, width, height);
-		this.sprite = sprite;
+		this.sprite = (new ImageIcon(sprite)).getImage();
+	}
+	
+	public Image getSprite() {
+		return sprite;
 	}
 	
 	public HitBox getHitBox() {

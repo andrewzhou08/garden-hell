@@ -17,16 +17,17 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	
 	private Image background;
 	private ArrayList<Actor> actors;
-	
+	private boolean[] keyPressed;
 	
 	
 	public GamePanel() {
+		keyPressed = new boolean[8];
 		background = (new ImageIcon("assets/background.png")).getImage();
 		actors = new ArrayList<Actor>();
 		actors.add(new Barrier(3, 3, 20, 1));
-		Player p1 = new Player(5, 5);
+		Player p1 = new Damager(5, 5);
 		actors.add(p1);
-		Player p2 = new Player(10, 5);
+		Player p2 = new Tank(10, 5);
 		actors.add(p2);
 		actors.add(new PowerOrbBullet(20, 20));
 	}
@@ -51,9 +52,25 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	}
 	
 	public void update() {
-		for (Actor a : actors) {
-			a.act();
+		if(keyPressed[0]){
+			actors.get(1).moveBy(0, -1);
 		}
+		if(keyPressed[1]){
+			actors.get(1).moveBy(-1, 0);
+		}if(keyPressed[2]){
+			actors.get(1).moveBy(0, 1);
+		}if(keyPressed[3]){
+			actors.get(1).moveBy(1, 0);
+		}if(keyPressed[4]){
+			actors.get(2).moveBy(0, -1);
+		}if(keyPressed[5]){
+			actors.get(2).moveBy(0, 1);
+		}if(keyPressed[6]){
+			actors.get(2).moveBy(-1, 0);
+		}if(keyPressed[7]){
+			actors.get(2).moveBy(1, 0);
+		}
+		actors.get(3).act();
 	}
 	
 	public void draw() {
@@ -76,12 +93,52 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
+		int key = e.getKeyCode();
+		if(key==KeyEvent.VK_W){
+			keyPressed[0] = true;
+		}
+		if(key==KeyEvent.VK_A){
+			keyPressed[1] = true;
+		}
+		if(key==KeyEvent.VK_S){
+			keyPressed[2] = true;
+		}
+		if(key==KeyEvent.VK_D){
+			keyPressed[3] = true;
+		}if(key==KeyEvent.VK_UP){
+			keyPressed[4] = true;
+		}if(key==KeyEvent.VK_DOWN){
+			keyPressed[5] = true;
+		}if(key==KeyEvent.VK_LEFT){
+			keyPressed[6] = true;
+		}if(key==KeyEvent.VK_RIGHT){
+			keyPressed[7] = true;
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		int key = e.getKeyCode();
+		if(key==KeyEvent.VK_W){
+			keyPressed[0] = false;
+		}
+		if(key==KeyEvent.VK_A){
+			keyPressed[1] = false;
+		}
+		if(key==KeyEvent.VK_S){
+			keyPressed[2] = false;
+		}
+		if(key==KeyEvent.VK_D){
+			keyPressed[3] = false;
+		}if(key==KeyEvent.VK_UP){
+			keyPressed[4] = false;
+		}if(key==KeyEvent.VK_DOWN){
+			keyPressed[5] = false;
+		}if(key==KeyEvent.VK_LEFT){
+			keyPressed[6] = false;
+		}if(key==KeyEvent.VK_RIGHT){
+			keyPressed[7] = false;
+		}
 		
 	}
 

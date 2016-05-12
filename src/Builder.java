@@ -8,9 +8,7 @@ public class Builder extends Player {
 		
 	}
 	
-	public void act(){
-		moveBy(1,1);
-	}
+	
 	
 	public void draw(Graphics g){
 		g.setColor(Color.red);

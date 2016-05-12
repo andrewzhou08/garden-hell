@@ -20,7 +20,7 @@ public class PowerOrbBullet extends Projectile {
 		System.out.println(getX());
 		moveAnimation.update();
 	}
-	
+		
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(moveAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);

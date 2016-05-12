@@ -7,9 +7,7 @@ public class Damager extends Player {
 		super(x, y);
 	}
 	
-	public void act(){
-		moveBy(1,1);
-	}
+	
 	
 	public void draw(Graphics g){
 		g.setColor(Color.green);

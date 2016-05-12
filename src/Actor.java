@@ -1,5 +1,7 @@
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -54,11 +56,38 @@ public abstract class Actor implements Drawable {
 	}
 	
 	public void moveBy(int movedX, int movedY) {
-		h.move(x + movedX, x + movedY);
+		h.move(x + movedX, y + movedY);
 		x = x + movedX;
 		y = y + movedY;
 	}
-
+	// 1 = up, 2 = down, 3 = left, 4 = right
+	public boolean willCollide(ArrayList<Actor> actors, int direction){
+		boolean out = false;
+		Rectangle window = new Rectangle(0,0,Main.WINDOW_WIDTH-8,Main.WINDOW_HEIGHT-29);
+		if(direction == 1)
+			h.move(x, y-1);
+		else if(direction == 2){
+			h.move(x, y+1);
+		}else if(direction == 3)
+			h.move(x-1, y);
+		else
+			h.move(x+1, y);
+		for(int i = 0; i<actors.size();i++){
+			Actor a  = actors.get(i);
+			if(this != a){
+				if(h.intersects(a.h))
+					out = true;
+				if(!window.contains(h.getRectangle())){
+					out = true;
+				}
+			}	
+		}
+		h.move(x, y);
+		return out;
+		
+		
+	}
+	
 	public abstract void act(); 
 
 	@Override

@@ -14,7 +14,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	public static final int FPS = 30;
 	
 	private boolean isRunning;
-	
 	private Image background;
 	private ArrayList<Actor> actors;
 	private boolean[] keyPressed;
@@ -24,14 +23,14 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		keyPressed = new boolean[8];
 		background = (new ImageIcon("assets/background.png")).getImage();
 		actors = new ArrayList<Actor>();
-		actors.add(new Barrier(3, 3, 20, 1));
 		Player p1 = new Damager(5, 5);
-		actors.add(new Barrier(3, 3, 1, 1));
-//		Player p1 = new Player(5, 5);
 		actors.add(p1);
 		Player p2 = new Tank(10, 5);
 		actors.add(p2);
+		actors.add(new Barrier(3, 3, 20, 1));
+		actors.add(new Barrier(3, 3, 1, 1));
 		actors.add(new PowerOrbBullet(20, 20));
+		
 	}
 	
 	public void loop() {
@@ -54,25 +53,41 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	}
 	
 	public void update() {
+		
 		if(keyPressed[0]){
-			actors.get(2).moveBy(0, -1);
+			if(!actors.get(0).willCollide(actors, 1))
+			actors.get(0).moveBy(0, -1);
 		}
 		if(keyPressed[1]){
-			actors.get(2).moveBy(-1, 0);
+			if(!actors.get(0).willCollide(actors, 3))
+			actors.get(0).moveBy(-1, 0);
 		}if(keyPressed[2]){
-			actors.get(2).moveBy(0, 1);
+			if(!actors.get(0).willCollide(actors, 2))
+			actors.get(0).moveBy(0, 1);
 		}if(keyPressed[3]){
-			actors.get(2).moveBy(1, 0);
+			if(!actors.get(0).willCollide(actors, 4))
+			actors.get(0).moveBy(1, 0);
 		}if(keyPressed[4]){
-			actors.get(3).moveBy(0, -1);
+			if(!actors.get(1).willCollide(actors, 1))
+			actors.get(1).moveBy(0, -1);
 		}if(keyPressed[5]){
-			actors.get(3).moveBy(0, 1);
+			if(!actors.get(1).willCollide(actors, 2))
+			actors.get(1).moveBy(0, 1);
 		}if(keyPressed[6]){
-			actors.get(3).moveBy(-1, 0);
+			if(!actors.get(1).willCollide(actors, 3))
+			actors.get(1).moveBy(-1, 0);
 		}if(keyPressed[7]){
-			actors.get(3).moveBy(1, 0);
+			if(!actors.get(1).willCollide(actors, 4))
+			actors.get(1).moveBy(1, 0);
 		}
-		actors.get(4).act();
+		for(int i = 2;i<actors.size();i++){
+			if(!actors.get(i).willCollide(actors, 4)&&(!actors.get(1).willCollide(actors, 2)))
+				actors.get(i).act();
+			else{
+				if(actors.get(i)instanceof Projectile)
+					actors.remove(i);
+			}
+		}
 	}
 	
 	public void draw() {

@@ -4,10 +4,10 @@ public class HitBox {
 	
 	private Rectangle rect;
 	private int width, height;
-	private int x, y;
+	private double x, y;
 	
-	public HitBox(int x, int y, int width, int height){
-		rect = new Rectangle(x, y, width, height);
+	public HitBox(double x, double y, int width, int height){
+		rect = new Rectangle((int)x, (int)y, width, height);
 		this.width = width;
 		this.height = height;
 		this.x = x;
@@ -22,12 +22,12 @@ public class HitBox {
 		return rect;
 	}
 	
-	public void move(int newX, int newY){
-		rect = new Rectangle(newX, newY, width, height);
+	public void move(double newX, double newY){
+		rect = new Rectangle((int)newX, (int)newY, width, height);
 	}
 	
 	public void resize(int newWidth, int newHeight){
-		rect = new Rectangle(x, y, newWidth, newHeight);
+		rect = new Rectangle((int)x, (int)y, newWidth, newHeight);
 	}
 	
 	

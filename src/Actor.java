@@ -83,9 +83,9 @@ public abstract class Actor implements Drawable {
 			if(this != a){
 				if(h.intersects(a.h))
 					out = a;
-//				if(!window.contains(h.getRectangle())){
-//					out = ;
-//				}
+				if(!window.contains(h.getRectangle())){
+					out = this;
+				}
 			}	
 		}
 		h.move(x, y);

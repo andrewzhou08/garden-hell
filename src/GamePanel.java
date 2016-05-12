@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		keyPressed = new boolean[8];
 		background = (new ImageIcon("assets/background.png")).getImage();
 		actors = new ArrayList<Actor>();
-		Player p1 = new Damager(5, 5);
+		Player p1 = new Damager(2, 5);
 		actors.add(p1);
 		Player p2 = new Tank(10, 5);
 		actors.add(p2);
@@ -82,20 +82,22 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 				actors.get(1).moveBy(1, 0);
 		}
 		for(int i = 2;i<actors.size();i++){
-			Actor a = actors.get(i).willCollide(actors, 4);
-			Actor b = actors.get(i).willCollide(actors, 2);
+			Actor currentActor = actors.get(i);
+			Actor a = currentActor.willCollide(actors, 4);
+			Actor b = currentActor.willCollide(actors, 2);
 			if(a==null&&b==null)
-				actors.get(i).act();
+				currentActor.act();
 			else{
-				if(actors.get(i)instanceof Projectile)
-//					if(a!=null && a instanceof Player){
-//						a.loseHP(40);
-//						System.out.println("test");
-//					}else if(b!=null && b instanceof Player){
-//						b.loseHP(40);
-//						System.out.println("test");
-//					}
-					actors.remove(i);
+				if(currentActor instanceof Projectile){
+					if(a!=null && a instanceof Player){
+						a.loseHP(110);
+						System.out.println("test");
+					}else if(b!=null && b instanceof Player){
+						b.loseHP(110);
+						System.out.println("test");
+					}
+					actors.remove(currentActor);
+				}
 			}
 		}
 		if(actors.get(0).getHP()<0){

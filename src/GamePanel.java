@@ -1,7 +1,5 @@
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -9,30 +7,31 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel implements KeyListener, ActionListener {
+public class GamePanel extends JPanel implements KeyListener {
 
 	public static final int FPS = 30;
 	
+	private boolean[] keyPressed;
 	private boolean isRunning;
 	private Image background;
 	private ArrayList<Actor> actors;
-	private boolean[] keyPressed;
-	
+	private Player p1, p2;
 	
 	public GamePanel() {
+		addKeyListener(this);
 		keyPressed = new boolean[8];
 		background = (new ImageIcon("assets/background.png")).getImage();
 		actors = new ArrayList<Actor>();
-		Player p1 = new Damager(2, 5);
+		actors.add(new Barrier(3, 2, 20, 2));
+		p1 = new Tank(5, 5);
 		actors.add(p1);
-		Player p2 = new Tank(10, 5);
+		p2 = new Tank(10, 5);
 		actors.add(p2);
 		actors.add(new Barrier(3, 3, 20, 1));
 		actors.add(new Barrier(3, 3, 1, 1));
-		actors.add(new Barrier(3, 2, 20, 2));
 		actors.add(new PowerOrbBullet(20, 20));
-		actors.add(new PowerOrbBullet(700,175));
-}
+		
+	}
 	
 	public void loop() {
 		isRunning = true;
@@ -54,32 +53,34 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	}
 	
 	public void update() {
-		
+		for (Actor a : actors) {
+			a.act();
+		}
 		if(keyPressed[0]){
-			if(actors.get(0).willCollide(actors, 1)==null)
-				actors.get(0).moveBy(0, -1);
+			if(p1.willCollide(actors, 1)==null)
+				p1.moveBy(0, -1);
 		}
 		if(keyPressed[1]){
-			if(actors.get(0).willCollide(actors, 3)==null)
-				actors.get(0).moveBy(-1, 0);
+			if(p1.willCollide(actors, 3)==null)
+				p1.moveBy(-1, 0);
 		}if(keyPressed[2]){
-			if(actors.get(0).willCollide(actors, 2)==null)
-				actors.get(0).moveBy(0, 1);
+			if(p1.willCollide(actors, 2)==null)
+				p1.moveBy(0, 1);
 		}if(keyPressed[3]){
-			if(actors.get(0).willCollide(actors, 4)==null)
-				actors.get(0).moveBy(1, 0);
+			if(p1.willCollide(actors, 4)==null)
+				p1.moveBy(1, 0);
 		}if(keyPressed[4]){
-			if(actors.get(1).willCollide(actors, 1)==null)
-				actors.get(1).moveBy(0, -1);
+			if(p2.willCollide(actors, 1)==null)
+				p2.moveBy(0, -1);
 		}if(keyPressed[5]){
-			if(actors.get(1).willCollide(actors, 2)==null)
-				actors.get(1).moveBy(0, 1);
+			if(p2.willCollide(actors, 2)==null)
+				p2.moveBy(0, 1);
 		}if(keyPressed[6]){
-			if(actors.get(1).willCollide(actors, 3)==null)
-				actors.get(1).moveBy(-1, 0);
+			if(p2.willCollide(actors, 3)==null)
+				p2.moveBy(-1, 0);
 		}if(keyPressed[7]){
-			if(actors.get(1).willCollide(actors, 4)==null)
-				actors.get(1).moveBy(1, 0);
+			if(p2.willCollide(actors, 4)==null)
+				p2.moveBy(1, 0);
 		}
 		for(int i = 2;i<actors.size();i++){
 			Actor currentActor = actors.get(i);
@@ -108,10 +109,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		}
 	}
 	
-	public void draw() {
-		repaint();
-	}
-	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(background, 0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT, null);
@@ -121,60 +118,77 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		if(key==KeyEvent.VK_W){
+		if (key == KeyEvent.VK_W) {
 			keyPressed[0] = true;
+			p1.setUpPressed(true);
 		}
-		if(key==KeyEvent.VK_A){
+		if (key == KeyEvent.VK_A) {
 			keyPressed[1] = true;
+			p1.setLeftPressed(true);
 		}
-		if(key==KeyEvent.VK_S){
+		if (key == KeyEvent.VK_S) {
 			keyPressed[2] = true;
+			p1.setDownPressed(true);
 		}
-		if(key==KeyEvent.VK_D){
+		if (key == KeyEvent.VK_D) {
 			keyPressed[3] = true;
-		}if(key==KeyEvent.VK_UP){
+			p1.setRightPressed(true);
+		}
+		if (key == KeyEvent.VK_UP) {
 			keyPressed[4] = true;
-		}if(key==KeyEvent.VK_DOWN){
+			p2.setUpPressed(true);
+		}
+		if (key == KeyEvent.VK_DOWN) {
 			keyPressed[5] = true;
-		}if(key==KeyEvent.VK_LEFT){
+			p2.setDownPressed(true);
+		}
+		if (key == KeyEvent.VK_LEFT) {
 			keyPressed[6] = true;
-		}if(key==KeyEvent.VK_RIGHT){
+			p2.setLeftPressed(true);
+		}
+		if (key == KeyEvent.VK_RIGHT) {
 			keyPressed[7] = true;
+			p2.setRightPressed(true);
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
-		if(key==KeyEvent.VK_W){
+		if (key == KeyEvent.VK_W) {
 			keyPressed[0] = false;
+			p1.setUpPressed(false);
 		}
-		if(key==KeyEvent.VK_A){
+		if (key == KeyEvent.VK_A) {
 			keyPressed[1] = false;
+			p1.setLeftPressed(false);
 		}
-		if(key==KeyEvent.VK_S){
+		if (key == KeyEvent.VK_S) {
 			keyPressed[2] = false;
+			p1.setDownPressed(false);
 		}
-		if(key==KeyEvent.VK_D){
+		if (key == KeyEvent.VK_D) {
 			keyPressed[3] = false;
-		}if(key==KeyEvent.VK_UP){
-			keyPressed[4] = false;
-		}if(key==KeyEvent.VK_DOWN){
-			keyPressed[5] = false;
-		}if(key==KeyEvent.VK_LEFT){
-			keyPressed[6] = false;
-		}if(key==KeyEvent.VK_RIGHT){
-			keyPressed[7] = false;
+			p1.setRightPressed(false);
 		}
-		
+		if (key == KeyEvent.VK_UP) {
+			keyPressed[4] = false;
+			p2.setUpPressed(false);
+		}
+		if (key == KeyEvent.VK_DOWN) {
+			keyPressed[5] = false;
+			p2.setDownPressed(false);
+		}
+		if (key == KeyEvent.VK_LEFT) {
+			keyPressed[6] = false;
+			p2.setLeftPressed(false);
+		}
+		if (key == KeyEvent.VK_RIGHT) {
+			keyPressed[7] = false;
+			p2.setRightPressed(false);
+		}
 	}
 
 	@Override

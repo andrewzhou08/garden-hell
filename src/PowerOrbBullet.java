@@ -17,7 +17,6 @@ public class PowerOrbBullet extends Projectile {
 	@Override
 	public void act() {
 		super.act();
-		System.out.println(getX());
 		moveAnimation.update();
 	}
 		

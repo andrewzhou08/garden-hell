@@ -5,14 +5,8 @@ public class Tank extends Player {
 
 	public Tank(int x, int y) {
 		super(x, y);
+		setMoveAnimation(new Animation("assets/player-tank/player-tank-moving(%d).png", 1, 4, 4));
+		setStandAnimation(new Animation("assets/player-tank/player-tank-standing(%d).png", 1, 2, 8));
 	}
 
-	public void act(){
-		moveBy(1,1);
-	}
-	
-	public void draw(Graphics g){
-		g.setColor(Color.blue);
-		g.fillOval(getX(), getY(), getWidth(), getHeight());
-	}
 }

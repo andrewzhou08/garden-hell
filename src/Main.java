@@ -16,7 +16,7 @@ public class Main extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		game = new GamePanel();
-		this.addKeyListener(game);
+		addKeyListener(game);
 		add(game);
 		setVisible(true);
 		game.loop();

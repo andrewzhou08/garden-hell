@@ -5,27 +5,25 @@ import javax.swing.ImageIcon;
 
 public class PowerOrbBullet extends Projectile {
 	
-	private Image img;
+	private Animation moveAnimation;
 	
-	public PowerOrbBullet(int x, int y, int width, int height) {
-		super(x, y, width, height);
-		img = (new ImageIcon("assets/bullet-3/bullet-3.png")).getImage();
-		super.setVelX(super.getVelX() + 2*Math.random()-1);
-		super.setVelY(super.getVelY() + 2*Math.random()-1);
+	public PowerOrbBullet(int x, int y) {
+		super("assets/bullet-3/bullet-3.png", x, y, 40, 40);
+		moveAnimation = new Animation("assets/bullet-3/bullet-3(%d).png", 1, 4, 3); 
+		setVelX(getVelX() + 8.0*Math.random());
+		setVelY(getVelY() + 8.0*Math.random());
 	}
 	
-	public void act(){
+	@Override
+	public void act() {
 		super.act();
+		System.out.println(getX());
+		moveAnimation.update();
 	}
 	
-	private void nextFrame(){
-		
-	}
-	
-	public void draw(Graphics g){
-		super.draw(g);
-		
-		g.drawImage(img, super.getX(), super.getY(), super.getHeight(), super.getWidth(), null);
+	@Override
+	public void draw(Graphics g) {
+		g.drawImage(moveAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
 	}
 
 }

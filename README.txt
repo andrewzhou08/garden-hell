@@ -21,6 +21,7 @@ Must have
 -3 characters (Tank, Damager, Builder)
 -Character selection screen
 -1 map
+-
 
 Want to have
 -Main splash screen
@@ -35,7 +36,7 @@ Stretch goals
 -3 maps
 -5 characters
 -Powerups/Items
--Multiple AI difficulities
+-Multiple AI difficulties
 
 -----------------------------------------------------------
 Class List
@@ -83,10 +84,12 @@ Responsibility List
      Andrew Zhou
 -Artwork
 -Everything that extends Barrier
+-Everything that extends Bullet
+-README
      Heidi Dong
--Artwork
 -Everything that implements Turret
 -CharacterSelectionScreen
+-GamePanel
 -UML
      Leo Yao
 -Everything that extends Characters

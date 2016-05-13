@@ -7,6 +7,15 @@ public class StandardBullet extends Projectile {
 	
 	private Image img;
 	
+	/**
+	 * 	/**
+	 * Creates new standard bullet of coordinates x,y and width/height of width,height at angle angle
+	 * @param x x coordinate of the bullet
+	 * @param y y coordinate of the bullet
+	 * @param width width of the bullet
+	 * @param height height of the bullet
+	 * @param angle angle of the bullet
+	 */
 	public StandardBullet(int x, int y, int width, int height, double angle) {
 		super(x, y, width, height);
 		img = (new ImageIcon("assets/bullet-1.png")).getImage();
@@ -18,6 +27,9 @@ public class StandardBullet extends Projectile {
 		super.act();
 	}
 	
+	/**
+	 * Draws bullet at given location
+	 */
 	public void draw(Graphics g){
 		super.draw(g);
 		

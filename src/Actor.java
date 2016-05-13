@@ -13,6 +13,13 @@ public abstract class Actor implements Drawable {
 	private int x, y;
 	private int hp;
 	
+	/**
+	 * Creates new actor with x and y coordinates of width width and height height
+	 * @param x x coordinate of actor
+	 * @param y y coordinate of actor
+	 * @param width width of actor
+	 * @param height height of actor
+	 */
 	public Actor(int x, int y, int width, int height) {
 		h = new HitBox(x, y, width, height);
 		this.width = width;
@@ -22,52 +29,104 @@ public abstract class Actor implements Drawable {
 		hp = 100;
 	}
 	
+	/**
+	 * Creates a new actor with x and y coordinates with width and height of width, height, as well as image sprite
+	 * @param sprite filename of image
+	 * @param x x coordinate of actor
+	 * @param y y coordinate of actor
+	 * @param width width of actor
+	 * @param height height of actor
+	 */
 	public Actor(String sprite, int x, int y, int width, int height) {
 		this(x, y, width, height);
 		this.sprite = (new ImageIcon(sprite)).getImage();
 	}
 	
+	/**
+	 * returns image of the actor
+	 * @return image of the actor
+	 */
 	public Image getSprite() {
 		return sprite;
 	}
 	
+	/**
+	 * returns hitbox
+	 * @return hitbox of the actor
+	 */
 	public HitBox getHitBox() {
 		return h;
 	}
 	
+	/**
+	 * 
+	 * @return x coordinate
+	 */
 	public int getX() {
 		return x;
 	}
 	
+	/**
+	 * 
+	 * @return y coordinate
+	 */
 	public int getY() {
 		return y;
 	}
 	
+	/**
+	 * 
+	 * @return width of actor
+	 */
 	public int getWidth() {
 		return width;
 	}
 	
+	/**
+	 * 
+	 * @return height of actor
+	 */
 	public int getHeight() {
 		return height;
 	}
 	
+	/**
+	 * 
+	 * @return health points of actor
+	 */
 	public int getHP(){
 		return hp;
 	}
 	
+	/**
+	 * Moves actor to (newX, newY)
+	 * @param newX new x coordinate
+	 * @param newY new y coordinate
+	 */
 	public void move(int newX, int newY) {
 		h.move(newX, newY);
 		x = newX;
 		y = newY;
 	}
 	
+	/**
+	 * Moves actor by movedX, movedY
+	 * @param movedX how much the actor is moved by on the X axis
+	 * @param movedY how much the actor is moved by on the Y axis
+	 */
 	public void moveBy(int movedX, int movedY) {
 		h.move(x + movedX, y + movedY);
 		x = x + movedX;
 		y = y + movedY;
 	}
-	// 1 = up, 2 = down, 3 = left, 4 = right
-	public Actor willCollide(ArrayList<Actor> actors, int direction){
+	
+	/**
+	 * Looks through and finds the actor that is being collided with the actor
+	 * @param actors ArrayList of actors to test for
+	 * @param direction direction of collision. 1 = up, 2 = down, 3 = left, 4 = right
+	 * @return Actor that is being collided with
+	 */
+	public Actor willCollide(ArrayList<Actor> actors, int direction){	// 1 = up, 2 = down, 3 = left, 4 = right
 		Actor out = null;
 		Rectangle window = new Rectangle(0,0,Main.WINDOW_WIDTH-8,Main.WINDOW_HEIGHT-29);
 		if(direction == 1)

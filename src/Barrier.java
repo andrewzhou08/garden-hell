@@ -5,8 +5,16 @@ import javax.swing.ImageIcon;
 
 public class Barrier extends Actor {
 			
-	// x, y, width, height is in number of grid cells, not pixels
-	public Barrier(int x, int y, int width, int height) {
+	
+	
+	/**
+	 * Creates new barrier with coordinates x,y and width of width and height of height
+	 * @param x x coordinate of barrier - number in grid cells, not pixels
+	 * @param y y coordinate of barrier - number in grid cells, not pixels
+	 * @param width width of barrier
+	 * @param height height of barrier
+	 */
+	public Barrier(int x, int y, int width, int height) {	// x, y, width, height is in number of grid cells, not pixels
 		super("assets/barrier.png", x * Main.CELL_WIDTH, y * Main.CELL_HEIGHT, width * Main.CELL_WIDTH, height * Main.CELL_HEIGHT);
 	}
 	
@@ -15,10 +23,16 @@ public class Barrier extends Actor {
 		// TODO Auto-generated method stub
 	}
 	
+	/**
+	 * Plays animation to make barrier corrupt
+	 */
 	public void playCorruptionAnimation(){
 		//TODO @Heidi
 	}
 
+	/**
+	 * Draws the barrier at specified coordinates
+	 */
 	@Override
 	public void draw(Graphics g) {
 		for (int x = 0; x < getWidth(); x += Main.CELL_WIDTH) {

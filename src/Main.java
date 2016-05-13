@@ -11,6 +11,9 @@ public class Main extends JFrame {
 		
 	private GamePanel game;
 	
+	/**
+	 * Initializes GUI window
+	 */
 	public Main() {
 		setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

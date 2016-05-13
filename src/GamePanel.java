@@ -17,6 +17,9 @@ public class GamePanel extends JPanel implements KeyListener {
 	private ArrayList<Actor> actors;
 	private Player p1, p2;
 	
+	/**
+	 * Creates new GamePanel. Initializes all needed variables
+	 */
 	public GamePanel() {
 		addKeyListener(this);
 		keyPressed = new boolean[8];
@@ -29,10 +32,13 @@ public class GamePanel extends JPanel implements KeyListener {
 		actors.add(p2);
 		actors.add(new Barrier(3, 3, 20, 1));
 		actors.add(new Barrier(3, 3, 1, 1));
-		actors.add(new PowerOrbBullet(20, 20));
+		actors.add(new PowerOrbBullet(400, 400));
 		
 	}
 	
+	/**
+	 * Updates and repaints all graphics, then waits to run at 30FPS
+	 */
 	public void loop() {
 		isRunning = true;
 		long startTime, timeDiff, sleepTime;
@@ -52,6 +58,9 @@ public class GamePanel extends JPanel implements KeyListener {
 		}
 	}
 	
+	/**
+	 * All actors act and collision updated
+	 */
 	public void update() {
 		for (Actor a : actors) {
 			a.act();
@@ -109,6 +118,10 @@ public class GamePanel extends JPanel implements KeyListener {
 		}
 	}
 	
+	/**
+	 * Draws all actors and background
+	 * @param g Graphics used for drawing
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(background, 0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT, null);
@@ -117,6 +130,10 @@ public class GamePanel extends JPanel implements KeyListener {
 		}
 	}
 
+	/**
+	 * Handles movement with key inputs
+	 * @param e KeyEvent used to detect key inputs
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
@@ -154,6 +171,10 @@ public class GamePanel extends JPanel implements KeyListener {
 		}
 	}
 
+	/**
+	 * Handles player movement when key released
+	 * @param e KeyEvent used to detect key inputs
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();

@@ -33,7 +33,6 @@ public class GamePanel extends JPanel implements KeyListener {
 		actors.add(new Barrier(3, 3, 20, 1));
 		actors.add(new Barrier(3, 3, 1, 1));
 		actors.add(new PowerOrbBullet(400, 400));
-		
 	}
 	
 	/**

@@ -15,8 +15,8 @@ public class PowerOrbBullet extends Projectile {
 	public PowerOrbBullet(int x, int y) {
 		super("assets/bullet-3/bullet-3.png", x, y, 40, 40);
 		moveAnimation = new Animation("assets/bullet-3/bullet-3(%d).png", 1, 4, 3); 
-		setVelX(getVelX() + 3.0*Math.random()-1.5);
-		setVelY(getVelY() + 3.0*Math.random()-1.5);
+		setVelX(getVelX() + Math.random()-.5);
+		setVelY(getVelY() + Math.random()-.5);
 	}
 	
 	/**
@@ -25,8 +25,8 @@ public class PowerOrbBullet extends Projectile {
 	@Override
 	public void act() {
 		super.act();
-		setVelX(getVelX() + 3.0*Math.random()-1.5);
-		setVelY(getVelY() + 3.0*Math.random()-1.5);
+		setVelX(getVelX() + Math.random()-.5);
+		setVelY(getVelY() + Math.random()-.5);
 		moveAnimation.update();
 	}
 	

@@ -17,12 +17,21 @@ public class CorruptedBarrier extends Barrier {
 	 * @param height height of barrier
 	 * @param turret turret mounted on top of the newly created corrupted barrier
 	 */
-	public CorruptedBarrier(int x, int y, int width, int height, Turret turret){
+	public CorruptedBarrier(int x, int y, int width, int height){
 		super(x, y, width, height);
 		velX = 0;
 		velY = 0;
-		t = turret;
 		img = (new ImageIcon("assets/barrier-corrupt.png")).getImage();
+		
+		int randomTurret = (int)(Math.random()*4);
+		if(randomTurret == 0)
+			t = new StandardTurret(x, y, width, height);
+		else if(randomTurret == 1)
+			t = new FlowerTurret(x, y, width, height);
+		else if(randomTurret == 2)
+			t = new LaserTurret(x, y, width, height);
+		else
+			t = new PowerOrbTurret(x, y, width, height);
 	}
 	
 	/**

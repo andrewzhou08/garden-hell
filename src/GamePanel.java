@@ -33,6 +33,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		actors.add(new Barrier(3, 3, 20, 1));
 		actors.add(new Barrier(3, 3, 1, 1));
 		actors.add(new PowerOrbBullet(400, 400));
+		actors.add(new StandardTurret(400,400,40,40));
 	}
 	
 	/**
@@ -63,6 +64,11 @@ public class GamePanel extends JPanel implements KeyListener {
 	public void update() {
 		for (Actor a : actors) {
 			a.act();
+			if(a instanceof Turret){
+				Projectile p = ((Turret)a).shoot();
+				if(p != null)
+					actors.add(p);
+			}
 		}
 		if(keyPressed[0]){
 			if(p1.willCollide(actors, 1)==null)

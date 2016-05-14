@@ -16,8 +16,9 @@ public class StandardTurret extends Actor implements Turret {
 	
 	@Override
 	public Projectile shoot() {
-		if(angle % Math.PI/2 == 0)
-			return new StandardBullet(super.getX(), super.getY(), super.getWidth(), super.getHeight(), angle);
+		if(angle % Math.PI/2 == 0){
+			System.out.println(angle);
+		}
 		return null;
 	}
 

@@ -1,34 +1,17 @@
-import java.awt.Graphics2D;
-import java.awt.Image;
+public class PowerOrbTurret extends Turret {
 
-import javax.swing.ImageIcon;
-
-public class PowerOrbTurret extends Actor implements Turret {
-	
-	private Image img;
 	private int delay;
-	
-	public PowerOrbTurret(int x, int y, int width, int height){
-		super(x,y,width,height);
-		img = (new ImageIcon("assets/turret-powerorb/turret-powerorb.png")).getImage();
+
+	public PowerOrbTurret(int x, int y, int width, int height) {
+		super("assets/turret-powerorb/turret-powerorb.png", x, y, width, height);
 		delay = 0;
 	}
-	
+
 	@Override
 	public Projectile shoot() {
-		if(delay % 30 == 0)
+		if (delay % 30 == 0)
 			return new PowerOrbBullet(super.getX(), super.getY());
 		return null;
-	}
-
-	@Override
-	public void updateCoordinates(int newX, int newY) {
-		super.move(newX, newY);
-	}
-
-	@Override
-	public void draw(Graphics2D g2) {
-		g2.drawImage(img, super.getX(), super.getY(), super.getWidth(), super.getHeight(), null);
 	}
 
 	@Override

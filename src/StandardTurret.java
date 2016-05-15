@@ -3,37 +3,25 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class StandardTurret extends Actor implements Turret {
-	
-	private Image img;
+public class StandardTurret extends Turret {
+
 	private double angle;
 	private int delay;
-	
-	public StandardTurret(int x, int y, int width, int height){
-		super(x, y, width, height);
-		img = (new ImageIcon("assets/turret-standard/turret-standard.png")).getImage();
+
+	public StandardTurret(int x, int y, int width, int height) {
+		super("assets/turret-standard/turret-standard.png", x, y, width, height);
 		angle = 0;
 		delay = 0;
 	}
-	
+
 	@Override
 	public Projectile shoot() {
-		if(delay % 15 == 0){
+		if (delay % 15 == 0) {
 			delay = 0;
-			angle = Math.random()*360;
-			return new StandardBullet(super.getX(), super.getY(), super.getWidth()/2,super.getHeight()/2,angle*Math.PI/180);
+			angle = Math.random() * 360;
+			return new StandardBullet(getX(), getY(), getWidth() / 2, getHeight() / 2, angle * Math.PI / 180);
 		}
 		return null;
-	}
-
-	@Override
-	public void updateCoordinates(int newX, int newY) {
-		super.move(newX, newY);
-	}
-
-	@Override
-	public void draw(Graphics2D g2) {
-		g2.drawImage(img, super.getX(), super.getY(), super.getWidth(), super.getHeight(), null);
 	}
 
 	@Override

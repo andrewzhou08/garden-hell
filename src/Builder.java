@@ -3,8 +3,8 @@ import java.awt.Graphics;
 
 public class Builder extends Player {
 
-	public Builder(int x, int y) {
-		super(x, y);
+	public Builder(int x, int y, double angle) {
+		super(x, y, angle);
 		
 	}
 	

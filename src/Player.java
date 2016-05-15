@@ -3,7 +3,7 @@ import java.awt.Image;
 
 public class Player extends Actor {
 
-	private int direction;
+	private double angle;
 	private boolean up;
 	private boolean down;
 	private boolean left;
@@ -13,9 +13,10 @@ public class Player extends Actor {
 	private Animation standAnimation;
 	
 	// x, y is in number of grid cells, not pixels
-	public Player(int x, int y) {
+	public Player(int x, int y, double angle) {
 		super(x * Main.CELL_WIDTH, y * Main.CELL_HEIGHT, Main.CELL_WIDTH,
 				Main.CELL_HEIGHT);
+		this.angle = angle;
 	}
 
 	@Override
@@ -69,6 +70,14 @@ public class Player extends Actor {
 
 	public void setShootPressed(boolean shoot) {
 		this.shoot = shoot;
+	}
+	
+	public Projectile shoot(){
+		return null;
+	}
+	
+	public void setAngle(double angle){
+		this.angle = angle;
 	}
 	
 }

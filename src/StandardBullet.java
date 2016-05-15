@@ -19,8 +19,9 @@ public class StandardBullet extends Projectile {
 	public StandardBullet(int x, int y, int width, int height, double angle) {
 		super(x, y, width, height);
 		img = (new ImageIcon("assets/bullet-1.png")).getImage();
-		super.setVelX(Math.cos(angle) * Projectile.BULLET_SPEED);
-		super.setVelY(Math.sin(angle) * Projectile.BULLET_SPEED);
+		
+		super.setVelX(Math.cos(angle) * Projectile.BULLET_SPEED/2);
+		super.setVelY(Math.sin(angle) * Projectile.BULLET_SPEED/2);
 	}
 	
 	public void act(){

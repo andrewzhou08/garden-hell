@@ -6,15 +6,19 @@ import javax.swing.ImageIcon;
 public class PowerOrbTurret extends Actor implements Turret {
 	
 	private Image img;
+	private int delay;
 	
 	public PowerOrbTurret(int x, int y, int width, int height){
 		super(x,y,width,height);
 		img = (new ImageIcon("assets/turret-powerorb/turret-powerorb.png")).getImage();
+		delay = 0;
 	}
 	
 	@Override
 	public Projectile shoot() {
-		return new PowerOrbBullet(super.getX(), super.getY());
+		if(delay % 30 == 0)
+			return new PowerOrbBullet(super.getX(), super.getY());
+		return null;
 	}
 
 	@Override
@@ -29,6 +33,6 @@ public class PowerOrbTurret extends Actor implements Turret {
 
 	@Override
 	public void act() {
-		
+		delay++;
 	}
 }

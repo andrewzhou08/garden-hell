@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 
 public class Projectile extends Actor {
 	
-	public static final int BULLET_SPEED = 1;
+	public static final int BULLET_SPEED = 2;
 	private double velX;
 	private double velY;
 	
@@ -68,7 +68,19 @@ public class Projectile extends Actor {
 	 */
 	@Override
 	public void act() {
-		moveBy((int)(velX+0.5), (int)(velY+0.5));
+		double tempX = velX, tempY = velY;
+		
+		if(tempX > 0)
+			tempX += 0.5;
+		else
+			tempX -= 0.5;
+		
+		if(tempY > 0)
+			tempY += 0.5;
+		else
+			tempY -= 0.5;
+		
+		moveBy((int)(tempX), (int)(tempY));
 	}
 
 	/**

@@ -15,7 +15,8 @@ public class FlowerTurret extends Actor implements Turret {
 	
 	@Override
 	public Projectile shoot() {
-		return new FlowerBullet(super.getX(), super.getY(), super.getWidth(), super.getHeight(), angle);
+		System.out.println(angle);
+		return new FlowerBullet(super.getX(), super.getY(), super.getWidth()/2, super.getHeight()/2, angle*Math.PI/180);
 	}
 
 	@Override
@@ -30,6 +31,6 @@ public class FlowerTurret extends Actor implements Turret {
 
 	@Override
 	public void act() {
-		angle += Math.PI/30;
+		angle += 15;
 	}
 }

@@ -15,6 +15,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	private boolean isRunning;
 	private Image background;
 	private ArrayList<Actor> actors;
+	private ArrayList<Projectile> bullets;
 	private Player p1, p2;
 	
 	/**
@@ -25,15 +26,17 @@ public class GamePanel extends JPanel implements KeyListener {
 		keyPressed = new boolean[8];
 		background = (new ImageIcon("assets/background.png")).getImage();
 		actors = new ArrayList<Actor>();
+		bullets = new ArrayList<Projectile>();
 		actors.add(new Barrier(3, 2, 20, 2));
-		p1 = new Tank(5, 5);
+		p1 = new Tank(5, 5, 0);
 		actors.add(p1);
-		p2 = new Tank(10, 5);
+		p2 = new Tank(10, 5, 0);
 		actors.add(p2);
 		actors.add(new Barrier(3, 3, 20, 1));
 		actors.add(new Barrier(3, 3, 1, 1));
-		actors.add(new PowerOrbBullet(400, 400));
-		actors.add(new StandardTurret(400,400,40,40));
+		actors.add(new PowerOrbTurret(400, 400, 40, 40));
+		actors.add(new StandardTurret(500, 400, 40, 40));
+		actors.add(new FlowerTurret(300, 400, 40, 40));
 	}
 	
 	/**
@@ -67,34 +70,44 @@ public class GamePanel extends JPanel implements KeyListener {
 			if(a instanceof Turret){
 				Projectile p = ((Turret)a).shoot();
 				if(p != null)
-					actors.add(p);
+					bullets.add(p);
 			}
+			for(Projectile p : bullets)
+				p.act();
 		}
 		if(keyPressed[0]){
 			if(p1.willCollide(actors, 1)==null)
-				p1.moveBy(0, -1);
+				p1.moveBy(0, -2);
+			p1.setAngle(90);
 		}
 		if(keyPressed[1]){
 			if(p1.willCollide(actors, 3)==null)
-				p1.moveBy(-1, 0);
+				p1.moveBy(-2, 0);
+			p1.setAngle(180);
 		}if(keyPressed[2]){
 			if(p1.willCollide(actors, 2)==null)
-				p1.moveBy(0, 1);
+				p1.moveBy(0, 2);
+			p1.setAngle(270);
 		}if(keyPressed[3]){
 			if(p1.willCollide(actors, 4)==null)
-				p1.moveBy(1, 0);
+				p1.moveBy(2, 0);
+			p1.setAngle(0);
 		}if(keyPressed[4]){
 			if(p2.willCollide(actors, 1)==null)
-				p2.moveBy(0, -1);
+				p2.moveBy(0, -2);
+			p2.setAngle(90);
 		}if(keyPressed[5]){
 			if(p2.willCollide(actors, 2)==null)
-				p2.moveBy(0, 1);
+				p2.moveBy(0, 2);
+			p2.setAngle(180);
 		}if(keyPressed[6]){
 			if(p2.willCollide(actors, 3)==null)
-				p2.moveBy(-1, 0);
+				p2.moveBy(-2, 0);
+			p2.setAngle(270);
 		}if(keyPressed[7]){
 			if(p2.willCollide(actors, 4)==null)
-				p2.moveBy(1, 0);
+				p2.moveBy(2, 0);
+			p2.setAngle(0);
 		}
 		for(int i = 2;i<actors.size();i++){
 			Actor currentActor = actors.get(i);
@@ -132,6 +145,9 @@ public class GamePanel extends JPanel implements KeyListener {
 		g.drawImage(background, 0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT, null);
 		for (Actor a : actors) {
 			a.draw(g);
+		}
+		for(Projectile p : bullets){
+			p.draw(g);
 		}
 	}
 
@@ -173,6 +189,9 @@ public class GamePanel extends JPanel implements KeyListener {
 		if (key == KeyEvent.VK_RIGHT) {
 			keyPressed[7] = true;
 			p2.setRightPressed(true);
+		}
+		if(key == KeyEvent.VK_SPACE) {
+			bullets.add(p1.shoot());
 		}
 	}
 

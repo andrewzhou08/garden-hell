@@ -1,7 +1,5 @@
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.geom.AffineTransform;
 
 public class Player extends Actor {
 	
@@ -47,7 +45,9 @@ public class Player extends Actor {
 
 	@Override
 	public void draw(Graphics2D g2) {
+		g2.rotate(-Math.toRadians(angle), getX() + getWidth() / 2, getY() + getHeight() / 2);
 		g2.drawImage(getAnimationFrame(), getX(), getY(), getWidth(), getHeight(), null);
+		g2.rotate(Math.toRadians(angle), getX() + getWidth() / 2, getY() + getHeight() / 2);
 	}
 	
 	public Image getAnimationFrame() {
@@ -129,6 +129,10 @@ public class Player extends Actor {
 	 */
 	public double getAngle() {
 		return angle;
+	}
+	
+	public int getSpeed() {
+		return speed;
 	}
 	
 }

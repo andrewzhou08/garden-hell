@@ -19,7 +19,7 @@ public class StandardTurret extends Turret {
 		if (delay % 15 == 0) {
 			delay = 0;
 			angle = Math.random() * 360;
-			return new StandardBullet(getX(), getY(), getWidth() / 2, getHeight() / 2, angle * Math.PI / 180);
+			return new StandardBullet(getX(), getY(), getWidth() / 2, getHeight() / 2, -angle * Math.PI / 180);
 		}
 		return null;
 	}
@@ -28,4 +28,12 @@ public class StandardTurret extends Turret {
 	public void act() {
 		delay++;
 	}
+
+	@Override
+	public void draw(Graphics2D g2) {
+		g2.rotate(-Math.toRadians(angle), getX() + getWidth() / 2, getY() + getHeight() / 2);
+		super.draw(g2);
+		g2.rotate(Math.toRadians(angle), getX() + getWidth() / 2, getY() + getHeight() / 2);
+	}	
+	
 }

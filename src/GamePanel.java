@@ -79,36 +79,28 @@ public class GamePanel extends JPanel implements KeyListener {
 		if(keyPressed[0]){
 			if(p1.willCollide(actors, 1)==null)
 				p1.moveBy(0, -2);
-			p1.setAngle(90);
 		}
 		if(keyPressed[1]){
 			if(p1.willCollide(actors, 3)==null)
 				p1.moveBy(-2, 0);
-			p1.setAngle(180);
 		}if(keyPressed[2]){
 			if(p1.willCollide(actors, 2)==null)
 				p1.moveBy(0, 2);
-			p1.setAngle(270);
 		}if(keyPressed[3]){
 			if(p1.willCollide(actors, 4)==null)
 				p1.moveBy(2, 0);
-			p1.setAngle(0);
 		}if(keyPressed[4]){
 			if(p2.willCollide(actors, 1)==null)
 				p2.moveBy(0, -2);
-			p2.setAngle(90);
 		}if(keyPressed[5]){
 			if(p2.willCollide(actors, 2)==null)
 				p2.moveBy(0, 2);
-			p2.setAngle(180);
 		}if(keyPressed[6]){
 			if(p2.willCollide(actors, 3)==null)
 				p2.moveBy(-2, 0);
-			p2.setAngle(270);
 		}if(keyPressed[7]){
 			if(p2.willCollide(actors, 4)==null)
 				p2.moveBy(2, 0);
-			p2.setAngle(0);
 		}
 		for(int i = 2;i<actors.size();i++){
 			Actor currentActor = actors.get(i);
@@ -192,7 +184,8 @@ public class GamePanel extends JPanel implements KeyListener {
 			keyPressed[7] = true;
 			p2.setRightPressed(true);
 		}
-		if(key == KeyEvent.VK_SPACE) {
+		if (key == KeyEvent.VK_SPACE) {
+			// TODO: move shooting to act()
 			bullets.add(p1.shoot());
 		}
 	}

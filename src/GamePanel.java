@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	 */
 	public GamePanel() {
 		addKeyListener(this);
-		keyPressed = new boolean[8];
+		keyPressed = new boolean[10];
 		background = (new ImageIcon("assets/background.png")).getImage();
 		actors = new ArrayList<Actor>();
 		bullets = new ArrayList<Projectile>();
@@ -65,7 +65,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	/**
 	 * All actors act and collision updated
 	 */
-	public void update() {
+	public synchronized void update() {
 		for (Actor a : actors) {
 			a.act();
 			if(a instanceof Turret){
@@ -78,29 +78,37 @@ public class GamePanel extends JPanel implements KeyListener {
 		}
 		if(keyPressed[0]){
 			if(p1.willCollide(actors, 1)==null)
-				p1.moveBy(0, -2);
+				p1.moveBy(0, -1*p1.getSpeed());
 		}
 		if(keyPressed[1]){
 			if(p1.willCollide(actors, 3)==null)
-				p1.moveBy(-2, 0);
+				p1.moveBy(-1*p1.getSpeed(), 0);
 		}if(keyPressed[2]){
 			if(p1.willCollide(actors, 2)==null)
-				p1.moveBy(0, 2);
+				p1.moveBy(0, p1.getSpeed());
 		}if(keyPressed[3]){
 			if(p1.willCollide(actors, 4)==null)
-				p1.moveBy(2, 0);
+				p1.moveBy(p1.getSpeed(), 0);
 		}if(keyPressed[4]){
 			if(p2.willCollide(actors, 1)==null)
-				p2.moveBy(0, -2);
+				p2.moveBy(0, -1*p2.getSpeed());
 		}if(keyPressed[5]){
 			if(p2.willCollide(actors, 2)==null)
-				p2.moveBy(0, 2);
+				p2.moveBy(0, p2.getSpeed());
 		}if(keyPressed[6]){
 			if(p2.willCollide(actors, 3)==null)
-				p2.moveBy(-2, 0);
+				p2.moveBy(-1*p2.getSpeed(), 0);
 		}if(keyPressed[7]){
 			if(p2.willCollide(actors, 4)==null)
-				p2.moveBy(2, 0);
+				p2.moveBy(p2.getSpeed(), 0);
+		}if(keyPressed[8]){
+			Projectile tankBullet = p1.shoot();
+			if(tankBullet != null)
+				bullets.add(tankBullet);
+		}if(keyPressed[9]){
+			Projectile tankBullet = p2.shoot();
+			if(tankBullet != null)
+				bullets.add(tankBullet);
 		}
 		for(int i = 2;i<actors.size();i++){
 			Actor currentActor = actors.get(i);
@@ -133,7 +141,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	 * Draws all actors and background
 	 * @param g Graphics used for drawing
 	 */
-	public void paintComponent(Graphics g) {
+	public synchronized void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		g.drawImage(background, 0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT, null);
@@ -185,8 +193,10 @@ public class GamePanel extends JPanel implements KeyListener {
 			p2.setRightPressed(true);
 		}
 		if (key == KeyEvent.VK_SPACE) {
-			// TODO: move shooting to act()
-			bullets.add(p1.shoot());
+			keyPressed[8] = true;
+		}
+		if (key == KeyEvent.VK_SHIFT) {
+			keyPressed[9] = true;
 		}
 	}
 
@@ -228,6 +238,12 @@ public class GamePanel extends JPanel implements KeyListener {
 		if (key == KeyEvent.VK_RIGHT) {
 			keyPressed[7] = false;
 			p2.setRightPressed(false);
+		}
+		if(key == KeyEvent.VK_SPACE) {
+			keyPressed[8] = false;
+		}
+		if(key == KeyEvent.VK_SHIFT){
+			keyPressed[9] = false;
 		}
 	}
 

@@ -3,17 +3,34 @@ import java.awt.Graphics2D;
 public class FlowerTurret extends Turret {
 
 	private double angle;
+	private static final int DISTANCE_TO_BARREL = 30;
 
+	/**
+	 * Creates new flower turret with x and y of x, y and size of width, height
+	 * @param x the x coordinate of the turret
+	 * @param y the y coordinate of the turret
+	 * @param width the width of the turret
+	 * @param height the height of the turret
+	 */
 	public FlowerTurret(int x, int y, int width, int height) {
 		super("assets/turret-flower/turret-flower.png", x, y, width, height);
 	}
 
+	/**
+	 * Returns the shot projectile
+	 * @return Projectile that is being shot
+	 */
 	@Override
 	public Projectile shoot() {
-		System.out.println(angle);
-		return new FlowerBullet(getX(), getY(), getWidth() / 2, getHeight() / 2, -angle * Math.PI / 180);
+		int projX = (int)(getX() + getWidth()/4 + Math.cos(angle) * DISTANCE_TO_BARREL);
+		int projY = (int)(getY() + getHeight()/4 + Math.sin(angle) * DISTANCE_TO_BARREL);
+		
+		return new FlowerBullet(projX, projY, getWidth() / 2, getHeight() / 2, -angle * Math.PI / 180);
 	}
 
+	/**
+	 * Updates angle if flower turret
+	 */
 	@Override
 	public void act() {
 		angle += 12;
@@ -21,6 +38,9 @@ public class FlowerTurret extends Turret {
 			angle = 0;
 	}
 
+	/**
+	 * Draws flower turret based on angle
+	 */
 	@Override
 	public void draw(Graphics2D g2) {
 		g2.rotate(-Math.toRadians(angle), getX() + getWidth() / 2, getY() + getHeight() / 2);

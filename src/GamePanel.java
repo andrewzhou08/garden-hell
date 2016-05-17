@@ -30,9 +30,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		bullets = new ArrayList<Projectile>();
 		actors.add(new Barrier(3, 2, 20, 2));
 		p1 = new Tank(5, 5, 0);
-		actors.add(p1);
 		p2 = new Tank(10, 5, 0);
-		actors.add(p2);
 		actors.add(new Barrier(3, 3, 20, 1));
 		actors.add(new Barrier(3, 3, 1, 1));
 		actors.add(new PowerOrbTurret(400, 400, 40, 40));
@@ -67,7 +65,6 @@ public class GamePanel extends JPanel implements KeyListener {
 	 */
 	public synchronized void update() {
 		for (Actor a : actors) {
-			a.act();
 			if(a instanceof Turret){
 				Projectile p = ((Turret)a).shoot();
 				if(p != null)
@@ -76,58 +73,58 @@ public class GamePanel extends JPanel implements KeyListener {
 			for(Projectile p : bullets)
 				p.act();
 		}
-		if(keyPressed[0]){
-			if(p1.willCollide(actors, 1)==null)
-				p1.moveBy(0, -1*p1.getSpeed());
+		double angle = p1.getAngle();
+		p1.updateAngle();
+		if(p1.willCollide(actors, angle)==null){
+			p1.act();
 		}
-		if(keyPressed[1]){
-			if(p1.willCollide(actors, 3)==null)
-				p1.moveBy(-1*p1.getSpeed(), 0);
-		}if(keyPressed[2]){
-			if(p1.willCollide(actors, 2)==null)
-				p1.moveBy(0, p1.getSpeed());
-		}if(keyPressed[3]){
-			if(p1.willCollide(actors, 4)==null)
-				p1.moveBy(p1.getSpeed(), 0);
-		}if(keyPressed[4]){
-			if(p2.willCollide(actors, 1)==null)
-				p2.moveBy(0, -1*p2.getSpeed());
-		}if(keyPressed[5]){
-			if(p2.willCollide(actors, 2)==null)
-				p2.moveBy(0, p2.getSpeed());
-		}if(keyPressed[6]){
-			if(p2.willCollide(actors, 3)==null)
-				p2.moveBy(-1*p2.getSpeed(), 0);
-		}if(keyPressed[7]){
-			if(p2.willCollide(actors, 4)==null)
-				p2.moveBy(p2.getSpeed(), 0);
-		}if(keyPressed[8]){
+		//		if(keyPressed[0]){
+//			Actor t = p1.willCollide(actors, 1);
+//			if(t==null){
+//				p1.act();
+//			}
+//		}
+//		if(keyPressed[1]){
+//			if(p1.willCollide(actors, 3)==null)
+//				p1.act();
+//			}
+//		if(keyPressed[2]){
+//			if(p1.willCollide(actors, 2)==null)
+//				p1.act();
+//		}
+//		if(keyPressed[3]){
+//			if(p1.willCollide(actors, 4)==null)
+//				p1.act();
+//		}
+//		if(keyPressed[4]){
+//			if(p2.willCollide(actors, 1)==null)
+//				p2.act();
+//		}
+//		if(keyPressed[5]){
+//			if(p2.willCollide(actors, 2)==null)
+//				p2.act();
+//		}
+//		if(keyPressed[6]){
+//			if(p2.willCollide(actors, 3)==null)
+//				p2.act();
+//		}
+//		if(keyPressed[7]){
+//			if(p2.willCollide(actors, 4)==null)
+//				p2.act();
+//		}
+		if(keyPressed[8]){
 			Projectile tankBullet = p1.shoot();
 			if(tankBullet != null)
 				bullets.add(tankBullet);
-		}if(keyPressed[9]){
+		}
+		if(keyPressed[9]){
 			Projectile tankBullet = p2.shoot();
 			if(tankBullet != null)
 				bullets.add(tankBullet);
 		}
-		for(int i = 2;i<actors.size();i++){
+		for(int i = 0;i<actors.size();i++){
 			Actor currentActor = actors.get(i);
-			Actor a = currentActor.willCollide(actors, 4);
-			Actor b = currentActor.willCollide(actors, 2);
-			if(a==null&&b==null)
-				currentActor.act();
-			else{
-				if(currentActor instanceof Projectile){
-					if(a!=null && a instanceof Player){
-						a.loseHP(110);
-						System.out.println("test");
-					}else if(b!=null && b instanceof Player){
-						b.loseHP(110);
-						System.out.println("test");
-					}
-					actors.remove(currentActor);
-				}
-			}
+			currentActor.act();
 		}
 		if(actors.get(0).getHP()<0){
 			System.out.println("dead");
@@ -145,6 +142,8 @@ public class GamePanel extends JPanel implements KeyListener {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		g.drawImage(background, 0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT, null);
+		p1.draw(g2);
+		p2.draw(g2);
 		for (Actor a : actors) {
 			a.draw(g2);
 		}

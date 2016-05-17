@@ -41,13 +41,14 @@ public class Player extends Actor {
 	 */
 	@Override
 	public void act() {
-		updateAngle();
+//		updateAngle();
+		
 		if (!up && !down && !left && !right && standAnimation != null) {
 			standAnimation.update();
 		}
 		else if (moveAnimation != null) {
-			moveBy((int) (Math.cos(Math.toRadians(angle)) * speed + 0.5), 
-					(int) -(Math.sin(Math.toRadians(angle)) * speed + 0.5));
+			moveBy((int)Math.round( (Math.cos(Math.toRadians(angle)) * speed )), 
+					(int) Math.round((-(Math.sin(Math.toRadians(angle)) * speed ))));
 			moveAnimation.update();
 		}
 		

@@ -126,28 +126,51 @@ public abstract class Actor implements Drawable {
 	 * @param direction direction of collision. 1 = up, 2 = down, 3 = left, 4 = right
 	 * @return Actor that is being collided with
 	 */
-	public Actor willCollide(ArrayList<Actor> actors, int direction){	// 1 = up, 2 = down, 3 = left, 4 = right
+	public Actor willCollide(ArrayList<Actor> actors, double angle){	// 1 = up, 2 = down, 3 = left, 4 = right
 		Actor out = null;
 		Rectangle window = new Rectangle(0,0,Main.WINDOW_WIDTH-8,Main.WINDOW_HEIGHT-29);
-		if(direction == 1)
-			h.move(x, y-1);
-		else if(direction == 2){
-			h.move(x, y+1);
-		}else if(direction == 3)
-			h.move(x-1, y);
-		else
-			h.move(x+1, y);
-		for(int i = 0; i<actors.size();i++){
-			Actor a  = actors.get(i);
-			if(this != a){
-				if(h.intersects(a.h))
-					out = a;
-				if(!window.contains(h.getRectangle())){
-					out = this;
+		if(this instanceof Player){
+			Player p =(Player)this;
+			HitBox newBoxX = null;
+			HitBox newBoxY = null;
+			if(angle>0 && angle <180){
+				newBoxY = new HitBox(x,y-p.getSpeed(), width, (int) (p.getSpeed()+h.getRectangle().getHeight()));
+				if(angle == 90){
+					newBoxX = new HitBox(0,0,0,0);
 				}
-			}	
+			}
+			if(angle>180 && angle <360){
+				newBoxY = new HitBox(x,y+p.getSpeed(), width, (int) (p.getSpeed()+h.getRectangle().getHeight()));
+				if(angle == 270){
+					newBoxX = new HitBox(0,0,0,0);
+				}
+			}if(angle>90 && angle <270){
+				newBoxX = new HitBox(x-p.getSpeed(),y, (int) (p.getSpeed()+h.getRectangle().getWidth()),height);
+				if(angle == 180){
+					newBoxY = new HitBox(0,0,0,0);
+				}
+			}
+			if(angle<90 || angle >271) {
+				newBoxX = new HitBox(x+p.getSpeed(),y, (int) (p.getSpeed()+h.getRectangle().getWidth()),height);
+				if(angle == 0){
+					newBoxY = new HitBox(0,0,0,0);
+				}
+			}
+			
+			for(int i = 0; i<actors.size();i++){
+				Actor a  = actors.get(i);
+				if(this != a){
+					if(newBoxX.intersects(a.h)||newBoxY.intersects(a.h)){
+						out = a;
+					}
+					else if(!window.contains(newBoxX.getRectangle())&&!window.contains(newBoxY.getRectangle())){
+						out = this;
+					}
+				}	
+			}
 		}
-		h.move(x, y);
+		
+		
 		return out;
 		
 		

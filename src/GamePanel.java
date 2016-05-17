@@ -80,6 +80,13 @@ public class GamePanel extends JPanel implements KeyListener {
 		if(p1.willCollide(actors, angle)==null){
 			p1.act();
 		}
+		
+		p2.updateAngle();
+		double angle2 = p2.getAngle();
+		if(p2.willCollide(actors, angle2)==null){
+			p2.act();
+		}
+
 		//		if(keyPressed[0]){
 //			Actor t = p1.willCollide(actors, 1);
 //			if(t==null){

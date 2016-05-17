@@ -128,7 +128,7 @@ public abstract class Actor implements Drawable {
 	 */
 	public Actor willCollide(ArrayList<Actor> actors, double angle){	// 1 = up, 2 = down, 3 = left, 4 = right
 		Actor out = null;
-		Rectangle window = new Rectangle(0,0,Main.WINDOW_WIDTH-8,Main.WINDOW_HEIGHT-29);
+		Rectangle window = new Rectangle(0,0,Main.WINDOW_WIDTH-8,Main.WINDOW_HEIGHT-32);
 		if(this instanceof Player){
 			Player p =(Player)this;
 			HitBox newBoxX = null;
@@ -136,24 +136,24 @@ public abstract class Actor implements Drawable {
 			if(angle>0 && angle <180){
 				newBoxY = new HitBox(x,y-p.getSpeed(), width, (int) (p.getSpeed()+h.getRectangle().getHeight()));
 				if(angle == 90){
-					newBoxX = new HitBox(0,0,0,0);
+					newBoxX = new HitBox(1,1,1,1);
 				}
 			}
 			if(angle>180 && angle <360){
-				newBoxY = new HitBox(x,y+p.getSpeed(), width, (int) (p.getSpeed()+h.getRectangle().getHeight()));
+				newBoxY = new HitBox(x,y, width, (int) (p.getSpeed()+h.getRectangle().getHeight()));
 				if(angle == 270){
-					newBoxX = new HitBox(0,0,0,0);
+					newBoxX = new HitBox(1,1,1,1);
 				}
 			}if(angle>90 && angle <270){
 				newBoxX = new HitBox(x-p.getSpeed(),y, (int) (p.getSpeed()+h.getRectangle().getWidth()),height);
 				if(angle == 180){
-					newBoxY = new HitBox(0,0,0,0);
+					newBoxY = new HitBox(1,1,1,1);
 				}
 			}
 			if(angle<90 || angle >271) {
-				newBoxX = new HitBox(x+p.getSpeed(),y, (int) (p.getSpeed()+h.getRectangle().getWidth()),height);
+				newBoxX = new HitBox(x,y, (int) (p.getSpeed()+h.getRectangle().getWidth()),height);
 				if(angle == 0){
-					newBoxY = new HitBox(0,0,0,0);
+					newBoxY = new HitBox(1,1,1,1);
 				}
 			}
 			
@@ -163,7 +163,7 @@ public abstract class Actor implements Drawable {
 					if(newBoxX.intersects(a.h)||newBoxY.intersects(a.h)){
 						out = a;
 					}
-					else if(!window.contains(newBoxX.getRectangle())&&!window.contains(newBoxY.getRectangle())){
+					else if(!window.contains(newBoxX.getRectangle())||!window.contains(newBoxY.getRectangle())){
 						out = this;
 					}
 				}	

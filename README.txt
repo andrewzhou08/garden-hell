@@ -1,4 +1,4 @@
-Garden Hell
+﻿Garden Hell
 by Andrew Zhou, Heidi Dong, Leo Yao
 9 May 2016
 -----------------------------------------------------------
@@ -9,8 +9,8 @@ Each player is required to shoot the other player, as well as survive the bullet
 -----------------------------------------------------------
 Instructions
 Each player can choose a character to play, and it will show which character each player chooses.
-Player 1 uses WASD to control the character, [g] to shoot, [h] to use special ability.
-Player 2 uses Arrow Keys to control the character, [n](number pad) to shoot, [m](number pad) to use special ability.
+Player 1 uses WASD to control the character, [space] to shoot.
+Player 2 uses Arrow Keys to control the character, [shift] to shoot.
 Press “GO” when both players have finished selecting their characters.
 Game will continue until one player loses all their health.
 

@@ -17,11 +17,11 @@ Game will continue until one player loses all their health.
 -----------------------------------------------------------
 Features List
 Must have
--Corruption with turrets all 4 types
+-Corruption with turrets - 3 types
 -3 characters (Tank, Damager, Builder)
 -Character selection screen
 -1 map
--
+-Well done animations for each object
 
 Want to have
 -Main splash screen
@@ -42,23 +42,29 @@ Stretch goals
 Class List
      Must Have
 public class Main;
-public abstract class Player implements Drawable;
+public class CharacterSelectionScreen;
+public class GamePanel;
 public interface Drawable;
+public abstract class Actor implements Drawable;
+public class Animation;
+public class Barrier extends Actor;
+public class BreakableBarrier extends Barrier;
+public class CorruptBarrier extends Barrier;
+public class GravityBarrier extends Barrier;
+public class Player extends Actor;
 public class Tank extends Player;
 public class Damager extends Player;
 public class Builder extends Player;
-public class Barrier implements Drawable;
-public class BreakableBarrier extends Barrier;
-public class CorruptedBarrier extends Barrier;
-public class GravityBarrier extends Barrier;
+public class Projectile extends Actor;
+public class StandardBullet extends Projectile;
+public class FlowerBullet extends Projectile;
+public class PowerOrbBullet extends Projectile;
+public class LaserBullet extends Projectile;
 public interface Turret;
-public class StandardTurret implements Turret;
-public class FlowerTurret implements Turret;
-public class LaserTurret implements Turret;
-public class PowerOrbTurret implements Turret;
-public class CharacterSelectionScreen;
-public class Projectile implements Drawable;
-public class Bullet extends Projectile
+public class StandardTurret extends Actor implements Turret;
+public class FlowerTurret extends Actor implements Turret;
+public class PowerOrbTurret extends Actor implements Turret;
+public class LaserTurret extends Actor implements Turret;
 public class Map;
 public class Map1 extends Map;
 

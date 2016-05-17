@@ -10,7 +10,7 @@ public class Animation {
 	private int elapsedTime;
 	
 	public Animation(String filenameFormat, int start, int end, int delayTime) {
-		frames = new Image[end - start];
+		frames = new Image[end - start + 1];
 		for (int i = 0; i < frames.length; i++) {
 			frames[i] = (new ImageIcon(String.format(filenameFormat, start + i))).getImage();
 		}

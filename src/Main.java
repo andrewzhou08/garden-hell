@@ -11,12 +11,15 @@ public class Main extends JFrame {
 		
 	private GamePanel game;
 	
+	/**
+	 * Initializes GUI window
+	 */
 	public Main() {
 		setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		game = new GamePanel();
-		this.addKeyListener(game);
+		addKeyListener(game);
 		add(game);
 		setVisible(true);
 		game.loop();

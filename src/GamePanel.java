@@ -29,7 +29,9 @@ public class GamePanel extends JPanel implements KeyListener {
 		actors = new ArrayList<Actor>();
 		bullets = new ArrayList<Projectile>();
 		actors.add(new Barrier(3, 2, 20, 2));
-		p1 = new Tank(5, 5, 0);
+
+		p1 = new Builder(5, 5, 0);
+
 		p2 = new Tank(10, 5, 0);
 		actors.add(new Barrier(3, 3, 20, 1));
 		actors.add(new Barrier(3, 3, 1, 1));

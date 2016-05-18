@@ -11,7 +11,7 @@ public class Tank extends Player {
 		super(x, y, angle);
 		setMoveAnimation(new Animation("assets/player-tank/player-tank-moving(%d).png", 1, 4, 6));
 		setStandAnimation(new Animation("assets/player-tank/player-tank-standing(%d).png", 1, 2, 16));
-		super.setSpeed(2);
+		super.setSpeed(3);
 		super.setMaxHealth(200);
 		skippedFrames = 0;
 	}

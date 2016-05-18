@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel implements KeyListener {
+public class GamePanel extends JPanel implements KeyListener, Runnable {
 
 	public static final int FPS = 30;
 	
+	private boolean gameStarted;
 	private boolean[] keyPressed;
 	private boolean isRunning;
 	private Image background;
@@ -23,27 +24,33 @@ public class GamePanel extends JPanel implements KeyListener {
 	 * Creates new GamePanel. Initializes all needed variables
 	 */
 	public GamePanel() {
+		gameStarted = false;
 		addKeyListener(this);
 		keyPressed = new boolean[10];
 		background = (new ImageIcon("assets/background.png")).getImage();
 		actors = new ArrayList<Actor>();
 		bullets = new ArrayList<Projectile>();
-		actors.add(new Barrier(3, 2, 20, 2));
-
 		p1 = new Builder(5, 5, 0);
-
 		p2 = new Tank(10, 5, 0);
-		actors.add(new Barrier(3, 3, 20, 1));
-		actors.add(new Barrier(3, 3, 1, 1));
+		actors.add(new Barrier(3, 2, 20, 1));
+		CorruptableBarrier cb = new CorruptableBarrier(3, 3, 20, 1);
+		cb.setCorrupt(true);
+		actors.add(cb);
 		actors.add(new PowerOrbTurret(400, 400, 40, 40));
 		actors.add(new StandardTurret(500, 400, 40, 40));
 		actors.add(new FlowerTurret(300, 400, 40, 40));
+		//new Thread(this).start();
+	}
+	
+	public void startThread(){
+		  new Thread(this).start();
+		  gameStarted = true;
 	}
 	
 	/**
 	 * Updates and repaints all graphics, then waits to run at 30FPS
 	 */
-	public void loop() {
+	public void run() {
 		isRunning = true;
 		long startTime, timeDiff, sleepTime;
 		while (isRunning) {
@@ -182,6 +189,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_W) {
+			
 			keyPressed[0] = false;
 			p1.setUpPressed(false);
 		}
@@ -222,7 +230,25 @@ public class GamePanel extends JPanel implements KeyListener {
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void keyTyped(KeyEvent e) {}
+	
+	/**
+	 * 
+	 * @pre playerNumber is 1 or 2
+	 * @param playerNumber
+	 */
+	public void setPlayer(int playerNumber, Player p){
+		if(playerNumber == 1){
+			p1 = p;
+		}
+		else if(playerNumber == 2){
+			p2 = p;
+		}
+			
+	}
+	
+	public boolean gameStarted(){
+		return gameStarted;
 	}
 
 }

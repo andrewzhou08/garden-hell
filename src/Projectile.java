@@ -2,7 +2,7 @@ import java.awt.Graphics2D;
 
 public class Projectile extends Actor {
 	
-	public static final int BULLET_SPEED = 2;
+	public static final double BULLET_SPEED = 0.2;
 	private double velX;
 	private double velY;
 	

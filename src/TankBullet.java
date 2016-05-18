@@ -12,8 +12,8 @@ public class TankBullet extends Projectile {
 	public TankBullet(int x, int y, double angle) {
 		super(x, y, 6, 6);
 		
-		double velX = Math.cos(angle) * super.BULLET_SPEED;
-		double velY = -Math.sin(angle) * super.BULLET_SPEED;
+		double velX = Math.cos(angle) * super.BULLET_SPEED*4;
+		double velY = -Math.sin(angle) * super.BULLET_SPEED*4;
 		
 		setVelX(velX);
 		setVelY(velY);

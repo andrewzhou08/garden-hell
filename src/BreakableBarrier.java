@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -19,10 +20,15 @@ public class BreakableBarrier extends Barrier {
 		img = (new ImageIcon("assets/barrier-breakable.png")).getImage();
 	}
 	
+	public void act(){
+		
+	}
+	
 	/**
 	 * Draws barrier onto screen with specified characteristics
 	 */
-	public void draw(Graphics g){
+	@Override
+	public void draw(Graphics2D g){
 		g.drawImage(img, super.getX(), super.getY(), super.getWidth(), super.getHeight(), null);
 	}
 	

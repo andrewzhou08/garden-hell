@@ -28,44 +28,46 @@ public class CharacterSelectionScreen extends JPanel implements MouseListener {
 			int y = e.getY();
 			if(playerNumber == 1){
 				if(x >= 100 && x <= 420 && y >= 45 && y <= 325){
-					main.setPlayer(1, new Tank(1, 9, 0));
+					main.setPlayer(1, new Tank(1, 8, 0));
 					player = (new ImageIcon("assets/character-selection-p2.png")).getImage();
 					repaint();
+					playerNumber++;
 				}
 				else if(x >= 480 && x <= 800 && y >= 45 && y <= 325){
-					main.setPlayer(1, new Damager(1, 9, 0));
+					main.setPlayer(1, new Damager(1, 8, 0));
 					player = (new ImageIcon("assets/character-selection-p2.png")).getImage();
 					repaint();
+					playerNumber++;
 				}
 				else if(x >= 880 && x <= 1160 && y >= 45 && y <= 325){
-					main.setPlayer(1, new Builder(1, 9, 0));
+					main.setPlayer(1, new Builder(1, 8, 0));
 					player = (new ImageIcon("assets/character-selection-p2.png")).getImage();
 					repaint();
+					playerNumber++;
 				}
-				playerNumber++;
 			}
 			else if(playerNumber == 2){
 				if(x >= 100 && x <= 420 && y >= 45 && y <= 325){
-					main.setPlayer(2, new Tank(30, 9, 180));
+					main.setPlayer(2, new Tank(30, 8, 180));
 					player = (new ImageIcon("assets/character-selection-start.png")).getImage();
 					repaint();
+					playerNumber++;
 				}
 				else if(x >= 480 && x <= 800 && y >= 45 && y <= 325){
-					main.setPlayer(2, new Damager(30, 9, 180));
+					main.setPlayer(2, new Damager(30, 8, 180));
 					player = (new ImageIcon("assets/character-selection-start.png")).getImage();
 					repaint();
+					playerNumber++;
 				}
 				else if(x >= 880 && x <= 1160 && y >= 45 && y <= 325){
-					main.setPlayer(2, new Builder(30, 9, 180));
+					main.setPlayer(2, new Builder(30, 8, 180));
 					player = (new ImageIcon("assets/character-selection-start.png")).getImage();
 					repaint();
+					playerNumber++;
 				}
-				playerNumber++;
 			}
-			else{
-				if(x >= 912 && x <= 1112 && y >= 650 && y <= 700){
+			else if(playerNumber == 3){
 					main.changePanel("2");
-				}
 			}
 		}
 	}

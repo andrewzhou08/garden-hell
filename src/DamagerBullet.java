@@ -6,8 +6,8 @@ public class DamagerBullet extends Projectile {
 	public DamagerBullet(int x, int y, double angle){
 		super(x, y, 6, 6);
 		
-		double velX = Math.cos(angle) * super.BULLET_SPEED*3;
-		double velY = -Math.sin(angle) * super.BULLET_SPEED*3;
+		double velX = Math.cos(angle) * super.BULLET_SPEED*12;
+		double velY = -Math.sin(angle) * super.BULLET_SPEED*12;
 		
 		setVelX(velX);
 		setVelY(velY);

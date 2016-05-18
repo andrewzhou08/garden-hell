@@ -18,12 +18,15 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 	private Image background;
 	private ArrayList<Actor> actors;
 	private ArrayList<Projectile> bullets;
+	private Map map;
 	private Player p1, p2;
 	
 	/**
 	 * Creates new GamePanel. Initializes all needed variables
 	 */
 	public GamePanel() {
+		p1 = new Tank(1, 8, 0);
+		p2 = new Tank(30, 8, 0);
 		gameStarted = false;
 		addKeyListener(this);
 		keyPressed = new boolean[10];
@@ -32,14 +35,13 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		bullets = new ArrayList<Projectile>();
 		p1 = new Builder(5, 5, 0);
 		p2 = new Tank(10, 5, 0);
-		actors.add(new Barrier(3, 2, 20, 1));
 		CorruptableBarrier cb = new CorruptableBarrier(3, 3, 20, 1);
-		cb.setCorrupt(true);
-		actors.add(cb);
-		actors.add(new PowerOrbTurret(400, 400, 40, 40));
-		actors.add(new StandardTurret(500, 400, 40, 40));
-		actors.add(new FlowerTurret(300, 400, 40, 40));
-		//new Thread(this).start();
+		//cb.setCorrupt(true);
+		
+		map = new Map();
+		ArrayList<Barrier> barriers = map.getBarriers();
+		for(Barrier b : barriers)
+			actors.add(b);
 	}
 	
 	public void startThread(){

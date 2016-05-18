@@ -75,8 +75,8 @@ public class GamePanel extends JPanel implements KeyListener {
 			for(Projectile p : bullets)
 				p.act();
 		}
-		double angle = p1.getAngle();
 		p1.updateAngle();
+		double angle = p1.getAngle();
 		if(p1.willCollide(actors, angle)==null){
 			p1.act();
 		}
@@ -87,40 +87,6 @@ public class GamePanel extends JPanel implements KeyListener {
 			p2.act();
 		}
 
-		//		if(keyPressed[0]){
-//			Actor t = p1.willCollide(actors, 1);
-//			if(t==null){
-//				p1.act();
-//			}
-//		}
-//		if(keyPressed[1]){
-//			if(p1.willCollide(actors, 3)==null)
-//				p1.act();
-//			}
-//		if(keyPressed[2]){
-//			if(p1.willCollide(actors, 2)==null)
-//				p1.act();
-//		}
-//		if(keyPressed[3]){
-//			if(p1.willCollide(actors, 4)==null)
-//				p1.act();
-//		}
-//		if(keyPressed[4]){
-//			if(p2.willCollide(actors, 1)==null)
-//				p2.act();
-//		}
-//		if(keyPressed[5]){
-//			if(p2.willCollide(actors, 2)==null)
-//				p2.act();
-//		}
-//		if(keyPressed[6]){
-//			if(p2.willCollide(actors, 3)==null)
-//				p2.act();
-//		}
-//		if(keyPressed[7]){
-//			if(p2.willCollide(actors, 4)==null)
-//				p2.act();
-//		}
 		if(keyPressed[8]){
 			Projectile tankBullet = p1.shoot();
 			if(tankBullet != null)

@@ -131,39 +131,39 @@ public abstract class Actor implements Drawable {
 		Rectangle window = new Rectangle(0,0,Main.WINDOW_WIDTH-8,Main.WINDOW_HEIGHT-32);
 		if(this instanceof Player){
 			Player p =(Player)this;
-			HitBox newBoxX = null;
-			HitBox newBoxY = null;
+			Rectangle newBoxX = null;
+			Rectangle newBoxY = null;
 			if(angle>0 && angle <180){
-				newBoxY = new HitBox(x,y-p.getSpeed(), width, (int) (p.getSpeed()+h.getRectangle().getHeight()));
+				newBoxY = new Rectangle(x,y-p.getSpeed(), width, (int) Math.round(p.getSpeed()+h.getRectangle().getHeight()));
 				if(angle == 90){
-					newBoxX = new HitBox(1,1,1,1);
+					newBoxX = new Rectangle(1,1,1,1);
 				}
 			}
 			if(angle>180 && angle <360){
-				newBoxY = new HitBox(x,y, width, (int) (p.getSpeed()+h.getRectangle().getHeight()));
+				newBoxY = new Rectangle(x,y, width, (int) Math.round(p.getSpeed()+h.getRectangle().getHeight()));
 				if(angle == 270){
-					newBoxX = new HitBox(1,1,1,1);
+					newBoxX = new Rectangle(1,1,1,1);
 				}
 			}if(angle>90 && angle <270){
-				newBoxX = new HitBox(x-p.getSpeed(),y, (int) (p.getSpeed()+h.getRectangle().getWidth()),height);
+				newBoxX = new Rectangle(x-p.getSpeed(),y, (int) Math.round(p.getSpeed()+h.getRectangle().getWidth()),height);
 				if(angle == 180){
-					newBoxY = new HitBox(1,1,1,1);
+					newBoxY = new Rectangle(1,1,1,1);
 				}
 			}
 			if(angle<90 || angle >271) {
-				newBoxX = new HitBox(x,y, (int) (p.getSpeed()+h.getRectangle().getWidth()),height);
+				newBoxX = new Rectangle(x,y, (int) (p.getSpeed()+h.getRectangle().getWidth()),height);
 				if(angle == 0){
-					newBoxY = new HitBox(1,1,1,1);
+					newBoxY = new Rectangle(1,1,1,1);
 				}
 			}
 			
 			for(int i = 0; i<actors.size();i++){
 				Actor a  = actors.get(i);
 				if(this != a){
-					if(newBoxX.intersects(a.h)||newBoxY.intersects(a.h)){
+					if(newBoxX.intersects(a.h.getRectangle())||newBoxY.intersects(a.h.getRectangle())){
 						out = a;
 					}
-					else if(!window.contains(newBoxX.getRectangle())||!window.contains(newBoxY.getRectangle())){
+					else if(!window.contains(newBoxX)||!window.contains(newBoxY)){
 						out = this;
 					}
 				}	

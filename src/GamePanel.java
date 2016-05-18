@@ -30,9 +30,12 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		background = (new ImageIcon("assets/background.png")).getImage();
 		actors = new ArrayList<Actor>();
 		bullets = new ArrayList<Projectile>();
-		actors.add(new Barrier(3, 2, 20, 2));
-		actors.add(new Barrier(3, 3, 20, 1));
-		actors.add(new Barrier(3, 3, 1, 1));
+		p1 = new Builder(5, 5, 0);
+		p2 = new Tank(10, 5, 0);
+		actors.add(new Barrier(3, 2, 20, 1));
+		CorruptableBarrier cb = new CorruptableBarrier(3, 3, 20, 1);
+		cb.setCorrupt(true);
+		actors.add(cb);
 		actors.add(new PowerOrbTurret(400, 400, 40, 40));
 		actors.add(new StandardTurret(500, 400, 40, 40));
 		actors.add(new FlowerTurret(300, 400, 40, 40));

@@ -2,8 +2,6 @@ import java.awt.Graphics2D;
 
 public class Barrier extends Actor {
 			
-	
-	
 	/**
 	 * Creates new barrier with coordinates x,y and width of width and height of height
 	 * @param x x coordinate of barrier - number in grid cells, not pixels
@@ -20,13 +18,6 @@ public class Barrier extends Actor {
 		// TODO Auto-generated method stub
 	}
 	
-	/**
-	 * Plays animation to make barrier corrupt
-	 */
-	public void playCorruptionAnimation(){
-		//TODO @Heidi
-	}
-
 	/**
 	 * Draws the barrier at specified coordinates
 	 */

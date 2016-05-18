@@ -34,4 +34,12 @@ public class Animation {
 		}
 	}
 
+	public int getCurrentFrameID() {
+		return currentFrame;
+	}
+
+	public int length() {
+		return frames.length;
+	}
+
 }

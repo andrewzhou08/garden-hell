@@ -22,16 +22,6 @@ public class CorruptedBarrier extends Barrier {
 		velX = 0;
 		velY = 0;
 		img = (new ImageIcon("assets/barrier-corrupt.png")).getImage();
-		
-		int randomTurret = (int)(Math.random()*4);
-		if(randomTurret == 0)
-			t = new StandardTurret(x, y);
-		else if(randomTurret == 1)
-			t = new FlowerTurret(x, y);
-		else if(randomTurret == 2)
-			t = new LaserTurret(x, y);
-		else
-			t = new PowerOrbTurret(x, y);
 	}
 	
 	/**

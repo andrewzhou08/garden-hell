@@ -2,6 +2,8 @@ import java.awt.Graphics2D;
 
 public class PowerOrbBullet extends Projectile {
 	
+	public static final int POWER_ORB_BULLET_DAMAGE = 50;
+	
 	private Animation moveAnimation;
 	private int skippedFrames;
 	
@@ -16,6 +18,8 @@ public class PowerOrbBullet extends Projectile {
 		setVelX(getVelX() + Math.random()/2-.25);
 		setVelY(getVelY() + Math.random()/2-.25);
 		skippedFrames = 0;
+		
+		super.setDamage(POWER_ORB_BULLET_DAMAGE);
 	}
 	
 	/**

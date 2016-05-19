@@ -3,6 +3,8 @@ import java.awt.Graphics2D;
 
 public class TankBullet extends Projectile {
 	
+	public static final int TANK_BULLET_DAMAGE = 20;
+	
 	/**
 	 * Creates new TankBullet of coordinates x, y and angle angle
 	 * @param x
@@ -14,6 +16,8 @@ public class TankBullet extends Projectile {
 		
 		double velX = Math.cos(angle) * super.BULLET_SPEED;
 		double velY = -Math.sin(angle) * super.BULLET_SPEED;
+		
+		super.setDamage(TANK_BULLET_DAMAGE);
 		
 		setVelX(velX);
 		setVelY(velY);

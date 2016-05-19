@@ -1,6 +1,6 @@
 public class Tank extends Player {
 
-	public static final int HP = 200;
+	public static final int HP = 1000;
 	
 	private int skippedFrames;
 	

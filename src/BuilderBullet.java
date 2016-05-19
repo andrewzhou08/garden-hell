@@ -2,6 +2,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class BuilderBullet extends Projectile {
+	
+	public static final int BUILDER_BULLET_DAMAGE = 22;
+	
 	/**
 	 * Creates a bullet for builder
 	 * @param x x coordinate of the bullet
@@ -13,6 +16,8 @@ public class BuilderBullet extends Projectile {
 		
 		double velX = Math.cos(angle) * super.BULLET_SPEED;
 		double velY = -Math.sin(angle) * super.BULLET_SPEED;
+		
+		super.setDamage(BUILDER_BULLET_DAMAGE);
 		
 		setVelX(velX);
 		setVelY(velY);

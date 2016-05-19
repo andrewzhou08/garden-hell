@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel implements KeyListener, Runnable {
 
 	public static final int FPS = 30;
+	public double elapsedTime; //in seconds
 	
 	private boolean gameStarted;
 	private boolean[] keyPressed;
@@ -30,6 +31,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 	 * Creates new GamePanel. Initializes all needed variables
 	 */
 	public GamePanel() {
+		elapsedTime = 0;
 		p1 = new Tank(1, 8, 0);
 		p2 = new Tank(30, 8, 0);
 		gameStarted = false;
@@ -76,6 +78,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 				Thread.sleep(sleepTime);
 			}
 			catch (InterruptedException e) { }
+			elapsedTime = 1.0/30;
 		}
 		reset();
 	}
@@ -107,7 +110,6 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 			for (Barrier b : barriers) {
 				if (b instanceof CorruptableBarrier) {
 					((CorruptableBarrier)b).setCorrupt(true);
-					System.out.println(b);
 				}
 			}
 		}

@@ -5,6 +5,8 @@ import javax.swing.ImageIcon;
 
 public class FlowerBullet extends Projectile {
 	
+	public static final int FLOWER_BULLET_DAMAGE = 8;
+	
 	private Image img;
 	private int skippedFrames;
 	
@@ -22,10 +24,12 @@ public class FlowerBullet extends Projectile {
 		super.setVelX(Math.cos(angle) * Projectile.BULLET_SPEED);
 		super.setVelY(Math.sin(angle) * Projectile.BULLET_SPEED);
 		skippedFrames = 0;
+		
+		super.setDamage(FLOWER_BULLET_DAMAGE);
 	}
 	
 	public void act(){
-		if(skippedFrames == 6){
+		if(skippedFrames == 10){
 			super.act();
 			skippedFrames = 0;
 		}

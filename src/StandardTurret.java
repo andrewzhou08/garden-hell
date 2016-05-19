@@ -2,7 +2,7 @@ import java.awt.Graphics2D;
 
 public class StandardTurret extends Turret {
 
-	public static final int HP = 50;
+	public static final int HP = 100;
 	
 	private double angle;
 	private int delay;

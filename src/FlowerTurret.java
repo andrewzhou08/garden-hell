@@ -2,7 +2,7 @@ import java.awt.Graphics2D;
 
 public class FlowerTurret extends Turret {
 
-	public static final int HP = 50;
+	public static final int HP = 1000;
 	
 	private double angle;
 	private static final int DISTANCE_TO_BARREL = 30;

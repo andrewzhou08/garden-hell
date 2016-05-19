@@ -2,6 +2,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class DamagerBullet extends Projectile {
+	
+	public static final int DAMAGER_BULLET_DAMAGE = 30;
+	
 	/**
 	 * creates a bullet for damagers
 	 * @param x x coordinate of the bullet
@@ -13,6 +16,8 @@ public class DamagerBullet extends Projectile {
 		
 		double velX = Math.cos(angle) * super.BULLET_SPEED;
 		double velY = -Math.sin(angle) * super.BULLET_SPEED;
+		
+		super.setDamage(DAMAGER_BULLET_DAMAGE);
 		
 		setVelX(velX);
 		setVelY(velY);

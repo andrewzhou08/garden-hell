@@ -7,6 +7,7 @@ public class Projectile extends Actor {
 	public static final double BULLET_SPEED = 1;
 	private double velX;
 	private double velY;
+	private int damage;
 	
 	/**
 	 * Creates new projectile at coordinates x,y and size width,height
@@ -17,6 +18,22 @@ public class Projectile extends Actor {
 	 */
 	public Projectile(int x, int y, int width, int height) {
 		super(x, y, width, height);
+	}
+	
+	/**
+	 * Sets damage of the projectile
+	 * @param damage damage of the projectile
+	 */
+	public void setDamage(int damage){
+		this.damage = damage;
+	}
+	
+	/**
+	 * 
+	 * @return Damage of the projectile
+	 */
+	public int getDamage(){
+		return damage;
 	}
 
 	/**
@@ -95,13 +112,13 @@ public class Projectile extends Actor {
 				Actor a = actors.get(i);
 				if(this.getHitBox().intersects(a.getHitBox())){
 					if(a instanceof Player){
-						((Player) a).changeCurrentHealth(-10);
+						((Player) a).changeCurrentHealth(-damage);
 						return a;
 					}else if(a instanceof BreakableBarrier){
-						((BreakableBarrier) a).changeCurrentHealth(-10);
+						((BreakableBarrier) a).changeCurrentHealth(-damage);
 						return a;
 					}else if (a instanceof Turret){
-						((Turret) a).changeCurrentHealth(-10);
+						((Turret) a).changeCurrentHealth(-damage);
 						return a;
 					}
 				}

@@ -14,6 +14,7 @@ public class StandardTurret extends Turret {
 	 */
 	public StandardTurret(int x, int y) {
 		super("assets/turret-standard/turret-standard.png", x, y, 40, 40, HP);
+		setExplodeAnimation(new Animation("assets/turret-standard/turret-standard-explode(%d).png", 1, 13, 1));
 		angle = 0;
 		delay = 0;
 	}
@@ -37,6 +38,8 @@ public class StandardTurret extends Turret {
 	 */
 	@Override
 	public void act() {
+		super.act();
+		
 		delay++;
 	}
 

@@ -2,8 +2,8 @@ public class LaserTurret extends Turret {
 
 	public static final int HP = 50;
 	
-	public LaserTurret(int x, int y, int width, int height) {
-		super("", x, y, width, height, HP);
+	public LaserTurret(int x, int y) {
+		super("", x, y, 40, 40, HP);
 	}
 
 	@Override

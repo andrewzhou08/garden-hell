@@ -1,7 +1,4 @@
 import java.awt.Graphics2D;
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
 
 public class StandardTurret extends Turret {
 
@@ -14,11 +11,9 @@ public class StandardTurret extends Turret {
 	 * Creates new StandardTurret of coordinates x, y and size width, height
 	 * @param x the x coordinate of the turret
 	 * @param y the y coordinate of the turret
-	 * @param width the width of the turret
-	 * @param height the height of the turret
 	 */
-	public StandardTurret(int x, int y, int width, int height) {
-		super("assets/turret-standard/turret-standard.png", x, y, width, height, HP);
+	public StandardTurret(int x, int y) {
+		super("assets/turret-standard/turret-standard.png", x, y, 40, 40, HP);
 		angle = 0;
 		delay = 0;
 	}

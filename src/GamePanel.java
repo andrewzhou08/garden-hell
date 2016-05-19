@@ -38,15 +38,13 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		p2 = new Tank(10, 5, 0);
 		actors.add(p1);
 		actors.add(p2);
-		actors.add(new FlowerTurret(470, 280, 40, 40));
-		actors.add(new StandardTurret(600,600,40,40));
+		actors.add(new FlowerTurret(470, 280));
+		actors.add(new StandardTurret(600,600));
 		map = new Map();
 		
 		ArrayList<Barrier> barriers = map.getBarriers();
 		for(Barrier b : barriers)
 			actors.add(b);
-		
-		
 	}
 	
 	public void startThread(){

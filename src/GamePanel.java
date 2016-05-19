@@ -39,11 +39,13 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		actors.add(p1);
 		actors.add(p2);
 		actors.add(new FlowerTurret(470, 280, 40, 40));
+		actors.add(new StandardTurret(600,600,40,40));
 		map = new Map();
 		
 		ArrayList<Barrier> barriers = map.getBarriers();
 		for(Barrier b : barriers)
 			actors.add(b);
+		
 		
 	}
 	
@@ -85,7 +87,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 				Projectile p = ((Turret)a).shoot();
 				if(p != null){
 					bullets.add(p);
-					
+					p.act();
 				}
 			}
 			for(int j = 0; j<bullets.size();j++){

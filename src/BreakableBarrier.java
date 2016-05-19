@@ -1,5 +1,7 @@
 import java.awt.Color;
+
 import java.awt.Graphics;
+
 import java.awt.Graphics2D;
 import java.awt.Image;
 
@@ -26,18 +28,19 @@ public class BreakableBarrier extends Barrier {
 	}
 	
 	public void act(){
-		
+	
 	}
 	
 	/**
 	 * Draws barrier onto screen with specified characteristics
 	 */
 	@Override
-	public void draw(Graphics2D g){
-		g.drawImage(img, super.getX(), super.getY(), super.getWidth(), super.getHeight(), null);
-		g.setColor(Color.red);
-		g.drawRect(getX(), getY()+getHeight(), getWidth(), 10);
-		g.fillRect(getX(), getY()+getHeight(), (int)((double)currentHealth/maxHealth *getWidth()), 10);
+	
+	public void draw(Graphics2D g2){
+		g2.drawImage(img, super.getX(), super.getY(), super.getWidth(), super.getHeight(), null);
+		g2.setColor(Color.red);
+		g2.drawRect(getX(), getY()+getHeight(), getWidth(), 10);
+		g2.fillRect(getX(), getY()+getHeight(), (int)((double)currentHealth/maxHealth *getWidth()), 10);
 	}
 	
 	/**
@@ -86,4 +89,6 @@ public class BreakableBarrier extends Barrier {
 	public void changeCurrentHealth(int changeBy){
 		currentHealth += changeBy;
 	}
+
+
 }

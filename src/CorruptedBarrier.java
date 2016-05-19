@@ -25,13 +25,13 @@ public class CorruptedBarrier extends Barrier {
 		
 		int randomTurret = (int)(Math.random()*4);
 		if(randomTurret == 0)
-			t = new StandardTurret(x, y, width, height);
+			t = new StandardTurret(x, y);
 		else if(randomTurret == 1)
-			t = new FlowerTurret(x, y, width, height);
+			t = new FlowerTurret(x, y);
 		else if(randomTurret == 2)
-			t = new LaserTurret(x, y, width, height);
+			t = new LaserTurret(x, y);
 		else
-			t = new PowerOrbTurret(x, y, width, height);
+			t = new PowerOrbTurret(x, y);
 	}
 	
 	/**

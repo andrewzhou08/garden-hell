@@ -17,10 +17,13 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 	private boolean[] keyPressed;
 	private boolean isRunning;
 	private Image background;
+	private Image p1Win, p2Win;
 	private ArrayList<Actor> actors;
 	private ArrayList<Projectile> bullets;
 	private Map map;
 	private Player p1, p2;
+	private boolean playerOneWins;
+	private boolean playerTwoWins;
 	
 	/**
 	 * Creates new GamePanel. Initializes all needed variables
@@ -32,21 +35,20 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		addKeyListener(this);
 		keyPressed = new boolean[10];
 		background = (new ImageIcon("assets/background.png")).getImage();
+		p1Win = (new ImageIcon("assets/p1-wins.png")).getImage();
+		p2Win = (new ImageIcon("assets/p2-wins.png")).getImage();
 		actors = new ArrayList<Actor>();
 		bullets = new ArrayList<Projectile>();
 		p1 = new Builder(5, 5, 0);
 		p2 = new Tank(10, 5, 0);
 		actors.add(p1);
 		actors.add(p2);
-		actors.add(new FlowerTurret(470, 280, 40, 40));
-		actors.add(new StandardTurret(600,600,40,40));
 		map = new Map();
+		playerOneWins = playerTwoWins = false;
 		
 		ArrayList<Barrier> barriers = map.getBarriers();
 		for(Barrier b : barriers)
 			actors.add(b);
-		
-		
 	}
 	
 	public void startThread(){
@@ -74,7 +76,25 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 			}
 			catch (InterruptedException e) { }
 		}
-		System.out.println("CLOSE");
+		reset();
+	}
+	
+	public void reset(){
+		p1.move(1*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
+		p2.move(30*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
+		p1.setAngle(0);
+		p2.setAngle(180);
+		p1.setCurrentHealth(p1.getMaxHealth());
+		p2.setCurrentHealth(p2.getMaxHealth());
+		bullets = new ArrayList<Projectile>();
+		repaint();
+		try{
+			Thread.sleep(1000);
+		}
+			catch(InterruptedException e){ }
+		isRunning = true;
+		playerOneWins = playerTwoWins = false;
+		run();
 	}
 	
 	/**
@@ -137,12 +157,12 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 			}
 		}
 		if(p1.getCurrentHealth()<0){
-			System.out.println("Player 2 Wins!");
+			playerTwoWins = true;
 			isRunning = false;
 			
 		}
 		if(p2.getCurrentHealth()<0){
-			System.out.println("Player 1 Wins!");
+			playerOneWins = true;
 			isRunning = false;
 		}
 		
@@ -162,6 +182,14 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		}
 		for(Projectile p : bullets){
 			p.draw(g2);
+		}
+		if(!isRunning){
+			if(playerOneWins){
+				g.drawImage(p1Win, 370, 200, 540, 300, null);
+			}
+			else if(playerTwoWins){
+				g.drawImage(p2Win, 370, 200, 540, 300, null);
+			}
 		}
 	}
 

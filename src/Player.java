@@ -57,11 +57,6 @@ public class Player extends Actor {
 					(int) Math.round((-(Math.sin(Math.toRadians(angle)) * speed ))));
 			moveAnimation.update();
 		}
-		
-		//Collision - removes health
-		if(true /*Put condition here*/){
-			//TODO remove health by whatever
-		}
 	}
 	
 	/**

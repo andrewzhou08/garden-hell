@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 public class StandardBullet extends Projectile {
 	
 	private Image img;
+	private int skippedFrames;
 	
 	/**
 	 * 	/**
@@ -20,12 +21,17 @@ public class StandardBullet extends Projectile {
 		super(x, y, width, height);
 		img = (new ImageIcon("assets/bullet-1.png")).getImage();
 		
-		super.setVelX(Math.cos(angle) * Projectile.BULLET_SPEED/2);
-		super.setVelY(Math.sin(angle) * Projectile.BULLET_SPEED/2);
+		super.setVelX(Math.cos(angle) * Projectile.BULLET_SPEED);
+		super.setVelY(Math.sin(angle) * Projectile.BULLET_SPEED);
+		skippedFrames = 0;
 	}
 	
 	public void act(){
-		super.act();
+		if(skippedFrames == 3){
+			super.act();
+			skippedFrames = 0;
+		}
+		skippedFrames++;
 	}
 	
 	/**

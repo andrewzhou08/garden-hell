@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 public class FlowerBullet extends Projectile {
 	
 	private Image img;
+	private int skippedFrames;
 	
 	/**
 	 * Creates new flower bullet of coordinates x,y and width/height of width,height at angle angle
@@ -20,10 +21,15 @@ public class FlowerBullet extends Projectile {
 		img = (new ImageIcon("assets/bullet-2.png")).getImage();
 		super.setVelX(Math.cos(angle) * Projectile.BULLET_SPEED);
 		super.setVelY(Math.sin(angle) * Projectile.BULLET_SPEED);
+		skippedFrames = 0;
 	}
 	
 	public void act(){
-		super.act();
+		if(skippedFrames == 6){
+			super.act();
+			skippedFrames = 0;
+		}
+		skippedFrames++;
 	}
 	
 	/**

@@ -3,6 +3,7 @@ import java.awt.Graphics2D;
 public class PowerOrbBullet extends Projectile {
 	
 	private Animation moveAnimation;
+	private int skippedFrames;
 	
 	/**
 	 * Creates new PowerOrbBullet at coordinates x,y
@@ -14,6 +15,7 @@ public class PowerOrbBullet extends Projectile {
 		moveAnimation = new Animation("assets/bullet-3/bullet-3(%d).png", 1, 4, 3); 
 		setVelX(getVelX() + Math.random()/2-.25);
 		setVelY(getVelY() + Math.random()/2-.25);
+		skippedFrames = 0;
 	}
 	
 	/**
@@ -21,10 +23,14 @@ public class PowerOrbBullet extends Projectile {
 	 */
 	@Override
 	public void act() {
-		super.act();
-		setVelX(getVelX() + Math.random()/2-.25);
-		setVelY(getVelY() + Math.random()/2-.25);
-		moveAnimation.update();
+		if(skippedFrames == 8){
+			super.act();
+			setVelX(getVelX() + Math.random()/2-.25);
+			setVelY(getVelY() + Math.random()/2-.25);
+			moveAnimation.update();
+			skippedFrames = 0;
+		}
+		skippedFrames++;
 	}
 	
 	/**

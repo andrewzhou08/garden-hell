@@ -1,4 +1,4 @@
-﻿Garden Hell
+Garden Hell
 by Andrew Zhou, Heidi Dong, Leo Yao
 9 May 2016
 -----------------------------------------------------------
@@ -18,14 +18,14 @@ Game will continue until one player loses all their health.
 Features List
 Must have
 -Corruption with turrets - 3 types
--3 characters (Tank, Damager, Builder)
--Character selection screen
--1 map
--Well done animations for each object
+✓3 characters (Tank, Damager, Builder)
+✓Character selection screen
+✓1 map
+✓Well done animations for each object
 
 Want to have
 -Main splash screen
--Replay and reset system
+✓Replay and reset system
 -Play against computer AI
 -Special skills per class
 -Map selection screen

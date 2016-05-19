@@ -22,9 +22,6 @@ public class FlowerTurret extends Turret {
 	 */
 	@Override
 	public Projectile shoot() {
-		int projX = (int)(getX() + getWidth()/4 + Math.cos(angle) * DISTANCE_TO_BARREL);
-		int projY = (int)(getY() + getHeight()/4 + Math.sin(angle) * DISTANCE_TO_BARREL);
-		
 		return new FlowerBullet((int)(getX() + 20 + DISTANCE_TO_BARREL*Math.cos(angle*Math.PI/180)),
 				(int)(getY() + 20 + DISTANCE_TO_BARREL*-Math.sin(angle*Math.PI/180)), getWidth()/2, getHeight()/2,
 				angle);

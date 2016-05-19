@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Projectile extends Actor {
 	
-	public static final double BULLET_SPEED = 0.2;
+	public static final double BULLET_SPEED = 1;
 	private double velX;
 	private double velY;
 	

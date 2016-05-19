@@ -38,9 +38,11 @@ public class BreakableBarrier extends Barrier {
 	
 	public void draw(Graphics2D g2){
 		g2.drawImage(img, super.getX(), super.getY(), super.getWidth(), super.getHeight(), null);
-		g2.setColor(Color.red);
-		g2.drawRect(getX(), getY()+getHeight(), getWidth(), 10);
-		g2.fillRect(getX(), getY()+getHeight(), (int)((double)currentHealth/maxHealth *getWidth()), 10);
+		if(currentHealth < maxHealth){
+			g2.setColor(Color.red);
+			g2.drawRect(getX(), getY()+getHeight(), getWidth(), 10);
+			g2.fillRect(getX(), getY()+getHeight(), (int)((double)currentHealth/maxHealth *getWidth()), 10);
+		}
 	}
 	
 	/**

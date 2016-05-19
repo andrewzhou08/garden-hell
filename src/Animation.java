@@ -8,7 +8,13 @@ public class Animation {
 	private int currentFrame;
 	private int delayTime;
 	private int elapsedTime;
-	
+	/**
+	 * Creates a new animation with the following fields
+	 * @param filenameFormat Filename format of the animation
+	 * @param start The start frame number of the animation
+	 * @param end The end frame number of the animation
+	 * @param delayTime The time delayed between frames
+	 */
 	public Animation(String filenameFormat, int start, int end, int delayTime) {
 		frames = new Image[end - start + 1];
 		for (int i = 0; i < frames.length; i++) {
@@ -19,6 +25,10 @@ public class Animation {
 		elapsedTime = 0;
 	}
 	
+	/**
+	 * 
+	 * @return Current frame of the animation
+	 */
 	public Image getCurrentFrame() {
 		return frames[currentFrame];
 	}
@@ -34,10 +44,18 @@ public class Animation {
 		}
 	}
 
+	/**
+	 * 
+	 * @return The id of the current frame
+	 */
 	public int getCurrentFrameID() {
 		return currentFrame;
 	}
 
+	/**
+	 * 
+	 * @return The length of the animation
+	 */
 	public int length() {
 		return frames.length;
 	}

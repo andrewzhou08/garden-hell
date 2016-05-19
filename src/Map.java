@@ -4,12 +4,16 @@ import java.util.ArrayList;
 public class Map {
 
 	private ArrayList<Barrier> barriers;
-
+	/**
+	 * Creates a new map
+	 */
 	public Map(){
 		barriers = new ArrayList<Barrier>();
 		generateMapBarriers();
 	}
-
+	/**
+	 * Generates new map barriers for this map
+	 */
 	public void generateMapBarriers(){
 		
 		CorruptableBarrier[] sides = new CorruptableBarrier[14];
@@ -90,21 +94,34 @@ public class Map {
 		barriers.add(new BreakableBarrier(19, 14, 1, 1));
 		barriers.add(new BreakableBarrier(20, 14, 1, 1));
 	}
-
+	/**
+	 * draws the map on the screen
+	 * @param g drawer that draws the map
+	 */
 	public void draw(Graphics2D g){
 		for(Barrier b : barriers){
 			b.draw(g);
 		}
 	}
-
+	/**
+	 * returns the barriers in the map
+	 * @return barriers of the map
+	 */
 	public ArrayList<Barrier> getBarriers(){
 		return barriers;
 	}
-
+	/**
+	 * adds the barrier into the map
+	 * @param barrier barrier that is added in the map
+	 */
 	public void addBarrier(Barrier barrier){
 		barriers.add(barrier);
 	}
-
+	/**
+	 * Gets the barrier at specified index
+	 * @param index index of barrier 
+	 * @return the barrier at specified index
+	 */
 	public Barrier getBarrier(int index){
 		return barriers.get(index);
 	}

@@ -44,17 +44,27 @@ public class Main extends JFrame {
 	public static void main(String[] args) {
 		Main main = new Main();
 	}
-	
+	/**
+	 * Changes the panel
+	 * @param name name of the other panel
+	 */
 	public void changePanel(String name) {
 		((CardLayout)cardPanel.getLayout()).show(cardPanel,name);
 		requestFocus();
 		game.startThread();
 	}
-	
+	/**
+	 * Determines whether the game started or not
+	 * @return true if the game started, false otherwise
+	 */
 	public boolean gameStarted(){
 		return game.gameStarted();
 	}
-	
+	/**
+	 * Sets the players that is playing right now
+	 * @param playerNumber the player that is being updated
+	 * @param player character of the player
+	 */
 	public void setPlayer(int playerNumber, Player player){
 		game.setPlayer(playerNumber, player);
 	}

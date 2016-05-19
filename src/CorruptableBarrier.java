@@ -7,23 +7,37 @@ public class CorruptableBarrier extends Barrier {
 	private Animation corruptAnimation;
 	private boolean hasSpawnedTurrets;
 	private int turretNumber;
-	
+	/**
+	 * Creates a corruptanle barrer
+	 * @param x x coordinate of the barrier
+	 * @param y y coordinate of the barrier
+	 * @param width width of the barrier
+	 * @param height height of the barrier
+	 */
 	public CorruptableBarrier(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		corruptAnimation = new Animation("assets/barrier-corrupt/barrier-corrupt(%d).png", 1, 16, 3);
 	}
 
-	@Override
+	/**
+	 * Causes the corrupted barrier to act, updates animation
+	 */
 	public void act() {
 		if (isCorrupted && corruptAnimation.getCurrentFrameID() < corruptAnimation.length() - 1) {
 			corruptAnimation.update();
 		}
 	}
-	
+	/**
+	 * Sets whether the barrier is corrupted or not
+	 * @param corrupt whether the barrier should be corrupt or not
+	 */
 	public void setCorrupt(boolean corrupt) {
 		isCorrupted = corrupt;
 	}
-	
+	/**
+	 * Spawns the turrets that go on top of the barrier
+	 * @return Array List of turrets that spawned
+	 */
 	public ArrayList<Turret> spawnTurrets() {
 		ArrayList<Turret> turrets = new ArrayList<Turret>();
 		if (hasSpawnedTurrets || corruptAnimation.getCurrentFrameID() < corruptAnimation.length() - 1) {
@@ -51,7 +65,10 @@ public class CorruptableBarrier extends Barrier {
 		this.turretNumber = turretNumber;
 	}
 	
-	@Override
+	/**
+	 * returns the sprite of the turret
+	 * @return Image of the sprite
+	 */
 	public Image getSprite() {
 		if (isCorrupted) {
 			return corruptAnimation.getCurrentFrame();

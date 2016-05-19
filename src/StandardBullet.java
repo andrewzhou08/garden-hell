@@ -5,6 +5,8 @@ import javax.swing.ImageIcon;
 
 public class StandardBullet extends Projectile {
 	
+	public static final int STANDARD_BULLET_DAMAGE = 10;
+	
 	private Image img;
 	private int skippedFrames;
 	
@@ -24,10 +26,12 @@ public class StandardBullet extends Projectile {
 		super.setVelX(Math.cos(angle) * Projectile.BULLET_SPEED);
 		super.setVelY(Math.sin(angle) * Projectile.BULLET_SPEED);
 		skippedFrames = 0;
+		
+		super.setDamage(STANDARD_BULLET_DAMAGE);
 	}
 	
 	public void act(){
-		if(skippedFrames == 3){
+		if(skippedFrames == 6){
 			super.act();
 			skippedFrames = 0;
 		}

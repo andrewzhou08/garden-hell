@@ -41,5 +41,4 @@ public class Animation {
 	public int length() {
 		return frames.length;
 	}
-
 }

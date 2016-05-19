@@ -53,12 +53,21 @@ public class Player extends Actor {
 			standAnimation.update();
 		}
 		else if (moveAnimation != null) {
-			moveBy((int)Math.round( (Math.cos(Math.toRadians(angle)) * speed )), 
-					(int) Math.round((-(Math.sin(Math.toRadians(angle)) * speed ))));
+			//moveBy((int)Math.round( (Math.cos(Math.toRadians(angle)) * speed )), 
+			//		(int) Math.round((-(Math.sin(Math.toRadians(angle)) * speed ))));
+			moveX();
+			moveY();
 			moveAnimation.update();
 		}
 	}
 	
+	public void moveX(){
+		moveBy((int)Math.round( (Math.cos(Math.toRadians(angle)) * speed )),0);
+	}
+	
+	public void moveY(){
+		moveBy(0,(int) Math.round((-(Math.sin(Math.toRadians(angle)) * speed ))));
+	}
 	/**
 	 * Looks through and finds the actor that is being collided with the actor
 	 * @param actors ArrayList of actors to test for
@@ -244,13 +253,44 @@ public class Player extends Actor {
 		}		
 	}
 	
+	public double getAngle(){
+		updateAngle();
+		return angle;
+	}
+	
 	/**
 	 * 
 	 * @return direction the player is facing in degrees
 	 */
-	public double getAngle() {
+	public double[] getAngleArray() {
 		updateAngle();
-		return angle;
+		double[] angles = new double[2];
+		if(angle==0){
+			angles[0] = 0;
+			angles[1] = 0;
+		}else if(angle == 45){
+			angles[0] = 0;
+			angles[1] = 90;
+		}else if(angle == 90){
+			angles[0] = 90;
+			angles[1] = 90;
+		}else if(angle == 135){
+			angles[0] = 180;
+			angles[1] = 90;
+		}else if(angle == 180){
+			angles[0] = 180;
+			angles[1] = 180;
+		}else if(angle == 225){
+			angles[0] = 180;
+			angles[1] = 270;
+		}else if(angle == 270){
+			angles[0] = 270;
+			angles[1] = 270;
+		}else if(angle == 315){
+			angles[0] = 0;
+			angles[1] = 270;
+		}
+		return angles;
 	}
 	
 	/**

@@ -6,6 +6,7 @@ public class CorruptableBarrier extends Barrier {
 	private boolean isCorrupted;
 	private Animation corruptAnimation;
 	private boolean hasSpawnedTurrets;
+	private int turretNumber;
 	
 	public CorruptableBarrier(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -29,20 +30,25 @@ public class CorruptableBarrier extends Barrier {
 			return turrets;
 		}
 		hasSpawnedTurrets = true;
-		int randomTurret = (int) (Math.random() * 4);
+		int randomTurret = (int) (Math.random() * 3);
 		for (int x = getX(); x < getX() + getWidth(); x += Main.CELL_WIDTH) {
 			for (int y = getY(); y < getY() + getHeight(); y += Main.CELL_HEIGHT) {
-				if (randomTurret == 0)
+				if(turretNumber == 1){
 					turrets.add(new StandardTurret(x, y));
-				else if (randomTurret == 1)
+				}
+				else if(turretNumber == 2){
 					turrets.add(new FlowerTurret(x, y));
-				else if (randomTurret == 2)
-					turrets.add(new LaserTurret(x, y));
-				else
+				}
+				else{
 					turrets.add(new PowerOrbTurret(x, y));
+				}
 			}
 		}
 		return turrets;
+	}
+	
+	public void setTurret(int turretNumber){
+		this.turretNumber = turretNumber;
 	}
 	
 	@Override

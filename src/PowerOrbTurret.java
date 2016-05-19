@@ -1,6 +1,6 @@
 public class PowerOrbTurret extends Turret {
 
-	public static final int HP = 50;
+	public static final int HP = 500;
 	
 	private int delay;
 

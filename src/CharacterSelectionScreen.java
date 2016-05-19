@@ -12,7 +12,10 @@ public class CharacterSelectionScreen extends JPanel implements MouseListener {
 	private Image player;
 	private Main main;
 	private int playerNumber;
-	
+	/**
+	 * creates the character selection 
+	 * @param main object for main to switch panels
+	 */
 	public CharacterSelectionScreen(Main main){
 		this.main = main;
 		addMouseListener(this);
@@ -21,7 +24,9 @@ public class CharacterSelectionScreen extends JPanel implements MouseListener {
 		playerNumber = 1;
 	}
 
-	@Override
+	/**
+	 * Handles the mouse clicks for selection the players
+	 */
 	public void mouseClicked(MouseEvent e) {
 		if(!main.gameStarted()){
 			int x = e.getX();
@@ -83,7 +88,10 @@ public class CharacterSelectionScreen extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {}
-	
+	/**
+	 * draws the images on the screen
+	 * @param g Graphics object to draw the images
+	 */
 	public void paintComponent(Graphics g){
 		g.drawImage(characters, 0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT, null);
 		

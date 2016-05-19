@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -20,10 +19,12 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 	private Image p1Win, p2Win;
 	private ArrayList<Actor> actors;
 	private ArrayList<Projectile> bullets;
+	private ArrayList<Barrier> barriers;
 	private Map map;
 	private Player p1, p2;
 	private boolean playerOneWins;
 	private boolean playerTwoWins;
+	private int corruptionDelay = 1;
 	
 	/**
 	 * Creates new GamePanel. Initializes all needed variables
@@ -46,7 +47,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		map = new Map();
 		playerOneWins = playerTwoWins = false;
 		
-		ArrayList<Barrier> barriers = map.getBarriers();
+		barriers = map.getBarriers();
 		for(Barrier b : barriers)
 			actors.add(b);
 	}
@@ -101,24 +102,36 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 	 * All actors act and collision updated
 	 */
 	public synchronized void update() {
-		for (int i = 0;i<actors.size();i++) {
+		corruptionDelay--;
+		if (corruptionDelay == 0) {
+			for (Barrier b : barriers) {
+				if (b instanceof CorruptableBarrier) {
+					((CorruptableBarrier)b).setCorrupt(true);
+					System.out.println(b);
+				}
+			}
+		}
+		for (int i = 0; i < actors.size(); i++) {
 			Actor a = actors.get(i);
-			if(a instanceof Turret){
-				Projectile p = ((Turret)a).shoot();
-				if(p != null){
+			if (a instanceof Turret) {
+				Projectile p = ((Turret) a).shoot();
+				if (p != null) {
 					bullets.add(p);
 					p.act();
 				}
 			}
-			for(int j = 0; j<bullets.size();j++){
+			if (a instanceof CorruptableBarrier) {
+				actors.addAll(((CorruptableBarrier)a).spawnTurrets());
+			}
+			for (int j = 0; j < bullets.size(); j++) {
 				Projectile p = bullets.get(j);
 				p.act();
-				if(p.willCollide(actors, 0) != null){	
+				if (p.willCollide(actors, 0) != null) {
 					bullets.remove(p);
 					j--;
 				}
-				
-			}				
+
+			}
 		}
 		double angle = p1.getAngle();
 		if(p1.willCollide(actors, angle)==null){

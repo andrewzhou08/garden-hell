@@ -133,15 +133,27 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 
 			}
 		}
-		double angle = p1.getAngle();
-		if(p1.willCollide(actors, angle)==null){
-			p1.act();
+		if(keyPressed[0] ||keyPressed[1] ||keyPressed[2] ||keyPressed[3] ){
+			double[] angle = p1.getAngleArray();
+			
+			if(p1.willCollide(actors, angle[0])==null){
+				p1.moveX();
+			}
+			if(p1.willCollide(actors, angle[1])==null){
+				p1.moveY();
+			}
+		}
+		if(keyPressed[4] ||keyPressed[5] ||keyPressed[6] ||keyPressed[7]  ){
+			double[] angle2 = p2.getAngleArray();
+			if(p2.willCollide(actors, angle2[0])==null){
+				p2.moveX();
+			}
+			if(p2.willCollide(actors, angle2[1])==null){
+				p2.moveY();
+			}
 		}
 		
-		double angle2 = p2.getAngle();
-		if(p2.willCollide(actors, angle2)==null){
-			p2.act();
-		}
+		
 
 		if(keyPressed[8]){
 			Projectile tankBullet = p1.shoot();

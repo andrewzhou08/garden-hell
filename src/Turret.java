@@ -5,7 +5,15 @@ public abstract class Turret extends Actor implements Drawable {
 	
 	private int currentHealth;
 	private int maxHealth;
-
+	/**
+	 * Creates a turret object
+	 * @param sprite sprite of the turret
+	 * @param x x coordinate of the turret
+	 * @param y y coordinate of the turret
+	 * @param width width of the turret
+	 * @param height height of the turret
+	 * @param hp hp of the turret
+	 */
 	public Turret(String sprite, int x, int y, int width, int height, int hp) {
 		super(sprite, x, y, width, height);
 		this.currentHealth = hp;
@@ -14,7 +22,10 @@ public abstract class Turret extends Actor implements Drawable {
 	
 	public abstract Projectile shoot();
 	
-	@Override
+	/**
+	 * draws the turret
+	 * @param g2 Graphics2D object to draw the turret
+	 */
 	public void draw(Graphics2D g2) {
 		g2.drawImage(getSprite(), getX(), getY(), getWidth(), getHeight(), null);
 		g2.setColor(Color.red);

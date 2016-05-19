@@ -2,7 +2,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class DamagerBullet extends Projectile {
-	
+	/**
+	 * creates a bullet for damagers
+	 * @param x x coordinate of the bullet
+	 * @param y y coordinate of the bullet
+	 * @param angle angle of the bullet
+	 */
 	public DamagerBullet(int x, int y, double angle){
 		super(x, y, 6, 6);
 		
@@ -12,11 +17,16 @@ public class DamagerBullet extends Projectile {
 		setVelX(velX);
 		setVelY(velY);
 	}
-	
+	/**
+	 * causes the bullet to act
+	 */
 	public void act() {
 		super.act();
 	}
-	
+	/**
+	 * draws the bullet
+	 * @param g2 Graphics2D object to draw the bullet
+	 */
 	public void draw(Graphics2D g2){
 		g2.setColor(Color.LIGHT_GRAY);
 		g2.fillOval(getX(), getY(), getHeight(), getWidth());

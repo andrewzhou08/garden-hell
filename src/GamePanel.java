@@ -35,10 +35,10 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		bullets = new ArrayList<Projectile>();
 		p1 = new Builder(5, 5, 0);
 		p2 = new Tank(10, 5, 0);
-		CorruptableBarrier cb = new CorruptableBarrier(3, 3, 20, 1);
-		//cb.setCorrupt(true);
 		
+		actors.add(new FlowerTurret(470, 280, 40, 40));
 		map = new Map();
+		
 		ArrayList<Barrier> barriers = map.getBarriers();
 		for(Barrier b : barriers)
 			actors.add(b);

@@ -11,6 +11,7 @@ public class Player extends Actor {
 	public static final int DIR_UP_LEFT = 135;
 	public static final int DIR_DOWN_RIGHT = 315;
 	public static final int DIR_DOWN_LEFT = 225;
+	public static final int DISTANCE_TO_BARREL = 40;
 
 	private double angle;
 	private int speed;

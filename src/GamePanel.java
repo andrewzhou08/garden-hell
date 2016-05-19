@@ -17,14 +17,13 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 	private boolean[] keyPressed;
 	private boolean isRunning;
 	private Image background;
-	private Image p1Win, p2Win;
 	private ArrayList<Actor> actors;
 	private ArrayList<Projectile> bullets;
 	private ArrayList<Barrier> barriers;
 	private Map map;
 	private Player p1, p2;
-	private boolean playerOneWins;
-	private boolean playerTwoWins;
+	private boolean playerOneDead;
+	private boolean playerTwoDead;
 	private int corruptionDelay = 1;
 	
 	/**
@@ -38,8 +37,6 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		addKeyListener(this);
 		keyPressed = new boolean[10];
 		background = (new ImageIcon("assets/background.png")).getImage();
-		p1Win = (new ImageIcon("assets/p1-wins.png")).getImage();
-		p2Win = (new ImageIcon("assets/p2-wins.png")).getImage();
 		actors = new ArrayList<Actor>();
 		bullets = new ArrayList<Projectile>();
 		p1 = new Builder(5, 5, 0);
@@ -47,7 +44,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		actors.add(p1);
 		actors.add(p2);
 		map = new Map();
-		playerOneWins = playerTwoWins = false;
+		playerOneDead = playerTwoDead = false;
 		
 		barriers = map.getBarriers();
 		for(Barrier b : barriers)
@@ -84,20 +81,21 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 	}
 	
 	public void reset(){
-		p1.move(1*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
-		p2.move(30*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
-		p1.setAngle(0);
-		p2.setAngle(180);
-		p1.setCurrentHealth(p1.getMaxHealth());
-		p2.setCurrentHealth(p2.getMaxHealth());
-		bullets = new ArrayList<Projectile>();
-		repaint();
-		try{
-			Thread.sleep(1000);
+		if(playerOneDead){
+			p1.move(1*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
+			p1.setAngle(0);
+			p1.setCurrentHealth(p1.getMaxHealth());
+			//TODO remove one life
 		}
-			catch(InterruptedException e){ }
+		else if(playerTwoDead){
+			p2.move(30*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
+			p2.setAngle(180);
+			p2.setCurrentHealth(p2.getMaxHealth());
+			//TODO remove one life
+		}
+		repaint();
 		isRunning = true;
-		playerOneWins = playerTwoWins = false;
+		playerOneDead = playerTwoDead = false;
 		run();
 	}
 	
@@ -184,12 +182,12 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 			}
 		}
 		if(p1.getCurrentHealth()<0){
-			playerTwoWins = true;
+			playerOneDead = true;
 			isRunning = false;
 			
 		}
 		if(p2.getCurrentHealth()<0){
-			playerOneWins = true;
+			playerTwoDead = true;
 			isRunning = false;
 		}
 		
@@ -211,11 +209,11 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 			p.draw(g2);
 		}
 		if(!isRunning){
-			if(playerOneWins){
-				g.drawImage(p1Win, 370, 200, 540, 300, null);
+			if(playerOneDead){
+				//TODO What happens when p1 dies?
 			}
-			else if(playerTwoWins){
-				g.drawImage(p2Win, 370, 200, 540, 300, null);
+			else if(playerTwoDead){
+				//TODO What happens when p2 dies?
 			}
 		}
 	}

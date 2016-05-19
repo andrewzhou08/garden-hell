@@ -11,7 +11,6 @@ public abstract class Actor implements Drawable {
 	private HitBox h;
 	private int width, height;
 	private int x, y;
-	private int hp;
 	
 	/**
 	 * Creates new actor with x and y coordinates of width width and height height
@@ -26,7 +25,6 @@ public abstract class Actor implements Drawable {
 		this.height = height;
 		this.x = x;
 		this.y = y;
-		hp = 100;
 	}
 	
 	/**
@@ -90,13 +88,6 @@ public abstract class Actor implements Drawable {
 		return height;
 	}
 	
-	/**
-	 * 
-	 * @return health points of actor
-	 */
-	public int getHP(){
-		return hp;
-	}
 	
 	/**
 	 * Moves actor to (newX, newY)
@@ -123,11 +114,10 @@ public abstract class Actor implements Drawable {
 	/**
 	 * Looks through and finds the actor that is being collided with the actor
 	 * @param actors ArrayList of actors to test for
-	 * @param direction direction of collision. 1 = up, 2 = down, 3 = left, 4 = right
+	 * @param angle current actor's angle of movement
 	 * @return Actor that is being collided with
 	 */
-	public Actor willCollide(ArrayList<Actor> actors, double angle){	// 1 = up, 2 = down, 3 = left, 4 = right
-		Actor out = null;
+	public  Actor willCollide(ArrayList<Actor> actors, double angle){	// 1 = up, 2 = down, 3 = left, 4 = right
 		Rectangle window = new Rectangle(0,0,Main.WINDOW_WIDTH-8,Main.WINDOW_HEIGHT-32);
 		if(this instanceof Player){
 			Player p =(Player)this;
@@ -161,31 +151,21 @@ public abstract class Actor implements Drawable {
 				Actor a  = actors.get(i);
 				if(this != a){
 					if(newBoxX.intersects(a.h.getRectangle())||newBoxY.intersects(a.h.getRectangle())){
-						out = a;
+						return a;
 					}
 					else if(!window.contains(newBoxX)||!window.contains(newBoxY)){
-						out = this;
+						return this;
 					}
 				}	
 			}
 		}
 		
 		
-		return out;
+		return null;
 		
 		
 	}
-	/**
-	 * 
-	 * @param amount amount of hp lost
-	 * @return true if this character is dead
-	 */
-	public boolean loseHP(int amount){
-		hp-=amount;
-		if(hp<0)
-			return true;
-		return false;
-	}
+	
 	
 	public abstract void act(); 
 

@@ -1,5 +1,7 @@
 public class PowerOrbTurret extends Turret {
 
+	public static final int HP = 50;
+	
 	private int delay;
 
 	/**
@@ -10,7 +12,7 @@ public class PowerOrbTurret extends Turret {
 	 * @param height the height of the turret
 	 */
 	public PowerOrbTurret(int x, int y, int width, int height) {
-		super("assets/turret-powerorb/turret-powerorb.png", x, y, width, height);
+		super("assets/turret-powerorb/turret-powerorb.png", x, y, width, height, HP);
 		delay = 0;
 	}
 

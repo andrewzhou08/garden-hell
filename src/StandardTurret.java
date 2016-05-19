@@ -5,6 +5,8 @@ import javax.swing.ImageIcon;
 
 public class StandardTurret extends Turret {
 
+	public static final int HP = 50;
+	
 	private double angle;
 	private int delay;
 
@@ -16,7 +18,7 @@ public class StandardTurret extends Turret {
 	 * @param height the height of the turret
 	 */
 	public StandardTurret(int x, int y, int width, int height) {
-		super("assets/turret-standard/turret-standard.png", x, y, width, height);
+		super("assets/turret-standard/turret-standard.png", x, y, width, height, HP);
 		angle = 0;
 		delay = 0;
 	}

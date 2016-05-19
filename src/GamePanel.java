@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -35,13 +36,15 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		bullets = new ArrayList<Projectile>();
 		p1 = new Builder(5, 5, 0);
 		p2 = new Tank(10, 5, 0);
-		
+		actors.add(p1);
+		actors.add(p2);
 		actors.add(new FlowerTurret(470, 280, 40, 40));
 		map = new Map();
 		
 		ArrayList<Barrier> barriers = map.getBarriers();
 		for(Barrier b : barriers)
 			actors.add(b);
+		
 	}
 	
 	public void startThread(){
@@ -69,28 +72,37 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 			}
 			catch (InterruptedException e) { }
 		}
+		System.out.println("CLOSE");
 	}
 	
 	/**
 	 * All actors act and collision updated
 	 */
 	public synchronized void update() {
-		for (Actor a : actors) {
+		for (int i = 0;i<actors.size();i++) {
+			Actor a = actors.get(i);
 			if(a instanceof Turret){
 				Projectile p = ((Turret)a).shoot();
-				if(p != null)
+				if(p != null){
 					bullets.add(p);
+					
+				}
 			}
-			for(Projectile p : bullets)
+			for(int j = 0; j<bullets.size();j++){
+				Projectile p = bullets.get(j);
 				p.act();
+				if(p.willCollide(actors, 0) != null){	
+					bullets.remove(p);
+					j--;
+				}
+				
+			}				
 		}
-		p1.updateAngle();
 		double angle = p1.getAngle();
 		if(p1.willCollide(actors, angle)==null){
 			p1.act();
 		}
 		
-		p2.updateAngle();
 		double angle2 = p2.getAngle();
 		if(p2.willCollide(actors, angle2)==null){
 			p2.act();
@@ -108,14 +120,31 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		}
 		for(int i = 0;i<actors.size();i++){
 			Actor currentActor = actors.get(i);
-			currentActor.act();
+			if(!(currentActor instanceof Player))
+				currentActor.act();
+			if(currentActor instanceof BreakableBarrier){
+				if(((BreakableBarrier) currentActor).getCurrentHealth()<0){
+					actors.remove(currentActor);
+					i--;
+				}
+			}else if(currentActor instanceof Turret){
+				if(((Turret) currentActor).getCurrentHealth()<0){
+					actors.remove(currentActor);
+					i--;
+				}
+			}
 		}
-		if(actors.get(0).getHP()<0){
-			System.out.println("dead");
+		if(p1.getCurrentHealth()<0){
+			System.out.println("Player 2 Wins!");
+			isRunning = false;
+			
 		}
-		if(actors.get(1).getHP()<0){
-			System.out.println("dead");
+		if(p2.getCurrentHealth()<0){
+			System.out.println("Player 1 Wins!");
+			isRunning = false;
 		}
+		
+		
 	}
 	
 	/**
@@ -126,8 +155,6 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		g.drawImage(background, 0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT, null);
-		p1.draw(g2);
-		p2.draw(g2);
 		for (Actor a : actors) {
 			a.draw(g2);
 		}
@@ -241,10 +268,14 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 	 */
 	public void setPlayer(int playerNumber, Player p){
 		if(playerNumber == 1){
+			actors.remove(p1);
 			p1 = p;
+			actors.add(p);
 		}
 		else if(playerNumber == 2){
+			actors.remove(p2);
 			p2 = p;
+			actors.add(p);
 		}
 			
 	}

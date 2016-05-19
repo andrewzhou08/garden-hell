@@ -1,5 +1,8 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
+import java.util.ArrayList;
 
 public class Player extends Actor {
 	
@@ -31,10 +34,12 @@ public class Player extends Actor {
 	 * @param y the y coordinate of the player
 	 * @param angle the angle of the player
 	 */
-	public Player(int x, int y, double angle) {	// x, y is in number of grid cells, not pixels
+	public Player(int x, int y, double angle, int hp) {	// x, y is in number of grid cells, not pixels
 		super(x * Main.CELL_WIDTH, y * Main.CELL_HEIGHT, Main.CELL_WIDTH,
 				Main.CELL_HEIGHT);
 		this.angle = angle;
+		maxHealth = hp;
+		currentHealth = hp;
 	}
 
 	/**
@@ -42,7 +47,7 @@ public class Player extends Actor {
 	 */
 	@Override
 	public void act() {
-//		updateAngle();
+
 		
 		if (!up && !down && !left && !right && standAnimation != null) {
 			standAnimation.update();
@@ -58,6 +63,61 @@ public class Player extends Actor {
 			//TODO remove health by whatever
 		}
 	}
+	
+	/**
+	 * Looks through and finds the actor that is being collided with the actor
+	 * @param actors ArrayList of actors to test for
+	 * @param angle current actor's angle of movement
+	 * @return Actor that is being collided with
+	 */
+	public Actor willCollide(ArrayList<Actor> actors, double angle){
+		Rectangle window = new Rectangle(0,0,Main.WINDOW_WIDTH-8,Main.WINDOW_HEIGHT-32);
+
+		Rectangle newBoxX = null;
+		Rectangle newBoxY = null;
+		if(angle>0 && angle <180){
+			newBoxY = new Rectangle(super.getX(),getY()-this.getSpeed(), getWidth(), (int) Math.round(this.getSpeed()+super.getHitBox().getRectangle().getHeight()));
+			if(angle == 90){
+				newBoxX = new Rectangle(1,1,1,1);
+			}
+		}
+		if(angle>180 && angle <360){
+			newBoxY = new Rectangle(getX(),getY(), getWidth(), (int) Math.round(this.getSpeed()+super.getHitBox().getRectangle().getHeight()));
+			if(angle == 270){
+				newBoxX = new Rectangle(1,1,1,1);
+			}
+		}if(angle>90 && angle <270){
+			newBoxX = new Rectangle(getX()-this.getSpeed(),getY(), (int) Math.round(this.getSpeed()+super.getHitBox().getRectangle().getWidth()),getHeight());
+			if(angle == 180){
+				newBoxY = new Rectangle(1,1,1,1);
+			}
+		}
+		if(angle<90 || angle >271) {
+			newBoxX = new Rectangle(getX(),getY(), (int) (this.getSpeed()+super.getHitBox().getRectangle().getWidth()),getHeight());
+			if(angle == 0){
+				newBoxY = new Rectangle(1,1,1,1);
+			}
+		}
+		
+		for(int i = 0; i<actors.size();i++){
+			Actor a  = actors.get(i);
+			if(this != a){
+				if(newBoxX.intersects(a.getHitBox().getRectangle())||newBoxY.intersects(a.getHitBox().getRectangle())){
+					return a;
+				}
+				else if(!window.contains(newBoxX)||!window.contains(newBoxY)){
+					return this;
+				}
+			}	
+		}
+	
+		
+		
+		return null;
+		
+		
+	
+	}
 
 	/**
 	 * Draws the player, updates angles
@@ -68,6 +128,9 @@ public class Player extends Actor {
 		g2.rotate(-Math.toRadians(angle), getX() + getWidth() / 2, getY() + getHeight() / 2);
 		g2.drawImage(getAnimationFrame(), getX(), getY(), getWidth(), getHeight(), null);
 		g2.rotate(Math.toRadians(angle), getX() + getWidth() / 2, getY() + getHeight() / 2);
+		g2.setColor(Color.green);
+		g2.drawRect(getX(), getY()+getHeight(), getWidth(), 10);
+		g2.fillRect(getX(), getY()+getHeight(), (int)((double)currentHealth/maxHealth *getWidth()), 10);
 	}
 	
 	/**
@@ -191,6 +254,7 @@ public class Player extends Actor {
 	 * @return direction the player is facing in degrees
 	 */
 	public double getAngle() {
+		updateAngle();
 		return angle;
 	}
 	

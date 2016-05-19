@@ -1,19 +1,29 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class Damager extends Player {
 
+	public static final int HP = 150;
 	private int skippedFrames;
 	
+	/**
+	 * Creates new damager character of coordinates x,y
+	 * @param x x coordinate of damager
+	 * @param y y coordinate of damager
+	 * @param angle angle of damager
+	 */
 	public Damager(int x, int y, double angle) {
-		super(x, y, angle);
+		super(x, y, angle, HP);
 		setMoveAnimation(new Animation("assets/player-damager/player-damager-moving(%d).png", 1, 4, 6));
 		setStandAnimation(new Animation("assets/player-damager/player-damager-standing(%d).png", 1, 2, 16));
 		super.setSpeed(5);
-		super.setMaxHealth(100);
 		skippedFrames = 0;
 	}
-	
+	/**
+	 * Returns shot projectile
+	 * @return Projectile shot
+	 */
 	public Projectile shoot(){
 		if(skippedFrames == 3){
 			skippedFrames = 0;
@@ -25,9 +35,7 @@ public class Damager extends Player {
 		return null;
 	}
 	
-	public void draw(Graphics g){
-		g.setColor(Color.green);
-		g.fillOval(getX(), getY(), getWidth(), getHeight());
-	}
+	
+	
 
 }

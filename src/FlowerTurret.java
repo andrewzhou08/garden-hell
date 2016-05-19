@@ -2,6 +2,8 @@ import java.awt.Graphics2D;
 
 public class FlowerTurret extends Turret {
 
+	public static final int HP = 50;
+	
 	private double angle;
 	private static final int DISTANCE_TO_BARREL = 30;
 
@@ -13,7 +15,7 @@ public class FlowerTurret extends Turret {
 	 * @param height the height of the turret
 	 */
 	public FlowerTurret(int x, int y, int width, int height) {
-		super("assets/turret-flower/turret-flower.png", x, y, width, height);
+		super("assets/turret-flower/turret-flower.png", x, y, width, height, HP);
 	}
 
 	/**

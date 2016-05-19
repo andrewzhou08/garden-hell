@@ -15,7 +15,7 @@ public class Barrier extends Actor {
 	
 	@Override
 	public void act() {
-		// TODO Auto-generated method stub
+		
 	}
 	
 	/**

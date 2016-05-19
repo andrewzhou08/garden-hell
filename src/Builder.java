@@ -1,19 +1,28 @@
-import java.awt.Color;
-import java.awt.Graphics;
+
 
 public class Builder extends Player {
-
+	
+	public static final int HP = 180;
 	private int skippedFrames;
 	
+	/**
+	 * Creates new Builder character of coordinates x,y
+	 * @param x x coordinate of builder
+	 * @param y y coordinate of builder
+	 * @param angle angle of builder
+	 */
 	public Builder(int x, int y, double angle) {
-		super(x, y, angle);
+		super(x, y, angle, HP);
 		setMoveAnimation(new Animation("assets/player-builder/player-builder-moving(%d).png", 1, 4, 6));
 		setStandAnimation(new Animation("assets/player-builder/player-builder-standing(%d).png", 1, 2, 16));
 		super.setSpeed(3);
-		super.setMaxHealth(120);
 		skippedFrames = 0;
 	}
 	
+	/**
+	 * Returns shot projectile
+	 * @return Projectile shot
+	 */
 	public Projectile shoot(){
 		if(skippedFrames == 3){
 			skippedFrames = 0;
@@ -25,9 +34,5 @@ public class Builder extends Player {
 		return null;
 	}
 	
-	public void draw(Graphics g){
-		g.setColor(Color.green);
-		g.fillOval(getX(), getY(), getWidth(), getHeight());
-	}
 
 }

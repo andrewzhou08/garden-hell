@@ -1,4 +1,6 @@
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.util.ArrayList;
 
 public class Projectile extends Actor {
 	
@@ -79,6 +81,52 @@ public class Projectile extends Actor {
 			tempY -= 0.5;
 		
 		moveBy((int)(tempX), (int)(tempY));
+	}
+	/**
+	 * Looks through and finds the actor that is being collided with the actor, player loses health if projectile collides with player
+	 * @param actors ArrayList of actors to test for
+	 * @param angle current actor's angle of movement
+	 * @return Actor that is being collided with
+	 */
+	public Actor willCollide(ArrayList<Actor> actors, double angle){
+		Rectangle window = new Rectangle(0,0,Main.WINDOW_WIDTH-8,Main.WINDOW_HEIGHT-32);
+		if(this instanceof BuilderBullet || this instanceof DamagerBullet || this instanceof TankBullet){
+			for(int i = 0; i<actors.size();i++){
+				Actor a = actors.get(i);
+				if(this.getHitBox().intersects(a.getHitBox())){
+					if(a instanceof Player){
+						((Player) a).changeCurrentHealth(-10);
+						return a;
+					}else if(a instanceof BreakableBarrier){
+						((BreakableBarrier) a).changeCurrentHealth(-10);
+						return a;
+					}else if (a instanceof Turret){
+						((Turret) a).changeCurrentHealth(-10);
+						return a;
+					}
+				}
+			}
+			if(!window.contains(this.getHitBox().getRectangle())){
+				return this;
+			}
+		}else{
+			for(int i = 0; i<actors.size();i++){
+				Actor a = actors.get(i);
+				if(this.getHitBox().intersects(a.getHitBox())){
+					if(a instanceof Player){
+						((Player) a).changeCurrentHealth(-10);
+						return a;
+					}
+				}
+			}
+			if(!window.contains(this.getHitBox().getRectangle())){
+				return this;
+			}
+		}
+		
+		
+		return null;
+		
 	}
 
 	/**

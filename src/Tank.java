@@ -1,18 +1,20 @@
 public class Tank extends Player {
 
+	public static final int HP = 200;
+	
 	private int skippedFrames;
 	
 	/**
 	 * Creates new tank character of coordinates x,y
 	 * @param x x coordinate of tank
 	 * @param y y coordinate of tank
+	 * @param angle angle of tank
 	 */
 	public Tank(int x, int y, double angle) {
-		super(x, y, angle);
+		super(x, y, angle, HP);
 		setMoveAnimation(new Animation("assets/player-tank/player-tank-moving(%d).png", 1, 4, 6));
 		setStandAnimation(new Animation("assets/player-tank/player-tank-standing(%d).png", 1, 2, 16));
 		super.setSpeed(3);
-		super.setMaxHealth(200);
 		skippedFrames = 0;
 	}
 

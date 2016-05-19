@@ -50,7 +50,9 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		for(Barrier b : barriers)
 			actors.add(b);
 	}
-	
+	/**
+	 * Starts the card layout
+	 */
 	public void startThread(){
 		  new Thread(this).start();
 		  gameStarted = true;
@@ -79,7 +81,9 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		}
 		reset();
 	}
-	
+	/**
+	 * Resets the current players to their original state
+	 */
 	public void reset(){
 		if(playerOneDead){
 			p1.move(1*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
@@ -334,7 +338,10 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		}
 			
 	}
-	
+	/**
+	 * Determines whether the game started or not
+	 * @return true if the game started, false otherwise
+	 */
 	public boolean gameStarted(){
 		return gameStarted;
 	}

@@ -60,11 +60,15 @@ public class Player extends Actor {
 			moveAnimation.update();
 		}
 	}
-	
+	/**
+	 * Move the player in the x component of movement
+	 */
 	public void moveX(){
 		moveBy((int)Math.round( (Math.cos(Math.toRadians(angle)) * speed )),0);
 	}
-	
+	/**
+	 * Move the player in the y component of movement
+	 */
 	public void moveY(){
 		moveBy(0,(int) Math.round((-(Math.sin(Math.toRadians(angle)) * speed ))));
 	}
@@ -252,15 +256,18 @@ public class Player extends Actor {
 			angle = DIR_RIGHT;
 		}		
 	}
-	
+	/**
+	 * updates the angle of the player and return the updated angle
+	 * @return angle updated angle of the player
+	 */
 	public double getAngle(){
 		updateAngle();
 		return angle;
 	}
 	
 	/**
-	 * 
-	 * @return direction the player is facing in degrees
+	 * updates the angle of the player and return the updated angle in components
+	 * @return direction the player is facing in degrees using components
 	 */
 	public double[] getAngleArray() {
 		updateAngle();

@@ -22,7 +22,9 @@ public class TankBullet extends Projectile {
 		setVelX(velX);
 		setVelY(velY);
 	}
-	
+	/**
+	 * Causes the bullet to move
+	 */
 	public void act() {
 		super.act();
 	}

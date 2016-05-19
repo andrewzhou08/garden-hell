@@ -29,7 +29,9 @@ public class StandardBullet extends Projectile {
 		
 		super.setDamage(STANDARD_BULLET_DAMAGE);
 	}
-	
+	/**
+	 * causes the bullet to move
+	 */
 	public void act(){
 		if(skippedFrames == 6){
 			super.act();

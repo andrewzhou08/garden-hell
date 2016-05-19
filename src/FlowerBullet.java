@@ -18,8 +18,8 @@ public class FlowerBullet extends Projectile {
 	public FlowerBullet(int x, int y, int width, int height, double angle) {
 		super(x, y, width, height);
 		img = (new ImageIcon("assets/bullet-2.png")).getImage();
-		super.setVelX(Math.cos(angle) * Projectile.BULLET_SPEED*5);
-		super.setVelY(Math.sin(angle) * Projectile.BULLET_SPEED*5);
+		super.setVelX(Math.cos(angle) * Projectile.BULLET_SPEED);
+		super.setVelY(Math.sin(angle) * Projectile.BULLET_SPEED);
 		System.out.println(super.getVelX() + "   " + super.getVelY());
 	}
 	

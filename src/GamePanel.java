@@ -106,8 +106,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		if (corruptionDelay == 0) {
 			for (Barrier b : barriers) {
 				if (b instanceof CorruptableBarrier) {
-					((CorruptableBarrier)b).setCorrupt(true);
-					System.out.println(b);
+//					((CorruptableBarrier)b).setCorrupt(true);
 				}
 			}
 		}
@@ -153,28 +152,31 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 			if(tankBullet != null)
 				bullets.add(tankBullet);
 		}
-		for(int i = 0;i<actors.size();i++){
+		for (int i = 0; i < actors.size(); i++) {
 			Actor currentActor = actors.get(i);
-			if(!(currentActor instanceof Player))
+			if (!(currentActor instanceof Player))
 				currentActor.act();
-			if(currentActor instanceof BreakableBarrier){
-				if(((BreakableBarrier) currentActor).getCurrentHealth()<0){
-					actors.remove(currentActor);
-					i--;
+			if (currentActor instanceof BreakableBarrier) {
+				if (((BreakableBarrier) currentActor).getCurrentHealth() <= 0) {
+					if (((BreakableBarrier) currentActor).animationComplete()) {
+						System.out.println(1);
+						actors.remove(currentActor);
+						i--;
+					}
 				}
-			}else if(currentActor instanceof Turret){
-				if(((Turret) currentActor).getCurrentHealth()<0){
+			} else if (currentActor instanceof Turret) {
+				if (((Turret) currentActor).getCurrentHealth() <= 0) {
 					actors.remove(currentActor);
 					i--;
 				}
 			}
 		}
-		if(p1.getCurrentHealth()<0){
+		if (p1.getCurrentHealth() < 0) {
 			playerTwoWins = true;
 			isRunning = false;
-			
+
 		}
-		if(p2.getCurrentHealth()<0){
+		if (p2.getCurrentHealth() < 0) {
 			playerOneWins = true;
 			isRunning = false;
 		}

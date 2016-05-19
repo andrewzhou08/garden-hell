@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 
 public class BreakableBarrier extends Barrier {
 	
-	private Image img;
+	private Animation breakAnimation;
 	private int currentHealth;
 	private int maxHealth;
 	
@@ -20,15 +20,17 @@ public class BreakableBarrier extends Barrier {
 	 * @param width width of barrier
 	 * @param height height of barrier
 	 */
-	public BreakableBarrier(int x, int y, int width, int height){
-		super(x, y, width, height);
-		img = (new ImageIcon("assets/barrier-breakable.png")).getImage();
+	public BreakableBarrier(int x, int y, int width, int height) {
+		super("assets/barrier-breakable.png", x, y, width, height);
+		breakAnimation = new Animation("assets/barrier-breakable/barrier-breakable-breaking(%d).png", 1, 10, 1); 
 		currentHealth = 50;
 		maxHealth = 50;
 	}
 	
-	public void act(){
-	
+	public void act() {
+		if (currentHealth <= 0) {
+			breakAnimation.update();
+		}
 	}
 	
 	/**
@@ -36,22 +38,20 @@ public class BreakableBarrier extends Barrier {
 	 */
 	@Override
 	
-	public void draw(Graphics2D g2){
-		g2.drawImage(img, super.getX(), super.getY(), super.getWidth(), super.getHeight(), null);
-		if(currentHealth < maxHealth){
+	public void draw(Graphics2D g2) {
+		if (currentHealth <= 0) {
+			g2.drawImage(breakAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+		}
+		else {
+			g2.drawImage(getSprite(), getX(), getY(), getWidth(), getHeight(), null);
+		}
+		if (currentHealth < maxHealth) {
 			g2.setColor(Color.red);
-			g2.drawRect(getX(), getY()+getHeight(), getWidth(), 10);
-			g2.fillRect(getX(), getY()+getHeight(), (int)((double)currentHealth/maxHealth *getWidth()), 10);
+			g2.drawRect(getX(), getY() + getHeight(), getWidth(), 10);
+			g2.fillRect(getX(), getY() + getHeight(), (int) ((double) currentHealth / maxHealth * getWidth()), 10);
 		}
 	}
-	
-	/**
-	 * Plays breaking animations
-	 */
-	public void playBreakAnimation(){
-		
-	}
-	
+
 	/**
 	 * Sets the max health of the barrier
 	 * @param maxHealth max health of the barrier
@@ -90,6 +90,10 @@ public class BreakableBarrier extends Barrier {
 	 */
 	public void changeCurrentHealth(int changeBy){
 		currentHealth += changeBy;
+	}
+
+	public boolean animationComplete() {
+		return breakAnimation.getCurrentFrameID() == breakAnimation.length() - 1 ? true : false;
 	}
 
 

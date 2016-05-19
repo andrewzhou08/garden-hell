@@ -25,7 +25,7 @@ public class CorruptableBarrier extends Barrier {
 	
 	public ArrayList<Turret> spawnTurrets() {
 		ArrayList<Turret> turrets = new ArrayList<Turret>();
-		if (hasSpawnedTurrets) {
+		if (hasSpawnedTurrets || corruptAnimation.getCurrentFrameID() < corruptAnimation.length() - 1) {
 			return turrets;
 		}
 		hasSpawnedTurrets = true;

@@ -31,6 +31,7 @@ public class PowerOrbTurret extends Turret {
 	 */
 	@Override
 	public void act() {
+		super.act();
 		delay++;
 	}
 }

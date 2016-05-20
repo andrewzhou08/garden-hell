@@ -14,7 +14,9 @@ public class Player extends Actor {
 	public static final int DIR_UP_LEFT = 135;
 	public static final int DIR_DOWN_RIGHT = 315;
 	public static final int DIR_DOWN_LEFT = 225;
+	
 	public static final int DISTANCE_TO_BARREL = 40;
+	public static final int MAX_LIVES = 10;
 
 	private double angle;
 	private int speed;
@@ -28,6 +30,8 @@ public class Player extends Actor {
 	private int maxHealth;
 	private int currentHealth;
 	
+	private int numLives;
+	
 	/**
 	 * Creates a new player with x,y coordinates x and y and angle angle
 	 * @param x the x coordinate of the player
@@ -40,6 +44,7 @@ public class Player extends Actor {
 		this.angle = angle;
 		maxHealth = hp;
 		currentHealth = hp;
+		numLives = MAX_LIVES;
 	}
 
 	/**
@@ -354,5 +359,21 @@ public class Player extends Actor {
 	 */
 	public void changeCurrentHealth(int changeBy){
 		currentHealth += changeBy;
+	}
+	
+	/**
+	 * Sets number of lives to new lives
+	 * @param newLives new lives of the player
+	 */
+	public void setLives(int newLives){
+		numLives = newLives;
+	}
+	
+	/**
+	 * 
+	 * @return Number of lives player has
+	 */
+	public int getLives(){
+		return numLives;
 	}
 }

@@ -1,11 +1,6 @@
 import java.awt.Color;
 
-import java.awt.Graphics;
-
 import java.awt.Graphics2D;
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
 
 public class BreakableBarrier extends Barrier {
 	
@@ -23,8 +18,8 @@ public class BreakableBarrier extends Barrier {
 	public BreakableBarrier(int x, int y, int width, int height) {
 		super("assets/barrier-breakable.png", x, y, width, height);
 		breakAnimation = new Animation("assets/barrier-breakable/barrier-breakable-breaking(%d).png", 1, 10, 1); 
-		currentHealth = 50;
-		maxHealth = 50;
+		currentHealth = 100;
+		maxHealth = 100;
 	}
 	
 	public void act() {

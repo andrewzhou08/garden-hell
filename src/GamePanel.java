@@ -16,7 +16,11 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 	private boolean gameStarted;
 	private boolean[] keyPressed;
 	private boolean isRunning;
+	
 	private Image background;
+	private Image p1WinsImage, p2WinsImage;
+	private Image heart;
+	
 	private ArrayList<Actor> actors;
 	private ArrayList<Projectile> bullets;
 	private ArrayList<Barrier> barriers;
@@ -25,6 +29,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 	private boolean playerOneDead;
 	private boolean playerTwoDead;
 	private int corruptionDelay = 1;
+	private boolean p1Wins;
+	private boolean p2Wins;
 	
 	/**
 	 * Creates new GamePanel. Initializes all needed variables
@@ -37,6 +43,9 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		addKeyListener(this);
 		keyPressed = new boolean[10];
 		background = (new ImageIcon("assets/background.png")).getImage();
+		p1WinsImage = (new ImageIcon("assets/p1-wins.png")).getImage();
+		p2WinsImage = (new ImageIcon("assets/p2-wins.png")).getImage();
+		heart = (new ImageIcon("assets/heart.png")).getImage();
 		actors = new ArrayList<Actor>();
 		bullets = new ArrayList<Projectile>();
 		p1 = new Builder(5, 5, 0);
@@ -45,6 +54,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		actors.add(p2);
 		map = new Map();
 		playerOneDead = playerTwoDead = false;
+		p1Wins = p2Wins = false;
 		
 		barriers = map.getBarriers();
 		for(Barrier b : barriers)
@@ -69,6 +79,31 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 			update();
 			repaint();
 			timeDiff = System.currentTimeMillis() - startTime;
+			
+			if(playerOneDead){
+				p1.move(1*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
+				p1.setAngle(0);
+				p1.setCurrentHealth(p1.getMaxHealth());
+				p1.setLives(p1.getLives()-1);
+				playerOneDead = playerTwoDead = false;
+			}
+			else if(playerTwoDead){
+				p2.move(30*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
+				p2.setAngle(180);
+				p2.setCurrentHealth(p2.getMaxHealth());
+				p2.setLives(p2.getLives()-1);
+				playerOneDead = playerTwoDead = false;
+			}
+			
+			if(p1.getLives() <= 0){
+				p2Wins = true;
+				isRunning = false;
+			}
+			else if(p2.getLives() <= 0){
+				p1Wins = true;
+				isRunning = false;
+			}
+			
 			sleepTime = 1000 / FPS - timeDiff;
 			if (sleepTime <= 0) {
 				sleepTime = 5;
@@ -85,22 +120,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 	 * Resets the current players to their original state
 	 */
 	public void reset(){
-		if(playerOneDead){
-			p1.move(1*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
-			p1.setAngle(0);
-			p1.setCurrentHealth(p1.getMaxHealth());
-			//TODO remove one life
-		}
-		else if(playerTwoDead){
-			p2.move(30*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
-			p2.setAngle(180);
-			p2.setCurrentHealth(p2.getMaxHealth());
-			//TODO remove one life
-		}
 		repaint();
-		isRunning = true;
-		playerOneDead = playerTwoDead = false;
-		run();
 	}
 	
 	/**
@@ -176,7 +196,6 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 			if (currentActor instanceof BreakableBarrier) {
 				if (((BreakableBarrier) currentActor).getCurrentHealth() <= 0) {
 					if (((BreakableBarrier) currentActor).animationComplete()) {
-						System.out.println(1);
 						actors.remove(currentActor);
 						i--;
 					}
@@ -190,11 +209,9 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		}
 		if(p1.getCurrentHealth()<0){
 			playerOneDead = true;
-			isRunning = false;
 		}
 		if(p2.getCurrentHealth()<0){
 			playerTwoDead = true;
-			isRunning = false;
 		}
 		
 		
@@ -214,13 +231,20 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		for(Projectile p : bullets){
 			p.draw(g2);
 		}
-		if(!isRunning){
-			if(playerOneDead){
-				//TODO What happens when p1 dies?
-			}
-			else if(playerTwoDead){
-				//TODO What happens when p2 dies?
-			}
+		
+		//Draws lives
+		for(int i = 0; i < p1.getLives(); i++){
+			g.drawImage(heart, 5 + 30*i, 5, 30, 30, null);
+		}
+		for(int i = 0; i < p2.getLives(); i++){
+			g.drawImage(heart, 975 + 30*i, 5, 30, 30, null);
+		}
+		
+		if(p1Wins){
+			g.drawImage(p1WinsImage, 380, 200, 540, 300, null);
+		}	
+		else if(p2Wins){
+			g.drawImage(p2WinsImage, 380, 200, 540, 300, null);
 		}
 	}
 

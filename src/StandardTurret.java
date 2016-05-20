@@ -39,7 +39,6 @@ public class StandardTurret extends Turret {
 	@Override
 	public void act() {
 		super.act();
-		
 		delay++;
 	}
 

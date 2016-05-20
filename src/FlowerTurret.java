@@ -14,6 +14,7 @@ public class FlowerTurret extends Turret {
 	 */
 	public FlowerTurret(int x, int y) {
 		super("assets/turret-flower/turret-flower.png", x, y, 40, 40, HP);
+		setExplodeAnimation(new Animation("assets/turret-flower/turret-flower-explode(%d).png", 1, 8, 2));
 	}
 
 	/**
@@ -32,6 +33,7 @@ public class FlowerTurret extends Turret {
 	 */
 	@Override
 	public void act() {
+		super.act();
 		angle += 12;
 		if (angle == 360)
 			angle = 0;

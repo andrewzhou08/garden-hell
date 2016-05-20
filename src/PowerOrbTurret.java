@@ -11,6 +11,7 @@ public class PowerOrbTurret extends Turret {
 	 */
 	public PowerOrbTurret(int x, int y) {
 		super("assets/turret-powerorb/turret-powerorb.png", x, y, 40, 40, HP);
+		setExplodeAnimation(new Animation("assets/turret-powerorb/turret-powerorb-explode(%d).png", 1, 12, 2));
 		delay = 0;
 	}
 

@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
 
 public class StandardBullet extends Projectile {
 	
-	public static final int STANDARD_BULLET_DAMAGE = 10;
+	public static final int STANDARD_BULLET_DAMAGE = 1;
 	
 	private Image img;
 	private int skippedFrames;

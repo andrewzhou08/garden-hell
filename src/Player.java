@@ -118,7 +118,7 @@ public class Player extends Actor {
 				if(!(a instanceof Turret)){
 					if(newBoxX.intersects(a.getHitBox().getRectangle())||newBoxY.intersects(a.getHitBox().getRectangle())){
 						if(a instanceof CorruptableBarrier && ((CorruptableBarrier) a).getCorruption()){
-							this.changeCurrentHealth(-100);
+							this.changeCurrentHealth(-5);
 						}
 						return a;
 					}

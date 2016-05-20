@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 
 public class Damager extends Player {
 
-	public static final int HP = 600;
+	public static final int HP = 4500;
 	private int skippedFrames;
 	
 	/**

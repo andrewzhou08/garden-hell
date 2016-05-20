@@ -3,7 +3,7 @@ import java.awt.Graphics2D;
 
 public class TankBullet extends Projectile {
 	
-	public static final int TANK_BULLET_DAMAGE = 20;
+	public static final int TANK_BULLET_DAMAGE = 120;
 	
 	/**
 	 * Creates new TankBullet of coordinates x, y and angle angle

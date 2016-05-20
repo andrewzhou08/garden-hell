@@ -56,5 +56,13 @@ public class HitBox {
 		rect = new Rectangle((int)x, (int)y, newWidth, newHeight);
 	}
 	
+	public int getX(){
+		return (int)x;
+	}
+	
+	public int getY(){
+		return (int)y;
+	}
+	
 	
 }

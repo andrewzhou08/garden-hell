@@ -18,8 +18,8 @@ public class BreakableBarrier extends Barrier {
 	public BreakableBarrier(int x, int y, int width, int height) {
 		super("assets/barrier-breakable.png", x, y, width, height);
 		breakAnimation = new Animation("assets/barrier-breakable/barrier-breakable-breaking(%d).png", 1, 10, 1); 
-		currentHealth = 100;
-		maxHealth = 100;
+		currentHealth = 500;
+		maxHealth = 500;
 	}
 	
 	public void act() {

@@ -3,7 +3,7 @@ import java.awt.Graphics2D;
 
 public class BuilderBullet extends Projectile {
 	
-	public static final int BUILDER_BULLET_DAMAGE = 22;
+	public static final int BUILDER_BULLET_DAMAGE = 140;
 	
 	/**
 	 * Creates a bullet for builder

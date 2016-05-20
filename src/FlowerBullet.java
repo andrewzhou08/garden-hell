@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
 
 public class FlowerBullet extends Projectile {
 	
-	public static final int FLOWER_BULLET_DAMAGE = 8;
+	public static final int FLOWER_BULLET_DAMAGE = 1;
 	
 	private Image img;
 	private int skippedFrames;

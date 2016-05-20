@@ -3,24 +3,26 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel implements KeyListener, Runnable {
+public class GamePanel extends JPanel implements KeyListener, MouseListener, Runnable {
 
 	public static final int FPS = 30;
 	public double elapsedTime; //in seconds
-	
+
 	private boolean gameStarted;
 	private boolean[] keyPressed;
 	private boolean isRunning;
-	
+
 	private Image background;
 	private Image p1WinsImage, p2WinsImage;
 	private Image heart;
-	
+
 	private ArrayList<Actor> actors;
 	private ArrayList<Projectile> bullets;
 	private ArrayList<Barrier> barriers;
@@ -31,7 +33,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 	private int corruptionDelay = 1;
 	private boolean p1Wins;
 	private boolean p2Wins;
-	
+
 	/**
 	 * Creates new GamePanel. Initializes all needed variables
 	 */
@@ -41,6 +43,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		p2 = new Tank(30, 8, 0);
 		gameStarted = false;
 		addKeyListener(this);
+		addMouseListener(this);
 		keyPressed = new boolean[10];
 		background = (new ImageIcon("assets/background.png")).getImage();
 		p1WinsImage = (new ImageIcon("assets/p1-wins.png")).getImage();
@@ -50,24 +53,25 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		bullets = new ArrayList<Projectile>();
 		p1 = new Builder(5, 5, 0);
 		p2 = new Tank(10, 5, 0);
+		map = new Map();
 		actors.add(p1);
 		actors.add(p2);
-		map = new Map();
 		playerOneDead = playerTwoDead = false;
 		p1Wins = p2Wins = false;
-		
-		barriers = map.getBarriers();
-		for(Barrier b : barriers)
-			actors.add(b);
+		barriers = new ArrayList<Barrier>();
 	}
 	/**
 	 * Starts the card layout
 	 */
 	public void startThread(){
-		  new Thread(this).start();
-		  gameStarted = true;
+		map.generateMapBarriers();
+		barriers = map.getBarriers();
+		for(Barrier b : barriers)
+			actors.add(b);
+		new Thread(this).start();
+		gameStarted = true;
 	}
-	
+
 	/**
 	 * Updates and repaints all graphics, then waits to run at 30FPS
 	 */
@@ -79,7 +83,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 			update();
 			repaint();
 			timeDiff = System.currentTimeMillis() - startTime;
-			
+
 			if(playerOneDead){
 				p1.move(1*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
 				p1.setAngle(0);
@@ -94,7 +98,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 				p2.setLives(p2.getLives()-1);
 				playerOneDead = playerTwoDead = false;
 			}
-			
+
 			if(p1.getLives() <= 0){
 				p2Wins = true;
 				isRunning = false;
@@ -103,7 +107,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 				p1Wins = true;
 				isRunning = false;
 			}
-			
+
 			sleepTime = 1000 / FPS - timeDiff;
 			if (sleepTime <= 0) {
 				sleepTime = 5;
@@ -114,15 +118,36 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 			catch (InterruptedException e) { }
 			elapsedTime = 1.0/30;
 		}
-		reset();
+		repaint();
 	}
 	/**
 	 * Resets the current players to their original state
 	 */
 	public void reset(){
+		bullets = new ArrayList<Projectile>();
+
+		p1.move(1*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
+		p1.setAngle(0);
+		p1.setCurrentHealth(p1.getMaxHealth());
+		p1.setLives(p1.MAX_LIVES);
+
+		p2.move(30*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
+		p2.setAngle(180);
+		p2.setCurrentHealth(p2.getMaxHealth());
+		p2.setLives(p2.MAX_LIVES);
+
+		playerOneDead = playerTwoDead = false;
+		elapsedTime = 0;
+		isRunning = true;
+		p1Wins = p2Wins = false;
+
+		startThread();
+
+		map = new Map();
+
 		repaint();
 	}
-	
+
 	/**
 	 * All actors act and collision updated
 	 */
@@ -159,7 +184,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		}
 		if(keyPressed[0] ||keyPressed[1] ||keyPressed[2] ||keyPressed[3] ){
 			double[] angle = p1.getAngleArray();
-			
+
 			if(p1.willCollide(actors, angle[0])==null){
 				p1.moveX();
 			}
@@ -176,8 +201,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 				p2.moveY();
 			}
 		}
-		
-		
+
+
 
 		if(keyPressed[8]){
 			Projectile tankBullet = p1.shoot();
@@ -215,10 +240,10 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		if(p2.getCurrentHealth()<0){
 			playerTwoDead = true;
 		}
-		
-		
+
+
 	}
-	
+
 	/**
 	 * Draws all actors and background
 	 * @param g Graphics used for drawing
@@ -233,7 +258,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		for(Projectile p : bullets){
 			p.draw(g2);
 		}
-		
+
 		//Draws lives
 		for(int i = 0; i < p1.getLives(); i++){
 			g.drawImage(heart, 5 + 30*i, 5, 30, 30, null);
@@ -241,7 +266,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 		for(int i = 0; i < p2.getLives(); i++){
 			g.drawImage(heart, 975 + 30*i, 5, 30, 30, null);
 		}
-		
+
 		if(p1Wins){
 			g.drawImage(p1WinsImage, 380, 200, 540, 300, null);
 		}	
@@ -305,7 +330,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_W) {
-			
+
 			keyPressed[0] = false;
 			p1.setUpPressed(false);
 		}
@@ -346,8 +371,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {}
-	
+	public void keyTyped(KeyEvent e) { }
+
 	/**
 	 * 
 	 * @pre playerNumber is 1 or 2
@@ -358,15 +383,16 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 			actors.remove(p1);
 			p1 = p;
 			actors.add(p);
+			map.setP1(p);
 		}
 		else if(playerNumber == 2){
 			actors.remove(p2);
 			p2 = p;
 			actors.add(p);
+			map.setP2(p);
 		}
-			
 	}
-	
+
 	/**
 	 * Determines whether the game started or not
 	 * @return true if the game started, false otherwise
@@ -374,5 +400,15 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 	public boolean gameStarted(){
 		return gameStarted;
 	}
+
+	public void mouseClicked(MouseEvent e) {
+		if(p1Wins || p2Wins){
+			reset();
+		}
+	}
+	public void mousePressed(MouseEvent e) { }
+	public void mouseReleased(MouseEvent e) { }
+	public void mouseEntered(MouseEvent e) { }
+	public void mouseExited(MouseEvent e) { }
 
 }

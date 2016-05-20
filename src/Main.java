@@ -31,6 +31,7 @@ public class Main extends JFrame {
 		game = new GamePanel();
 		screen = new CharacterSelectionScreen(this);
 		addMouseListener(screen);
+		addMouseListener(game);
 		addKeyListener(game);
 		add(game);
 		

@@ -2,7 +2,7 @@
 
 public class Builder extends Player {
 	
-	public static final int HP = 700;
+	public static final int HP = 5200;
 	private int skippedFrames;
 	
 	/**

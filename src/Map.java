@@ -3,40 +3,50 @@ import java.util.ArrayList;
 
 public class Map {
 
+	private Player p1, p2;
 	private ArrayList<Barrier> barriers;
 	/**
 	 * Creates a new map
 	 */
 	public Map(){
 		barriers = new ArrayList<Barrier>();
-		generateMapBarriers();
 	}
 	/**
 	 * Generates new map barriers for this map
 	 */
 	public void generateMapBarriers(){
 		
-		CorruptableBarrier[] sides = new CorruptableBarrier[14];
+		ArrayList<CorruptableBarrier> corruptBarriers = new ArrayList<CorruptableBarrier>();
 		
 		//Two I shaped on left/right sides
-		sides[0] = new CorruptableBarrier(3, 3, 1, 11);
-		sides[1] = new CorruptableBarrier(28, 3, 1, 11);
-		sides[2] = new CorruptableBarrier(4, 3, 1, 1);
-		sides[3] = new CorruptableBarrier(4, 13, 1, 1);
-		sides[4] = new CorruptableBarrier(27, 3, 1, 1);
-		sides[5] = new CorruptableBarrier(27, 13, 1, 1);
-		sides[6] = new CorruptableBarrier(8, 1, 6, 1);
-		sides[7] = new CorruptableBarrier(18, 1, 6, 1);
-		sides[8] = new CorruptableBarrier(18, 0, 1, 1);
-		sides[9] = new CorruptableBarrier(13, 0, 1, 1);
-		sides[10] = new CorruptableBarrier(8, 15, 6, 1);
-		sides[11] = new CorruptableBarrier(18, 15, 6, 1);
-		sides[12] = new CorruptableBarrier(18, 16, 1, 2);
-		sides[13] = new CorruptableBarrier(13, 16, 1, 2);
+		for(int i = 3; i < 14; i++){
+			corruptBarriers.add(new CorruptableBarrier(3, i, 1, 1));
+			corruptBarriers.add(new CorruptableBarrier(28, i, 1, 1));
+		}
+		corruptBarriers.add(new CorruptableBarrier(4, 3, 1, 1));
+		corruptBarriers.add(new CorruptableBarrier(4, 13, 1, 1));
+		corruptBarriers.add(new CorruptableBarrier(27, 3, 1, 1));
+		corruptBarriers.add(new CorruptableBarrier(27, 13, 1, 1));
+		for(int i = 8; i < 14; i++){
+			corruptBarriers.add(new CorruptableBarrier(i, 1, 1, 1));
+			corruptBarriers.add(new CorruptableBarrier(i, 15, 1, 1));
+		}
+		for(int i = 18; i < 24; i++){
+			corruptBarriers.add(new CorruptableBarrier(i, 1, 1, 1));
+			corruptBarriers.add(new CorruptableBarrier(i, 15, 1, 1));
+		}
+		corruptBarriers.add(new CorruptableBarrier(18, 0, 1, 1));
+		corruptBarriers.add(new CorruptableBarrier(13, 0, 1, 1));
+		for(int i = 16; i < 18; i++){
+			corruptBarriers.add(new CorruptableBarrier(18, i, 1, 1));
+			corruptBarriers.add(new CorruptableBarrier(13, i, 1, 1));
+		}
 		
-		for(CorruptableBarrier b : sides){
+		for(CorruptableBarrier b : corruptBarriers){
 			b.setTurret(1);
 			barriers.add(b);
+			b.setPlayerOne(p1);
+			b.setPlayerTwo(p2);
 		}
 		
 		//Four 2x1s
@@ -57,6 +67,8 @@ public class Map {
 		barriers.add(new BreakableBarrier(10, 7, 1, 1));
 		CorruptableBarrier flower1 = new CorruptableBarrier(10, 8, 1, 1);
 		flower1.setTurret(2);
+		flower1.setPlayerOne(p1);
+		flower1.setPlayerTwo(p2);
 		barriers.add(flower1);
 		barriers.add(new BreakableBarrier(10, 9, 1, 1));
 		barriers.add(new BreakableBarrier(10, 10, 1, 1));
@@ -67,6 +79,8 @@ public class Map {
 		barriers.add(new BreakableBarrier(21, 7, 1, 1));
 		CorruptableBarrier flower2 = new CorruptableBarrier(21, 8, 1, 1);
 		flower2.setTurret(2);
+		flower2.setPlayerOne(p1);
+		flower2.setPlayerTwo(p2);
 		barriers.add(flower2);
 		barriers.add(new BreakableBarrier(21, 9, 1, 1));
 		barriers.add(new BreakableBarrier(21, 10, 1, 1));
@@ -74,9 +88,16 @@ public class Map {
 		barriers.add(new BreakableBarrier(20, 11, 1, 1));
 
 		//Middle square
-		CorruptableBarrier mid = new CorruptableBarrier(15, 8, 2, 1);
+		CorruptableBarrier mid = new CorruptableBarrier(15, 8, 1, 1);
+		CorruptableBarrier mid2 = new CorruptableBarrier(16, 8, 1, 1);
 		mid.setTurret(3);
+		mid2.setTurret(3);
+		mid.setPlayerOne(p1);
+		mid.setPlayerTwo(p2);
+		mid2.setPlayerOne(p1);
+		mid2.setPlayerTwo(p2);
 		barriers.add(mid);
+		barriers.add(mid2);
 		barriers.add(new BreakableBarrier(15, 7, 1, 1));
 		barriers.add(new BreakableBarrier(16, 7, 1, 1));
 		barriers.add(new BreakableBarrier(15, 9, 1, 1));
@@ -124,5 +145,13 @@ public class Map {
 	 */
 	public Barrier getBarrier(int index){
 		return barriers.get(index);
+	}
+	
+	public void setP1(Player p1){
+		this.p1 = p1;
+	}
+	
+	public void setP2(Player p2){
+		this.p2 = p2;
 	}
 }

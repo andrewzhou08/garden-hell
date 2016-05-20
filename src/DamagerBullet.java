@@ -3,7 +3,7 @@ import java.awt.Graphics2D;
 
 public class DamagerBullet extends Projectile {
 	
-	public static final int DAMAGER_BULLET_DAMAGE = 30;
+	public static final int DAMAGER_BULLET_DAMAGE = 160;
 	
 	/**
 	 * creates a bullet for damagers

@@ -77,4 +77,8 @@ public class CorruptableBarrier extends Barrier {
 			return super.getSprite();
 		}
 	}
+	
+	public boolean getCorruption(){
+		return isCorrupted;
+	}
 }

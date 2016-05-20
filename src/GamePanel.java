@@ -202,8 +202,10 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 				}
 			} else if (currentActor instanceof Turret) {
 				if (((Turret) currentActor).getCurrentHealth() <= 0) {
-					actors.remove(currentActor);
-					i--;
+					if (((Turret) currentActor).animationComplete()) {
+						actors.remove(currentActor);
+						i--;
+					}
 				}
 			}
 		}

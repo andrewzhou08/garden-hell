@@ -5,6 +5,8 @@ public abstract class Turret extends Actor implements Drawable {
 	
 	private int currentHealth;
 	private int maxHealth;
+	private Animation explodeAnimation;
+	
 	/**
 	 * Creates a turret object
 	 * @param sprite sprite of the turret
@@ -27,11 +29,23 @@ public abstract class Turret extends Actor implements Drawable {
 	 * @param g2 Graphics2D object to draw the turret
 	 */
 	public void draw(Graphics2D g2) {
-		g2.drawImage(getSprite(), getX(), getY(), getWidth(), getHeight(), null);
-		if(currentHealth < maxHealth){
+		if (currentHealth <= 0) {
+			g2.drawImage(explodeAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+		}
+		else {
+			g2.drawImage(getSprite(), getX(), getY(), getWidth(), getHeight(), null);
+		}
+		if (currentHealth < maxHealth) {
 			g2.setColor(Color.red);
-			g2.drawRect(getX(), getY()+getHeight(), getWidth(), 10);
-			g2.fillRect(getX(), getY()+getHeight(), (int)((double)currentHealth/maxHealth *getWidth()), 10);
+			g2.drawRect(getX(), getY() + getHeight(), getWidth(), 10);
+			g2.fillRect(getX(), getY() + getHeight(), (int) ((double) currentHealth / maxHealth * getWidth()), 10);
+		}
+	}
+	
+	@Override
+	public void act() {
+		if (currentHealth <= 0) {
+			explodeAnimation.update();
 		}
 	}
 	
@@ -73,5 +87,17 @@ public abstract class Turret extends Actor implements Drawable {
 	 */
 	public void changeCurrentHealth(int changeBy){
 		currentHealth += changeBy;
+	}
+	
+	/**
+	 * Set explode animation for when Turret has no more health
+	 * @param explodeAnimation Animation object
+	 */
+	public void setExplodeAnimation(Animation explodeAnimation) {
+		this.explodeAnimation = explodeAnimation;
+	}
+
+	public boolean animationComplete() {
+		return explodeAnimation.getCurrentFrameID() == explodeAnimation.length() - 1 ? true : false;
 	}
 }

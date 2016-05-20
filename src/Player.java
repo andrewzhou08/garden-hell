@@ -115,12 +115,15 @@ public class Player extends Actor {
 		for(int i = 0; i<actors.size();i++){
 			Actor a  = actors.get(i);
 			if(this != a){
-				if(newBoxX.intersects(a.getHitBox().getRectangle())||newBoxY.intersects(a.getHitBox().getRectangle())){
-					return a;
+				if(!(a instanceof Turret)){
+					if(newBoxX.intersects(a.getHitBox().getRectangle())||newBoxY.intersects(a.getHitBox().getRectangle())){
+						return a;
+					}
+					else if(!window.contains(newBoxX)||!window.contains(newBoxY)){
+						return this;
+					}
 				}
-				else if(!window.contains(newBoxX)||!window.contains(newBoxY)){
-					return this;
-				}
+				
 			}	
 		}
 	

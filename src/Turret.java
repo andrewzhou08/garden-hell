@@ -17,7 +17,7 @@ public abstract class Turret extends Actor implements Drawable {
 	 * @param hp hp of the turret
 	 */
 	public Turret(String sprite, int x, int y, int width, int height, int hp) {
-		super(sprite, x, y, width, height);
+		super(sprite, x-1, y-1, width+2, height+2);
 		this.currentHealth = hp;
 		maxHealth = hp;
 	}

@@ -120,6 +120,18 @@ public class Projectile extends Actor {
 					}else if (a instanceof Turret){
 						((Turret) a).changeCurrentHealth(-damage);
 						return a;
+					}else if (a instanceof Barrier){
+						for(int j = 0; j<actors.size();j++){
+							Actor b = actors.get(j);
+							if(b instanceof Turret){
+								if(b.getHitBox().intersects(this.getHitBox())){
+									((Turret) b).changeCurrentHealth(-damage);
+									return b;
+								}
+							
+							}
+						}
+						return a;
 					}
 				}
 			}

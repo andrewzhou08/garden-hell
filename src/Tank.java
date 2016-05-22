@@ -32,4 +32,14 @@ public class Tank extends Player {
 		skippedFrames++;
 		return null;
 	}
+	
+	public Projectile initiateSpecial(){
+		return new TankBulletSpecial((int)(getX() + (Player.DISTANCE_TO_BARREL+20)*Math.cos(super.getAngle()*Math.PI/180)),
+				(int)(getY() + (Player.DISTANCE_TO_BARREL+20)*-Math.sin(super.getAngle()*Math.PI/180)),
+				getAngle() * Math.PI / 180);
+	}
+	
+	public void initiateUltimate(){
+		
+	}
 }

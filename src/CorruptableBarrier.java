@@ -39,7 +39,7 @@ public class CorruptableBarrier extends Barrier {
 		velX += Math.random()/8-0.0625;
 		velY += Math.random()/8-0.0625;
 		
-		if(isCorrupted && skippedFrames == 3){
+		if(isCorrupted && skippedFrames == 6){
 			skippedFrames = 0;
 			if(super.getX() <= 120 && velX < 0){
 				velX = 0;
@@ -106,7 +106,6 @@ public class CorruptableBarrier extends Barrier {
 			return turrets;
 		}
 		hasSpawnedTurrets = true;
-		int randomTurret = (int) (Math.random() * 3);
 		for (int x = getX(); x < getX() + getWidth(); x += Main.CELL_WIDTH) {
 			for (int y = getY(); y < getY() + getHeight(); y += Main.CELL_HEIGHT) {
 				if(turretNumber == 1){

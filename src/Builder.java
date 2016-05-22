@@ -34,5 +34,24 @@ public class Builder extends Player {
 		return null;
 	}
 	
-
+	public BreakableBarrier initiateSpecial(){
+		double angle = super.getAngle();
+		
+		double cosX = Math.cos(angle*Math.PI/180);
+		double cosY = -Math.sin(angle*Math.PI/180);
+		
+		if(cosX >= 0)
+			cosX = (int)(cosX+0.5);
+		else if(cosX <= 0)
+			cosX = (int)(cosX-0.5);
+		if(cosY >= 0)
+			cosY = (int)(cosY+0.5);
+		else if(cosY <= 0)
+			cosY = (int)(cosY-0.5);
+		
+		int x = (int)(getX() + Main.CELL_WIDTH*cosX);
+		int y = (int)(getY() + Main.CELL_HEIGHT*cosY);
+		
+		return new BreakableBarrier(x, y, 40, 40, true);
+	}
 }

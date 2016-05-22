@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 public class DamagerBullet extends Projectile {
 	
 	public static final int DAMAGER_BULLET_DAMAGE = 160;
+	private int skippedFrames;
 	
 	/**
 	 * creates a bullet for damagers
@@ -21,12 +22,18 @@ public class DamagerBullet extends Projectile {
 		
 		setVelX(velX);
 		setVelY(velY);
+		
+		skippedFrames = 0;
 	}
 	/**
 	 * causes the bullet to act
 	 */
 	public void act() {
-		super.act();
+		if(skippedFrames == 3){
+			super.act();
+			skippedFrames = 0;
+		}
+		skippedFrames++;
 	}
 	/**
 	 * draws the bullet

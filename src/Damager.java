@@ -35,7 +35,15 @@ public class Damager extends Player {
 		return null;
 	}
 	
-	
+	public Projectile[] initializeSpecial(){
+			Projectile[] special = new Projectile[8];
+			for(int i = 0; i < 8; i++){
+				special[i] = new DamagerBullet((int)(getX() + 20 + Player.DISTANCE_TO_BARREL*Math.cos(i*45*Math.PI/180)),
+						(int)(getY() + 20 + Player.DISTANCE_TO_BARREL*-Math.sin(i*45*Math.PI/180)),
+						i*45 * Math.PI / 180);
+			}
+			return special;
+	}
 	
 
 }

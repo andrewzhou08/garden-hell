@@ -33,6 +33,9 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 	private int corruptionDelay = 1;
 	private boolean p1Wins;
 	private boolean p2Wins;
+	private int p1Special, p2Special;
+	private int dam1Special, dam2Special;
+	private int p1Ult, p2Ult;
 
 	/**
 	 * Creates new GamePanel. Initializes all needed variables
@@ -44,7 +47,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 		gameStarted = false;
 		addKeyListener(this);
 		addMouseListener(this);
-		keyPressed = new boolean[10];
+		keyPressed = new boolean[14];
 		background = (new ImageIcon("assets/background.png")).getImage();
 		p1WinsImage = (new ImageIcon("assets/p1-wins.png")).getImage();
 		p2WinsImage = (new ImageIcon("assets/p2-wins.png")).getImage();
@@ -59,6 +62,9 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 		playerOneDead = playerTwoDead = false;
 		p1Wins = p2Wins = false;
 		barriers = new ArrayList<Barrier>();
+		p1Special = p2Special = 150;
+		dam1Special = dam2Special = 30;
+		p1Ult = p2Ult = 0;
 	}
 	/**
 	 * Starts the card layout
@@ -107,6 +113,13 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 				p1Wins = true;
 				isRunning = false;
 			}
+			
+			if(p1Special != 0)
+				p1Special--;
+			if(p2Special != 0)
+				p2Special--;
+			p1Ult++;
+			p2Ult++;
 
 			sleepTime = 1000 / FPS - timeDiff;
 			if (sleepTime <= 0) {
@@ -125,25 +138,27 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 	 */
 	public void reset(){
 		bullets = new ArrayList<Projectile>();
+		barriers = new ArrayList<Barrier>();
+		actors = new ArrayList<Actor>();
+		
+		actors.add(p1);
+		actors.add(p2);
 
 		p1.move(1*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
 		p1.setAngle(0);
 		p1.setCurrentHealth(p1.getMaxHealth());
-		p1.setLives(p1.MAX_LIVES);
+		p1.setLives(Player.MAX_LIVES);
 
 		p2.move(30*Main.CELL_WIDTH, 8*Main.CELL_WIDTH);
 		p2.setAngle(180);
 		p2.setCurrentHealth(p2.getMaxHealth());
-		p2.setLives(p2.MAX_LIVES);
-
-		playerOneDead = playerTwoDead = false;
-		elapsedTime = 0;
-		isRunning = true;
-		p1Wins = p2Wins = false;
+		p2.setLives(Player.MAX_LIVES);
 
 		startThread();
-
+		
 		map = new Map();
+		map.generateMapBarriers();
+		barriers = map.getBarriers();
 
 		repaint();
 	}
@@ -214,6 +229,81 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 			if(tankBullet != null)
 				bullets.add(tankBullet);
 		}
+		if(keyPressed[10]){
+			if(p1 instanceof Tank && p1Special <= 0){
+				TankBulletSpecial bs = (TankBulletSpecial)(((Tank) p1).initiateSpecial());
+				bullets.add(bs);
+				p1Special = 150;
+			} else if(p1 instanceof Damager && p1Special <= 0){
+				dam1Special--;
+				if(dam1Special > 0 && dam1Special % 3 == 0){
+					Projectile[] p = ((Damager) p1).initializeSpecial();
+					if(p != null){
+						for(Projectile proj : p){
+							bullets.add(proj);
+						}
+					}
+				}
+				else if(dam1Special <= 0){
+					p1Special = 150;
+					dam1Special = 30;
+				}
+			} else if(p1 instanceof Builder && p1Special <= 90){
+				BreakableBarrier builtBarrier = ((Builder) p1).initiateSpecial();
+				barriers.add(builtBarrier);
+				actors.add(builtBarrier);
+				p1Special = 150;
+			}
+		}
+		if(keyPressed[11]){
+			if(p2 instanceof Tank && p2Special <= 0){
+				TankBulletSpecial bs = (TankBulletSpecial)(((Tank) p2).initiateSpecial());
+				bullets.add(bs);
+				p2Special = 150;
+			} else if(p2 instanceof Damager && p2Special <= 0){
+				dam2Special--;
+				if(dam2Special > 0 && dam2Special % 3 == 0){
+					Projectile[] p = ((Damager) p2).initializeSpecial();
+					if(p != null){
+						for(Projectile proj : p){
+							bullets.add(proj);
+						}
+					}
+				}
+				else if(dam2Special <= 0){
+					p2Special = 150;
+					dam2Special = 30;
+				}
+			} else if(p2 instanceof Builder && p2Special <= 90){
+				BreakableBarrier builtBarrier = ((Builder) p2).initiateSpecial();
+				barriers.add(builtBarrier);
+				actors.add(builtBarrier);
+				p2Special = 150;
+			}
+		}
+		if(keyPressed[12]){
+			if(p1 instanceof Tank){
+				
+			}
+			else if(p1 instanceof Damager){
+				
+			}
+			else if(p1 instanceof Builder){
+				
+			}
+		}
+		if(keyPressed[13]){
+			if(p2 instanceof Tank){
+				
+			}
+			else if(p2 instanceof Damager){
+				
+			}
+			else if(p2 instanceof Builder){
+				
+			}
+		}
+		
 		for (int i = 0; i < actors.size(); i++) {
 			Actor currentActor = actors.get(i);
 			if (!(currentActor instanceof Player))
@@ -314,11 +404,23 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 			keyPressed[7] = true;
 			p2.setRightPressed(true);
 		}
-		if (key == KeyEvent.VK_SPACE) {
+		if (key == KeyEvent.VK_SHIFT) {
 			keyPressed[8] = true;
 		}
-		if (key == KeyEvent.VK_SHIFT) {
+		if (key == KeyEvent.VK_SPACE) {
 			keyPressed[9] = true;
+		}
+		if(key == KeyEvent.VK_F) {
+			keyPressed[10] = true;
+		}
+		if(key == KeyEvent.VK_ALT) {
+			keyPressed[11] = true;
+		}
+		if(key == KeyEvent.VK_C) {
+			keyPressed[12] = true;
+		}
+		if(key == KeyEvent.VK_COMMA) {
+			keyPressed[13] = true;
 		}
 	}
 
@@ -362,11 +464,23 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 			keyPressed[7] = false;
 			p2.setRightPressed(false);
 		}
-		if(key == KeyEvent.VK_SPACE) {
+		if(key == KeyEvent.VK_SHIFT) {
 			keyPressed[8] = false;
 		}
-		if(key == KeyEvent.VK_SHIFT){
+		if(key == KeyEvent.VK_SPACE){
 			keyPressed[9] = false;
+		}
+		if(key == KeyEvent.VK_F) {
+			keyPressed[10] = false;
+		}
+		if(key == KeyEvent.VK_ALT) {
+			keyPressed[11] = false;
+		}
+		if(key == KeyEvent.VK_C) {
+			keyPressed[12] = false;
+		}
+		if(key == KeyEvent.VK_COMMA) {
+			keyPressed[13] = false;
 		}
 	}
 

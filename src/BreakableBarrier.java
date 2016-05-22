@@ -22,6 +22,21 @@ public class BreakableBarrier extends Barrier {
 		maxHealth = 500;
 	}
 	
+	/**
+	 * Creates new breakable barrier of coordinates x, y and width and height of width,height
+	 * @param x x coordinate of barrier
+	 * @param y y coordinate of barrier
+	 * @param width width of barrier
+	 * @param height height of barrier
+	 * @param useRealCoords signifies usage of real coordinates
+	 */
+	public BreakableBarrier(int x, int y, int width, int height, boolean useRealCoords) {
+		super("assets/barrier-breakable.png", x, y, width, height, useRealCoords);
+		breakAnimation = new Animation("assets/barrier-breakable/barrier-breakable-breaking(%d).png", 1, 10, 1); 
+		currentHealth = 500;
+		maxHealth = 500;
+	}
+	
 	public void act() {
 		if (currentHealth <= 0) {
 			breakAnimation.update();

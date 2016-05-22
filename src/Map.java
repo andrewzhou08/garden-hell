@@ -5,19 +5,18 @@ public class Map {
 
 	private Player p1, p2;
 	private ArrayList<Barrier> barriers;
+	private ArrayList<CorruptableBarrier> corruptBarriers;
 	/**
 	 * Creates a new map
 	 */
 	public Map(){
 		barriers = new ArrayList<Barrier>();
+		corruptBarriers = new ArrayList<CorruptableBarrier>();
 	}
 	/**
 	 * Generates new map barriers for this map
 	 */
 	public void generateMapBarriers(){
-		
-		ArrayList<CorruptableBarrier> corruptBarriers = new ArrayList<CorruptableBarrier>();
-		
 		//Two I shaped on left/right sides
 		for(int i = 3; i < 14; i++){
 			corruptBarriers.add(new CorruptableBarrier(3, i, 1, 1));
@@ -70,6 +69,7 @@ public class Map {
 		flower1.setPlayerOne(p1);
 		flower1.setPlayerTwo(p2);
 		barriers.add(flower1);
+		corruptBarriers.add(flower1);
 		barriers.add(new BreakableBarrier(10, 9, 1, 1));
 		barriers.add(new BreakableBarrier(10, 10, 1, 1));
 		barriers.add(new BreakableBarrier(11, 5, 1, 1));
@@ -82,6 +82,7 @@ public class Map {
 		flower2.setPlayerOne(p1);
 		flower2.setPlayerTwo(p2);
 		barriers.add(flower2);
+		corruptBarriers.add(flower2);
 		barriers.add(new BreakableBarrier(21, 9, 1, 1));
 		barriers.add(new BreakableBarrier(21, 10, 1, 1));
 		barriers.add(new BreakableBarrier(20, 5, 1, 1));
@@ -98,6 +99,8 @@ public class Map {
 		mid2.setPlayerTwo(p2);
 		barriers.add(mid);
 		barriers.add(mid2);
+		corruptBarriers.add(mid);
+		corruptBarriers.add(mid2);
 		barriers.add(new BreakableBarrier(15, 7, 1, 1));
 		barriers.add(new BreakableBarrier(16, 7, 1, 1));
 		barriers.add(new BreakableBarrier(15, 9, 1, 1));

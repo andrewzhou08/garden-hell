@@ -25,6 +25,7 @@ public class Player extends Actor {
 	private boolean left;
 	private boolean right;
 	private boolean shoot;
+	private boolean special;
 	private Animation moveAnimation;
 	private Animation standAnimation;
 	private int maxHealth;
@@ -381,5 +382,9 @@ public class Player extends Actor {
 	 */
 	public int getLives(){
 		return numLives;
+	}
+	
+	public void setSpecial(boolean special){
+		this.special = special;
 	}
 }

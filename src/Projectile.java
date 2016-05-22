@@ -107,7 +107,7 @@ public class Projectile extends Actor {
 	 */
 	public Actor willCollide(ArrayList<Actor> actors, double angle){
 		Rectangle window = new Rectangle(0,0,Main.WINDOW_WIDTH-8,Main.WINDOW_HEIGHT-32);
-		if(this instanceof BuilderBullet || this instanceof DamagerBullet || this instanceof TankBullet){
+		if(this instanceof BuilderBullet || this instanceof DamagerBullet || this instanceof TankBullet || this instanceof TankBulletSpecial){
 			for(int i = 0; i<actors.size();i++){
 				Actor a = actors.get(i);
 				if(this.getHitBox().intersects(a.getHitBox())){
@@ -115,12 +115,19 @@ public class Projectile extends Actor {
 						((Player) a).changeCurrentHealth(-damage);
 						return a;
 					}else if(a instanceof BreakableBarrier){
+						if(this instanceof BuilderBullet){
+							((BreakableBarrier) a).changeCurrentHealth(-2);
+							return null;
+						}
 						((BreakableBarrier) a).changeCurrentHealth(-damage);
 						return a;
-					}else if (a instanceof Turret){
+					}else if (a instanceof Turret && !(this instanceof TankBulletSpecial)){
 						((Turret) a).changeCurrentHealth(-damage);
 						return a;
-					}else if (a instanceof Barrier){
+					}else if(a instanceof Turret  && this instanceof TankBulletSpecial){
+						((Turret) a).changeCurrentHealth(-2);
+						return null;
+					}else if (a instanceof Barrier && !(this instanceof TankBulletSpecial)){
 						for(int j = 0; j<actors.size();j++){
 							Actor b = actors.get(j);
 							if(b instanceof Turret){

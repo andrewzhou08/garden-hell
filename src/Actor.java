@@ -49,11 +49,19 @@ public abstract class Actor implements Drawable {
 	}
 	
 	/**
-	 * returns hitbox
+	 * 
 	 * @return hitbox of the actor
 	 */
 	public HitBox getHitBox() {
 		return h;
+	}
+	
+	/**
+	 * Sets the hitbox
+	 * @param h new hitbox
+	 */
+	public void setHitBox(HitBox h){
+		this.h = h;
 	}
 	
 	/**

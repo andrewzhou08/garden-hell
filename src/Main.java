@@ -69,4 +69,8 @@ public class Main extends JFrame {
 	public void setPlayer(int playerNumber, Player player){
 		game.setPlayer(playerNumber, player);
 	}
+	
+	public void resetGame(){
+		game = new GamePanel();
+	}
 }

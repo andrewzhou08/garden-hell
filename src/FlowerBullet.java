@@ -28,6 +28,9 @@ public class FlowerBullet extends Projectile {
 		super.setDamage(FLOWER_BULLET_DAMAGE);
 	}
 	
+	/**
+	 * Skips frames and acts
+	 */
 	public void act(){
 		if(skippedFrames == 10){
 			super.act();

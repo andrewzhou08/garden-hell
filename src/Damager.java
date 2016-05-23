@@ -36,6 +36,10 @@ public class Damager extends Player {
 		return null;
 	}
 	
+	/**
+	 * Returns bullets on all eight sides
+	 * @return bullets for each of the eight sides
+	 */
 	public Projectile[] initializeSpecial(){
 			Projectile[] special = new Projectile[8];
 			for(int i = 0; i < 8; i++){
@@ -46,6 +50,10 @@ public class Damager extends Player {
 			return special;
 	}
 	
+	/**
+	 * Creates a freeze bullet for damager's ultimate
+	 * @return freeze bullet
+	 */
 	public Projectile initiateUltimate(){
 		return new DamagerFreezeBullet((int)(getX() + (Player.DISTANCE_TO_BARREL+20)*Math.cos(super.getAngle()*Math.PI/180)),
 				(int)(getY() + (Player.DISTANCE_TO_BARREL+20)*-Math.sin(super.getAngle()*Math.PI/180)),

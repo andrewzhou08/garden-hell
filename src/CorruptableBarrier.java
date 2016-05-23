@@ -76,15 +76,26 @@ public class CorruptableBarrier extends Barrier {
 		skippedFrames++;
 	}
 	
+	/**
+	 * Draws the corruptablebarrier
+	 */
 	public void draw(Graphics2D g2){
 		super.draw(g2);
 		
 	}
 	
+	/**
+	 * Sets the player1 for collision
+	 * @param p1 player 1
+	 */
 	public void setPlayerOne(Player p1){
 		this.p1 = p1;
 	}
 	
+	/**
+	 * Sets the player2 for collision
+	 * @param p2 player 2
+	 */
 	public void setPlayerTwo(Player p2){
 		this.p2 = p2;
 	}
@@ -140,6 +151,10 @@ public class CorruptableBarrier extends Barrier {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return if the barrier is corrupt
+	 */
 	public boolean getCorruption(){
 		return isCorrupted;
 	}

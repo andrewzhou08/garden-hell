@@ -13,6 +13,9 @@ public class Server {
 	ServerSocket server;
 	Socket socket;
 	
+	/**
+	 * Sets up server thread
+	 */
 	public void setup() {
 		Thread t = new Thread(new Runnable() {
 			public void run() {

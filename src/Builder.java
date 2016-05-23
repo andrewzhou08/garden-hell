@@ -36,6 +36,10 @@ public class Builder extends Player {
 		return null;
 	}
 	
+	/**
+	 * initiates the builder's special attack
+	 * @return a breakable barrier in front of the builder
+	 */
 	public BreakableBarrier initiateSpecial(){
 		double angle = super.getAngle();
 		
@@ -54,6 +58,6 @@ public class Builder extends Player {
 		int x = (int)(getX() + Main.CELL_WIDTH*cosX);
 		int y = (int)(getY() + Main.CELL_HEIGHT*cosY);
 		
-		return new BreakableBarrier(x, y, 40, 40, true);
+		return new BreakableBarrier(x, y, 40, 40, 150, true);
 	}
 }

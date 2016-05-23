@@ -8,6 +8,7 @@ public class BreakableBarrier extends Barrier {
 	private int currentHealth;
 	private int maxHealth;
 	private EasySound breakingSound;
+	private int tempTime;
 	
 	/**
 	 * Creates new breakable barrier of coordinates x, y and width and height of width,height
@@ -22,6 +23,7 @@ public class BreakableBarrier extends Barrier {
 		currentHealth = 500;
 		maxHealth = 500;
 		breakingSound = new EasySound("assets/Barrier.wav");
+		tempTime = -1;
 	}
 	
 	/**
@@ -38,12 +40,37 @@ public class BreakableBarrier extends Barrier {
 		currentHealth = 500;
 		maxHealth = 500;
 		breakingSound = new EasySound("assets/Barrier.wav");
+		tempTime = -1;
 	}
 	
+	/**
+	 * Creates new breakable barrier of coordinates x, y and width and height of width,height
+	 * @param x x coordinate of barrier
+	 * @param y y coordinate of barrier
+	 * @param width width of barrier
+	 * @param height height of barrier
+	 * @param useRealCoords signifies usage of real coordinates
+	 * @param tempTime time the barrier will be alive
+	 */
+	public BreakableBarrier(int x, int y, int width, int height, int tempTime, boolean useRealCoords) {
+		super("assets/barrier-breakable.png", x, y, width, height, useRealCoords);
+		breakAnimation = new Animation("assets/barrier-breakable/barrier-breakable-breaking(%d).png", 1, 10, 1); 
+		currentHealth = 500;
+		maxHealth = 500;
+		breakingSound = new EasySound("assets/Barrier.wav");
+		this.tempTime = tempTime;
+	}
+	
+	/**
+	 * If the barrier has no more health, does break animation
+	 */
 	public void act() {
+		if(tempTime == 0)
+			currentHealth = 0;
 		if (currentHealth <= 0) {
 			breakAnimation.update();
 		}
+		tempTime--;
 	}
 	
 	/**
@@ -105,12 +132,34 @@ public class BreakableBarrier extends Barrier {
 		currentHealth += changeBy;
 	}
 
+	/**
+	 * 
+	 * @return if the animation has completed
+	 */
 	public boolean animationComplete() {
 		return breakAnimation.getCurrentFrameID() == breakAnimation.length() - 1 ? true : false;
 	}
 	
+	/**
+	 * Plays sound of barrier breaking
+	 */
 	public void playSound(){
 		breakingSound.play();
 	}
 
+	/**
+	 * Sets temp time of barrier
+	 * @param time time it takes to destroy
+	 */
+	public void setTempTime(int time){
+		tempTime = time;
+	}
+	
+	/**
+	 * 
+	 * @return time it takes to destroy barrier
+	 */
+	public int getTempTime(){
+		return tempTime;
+	}
 }

@@ -88,6 +88,7 @@ public class CharacterSelectionScreen extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {}
+	
 	/**
 	 * draws the images on the screen
 	 * @param g Graphics object to draw the images

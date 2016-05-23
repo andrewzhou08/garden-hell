@@ -33,6 +33,9 @@ public class Animation {
 		return frames[currentFrame];
 	}
 	
+	/**
+	 * Updates the animation by frame
+	 */
 	public void update() {
 		elapsedTime++;
 		if (elapsedTime == delayTime) {

@@ -25,6 +25,7 @@ public class DamagerBullet extends Projectile {
 		
 		skippedFrames = 0;
 	}
+	
 	/**
 	 * causes the bullet to act
 	 */
@@ -35,6 +36,7 @@ public class DamagerBullet extends Projectile {
 		}
 		skippedFrames++;
 	}
+	
 	/**
 	 * draws the bullet
 	 * @param g2 Graphics2D object to draw the bullet

@@ -150,10 +150,18 @@ public class Map {
 		return barriers.get(index);
 	}
 	
+	/**
+	 * Sets player1 for map
+	 * @param p1 player1 of map
+	 */
 	public void setP1(Player p1){
 		this.p1 = p1;
 	}
 	
+	/**
+	 * Sets player2 for map
+	 * @param p2 player2 of map
+	 */
 	public void setP2(Player p2){
 		this.p2 = p2;
 	}

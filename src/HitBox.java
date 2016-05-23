@@ -56,10 +56,18 @@ public class HitBox {
 		rect = new Rectangle((int)x, (int)y, newWidth, newHeight);
 	}
 	
+	/**
+	 * 
+	 * @return x coordinate of hitbox
+	 */
 	public int getX(){
 		return (int)x;
 	}
 	
+	/**
+	 * 
+	 * @return y coordinate of hitbox
+	 */
 	public int getY(){
 		return (int)y;
 	}

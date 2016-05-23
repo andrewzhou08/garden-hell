@@ -9,60 +9,70 @@ import javax.sound.sampled.SourceDataLine;
 
 public class EasySound implements Runnable {
 
-  private SourceDataLine line = null;
-  private byte[] audioBytes;
-  private int numBytes;
+	private SourceDataLine line = null;
+	private byte[] audioBytes;
+	private int numBytes;
 
-  public EasySound(String fileName)
-  {
-    File  soundFile = new File(fileName);
-    AudioInputStream audioInputStream = null;
-    try
-    {
-      audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-    }
-    catch (Exception ex)
-    {
-      System.out.println("*** Cannot find " + fileName + " ***");
-      System.exit(1);
-    }
+	/**
+	 * Creates new sound with file name fileName
+	 * @param fileName the filename of the sound file
+	 */
+	public EasySound(String fileName)
+	{
+		File  soundFile = new File(fileName);
+		AudioInputStream audioInputStream = null;
+		try
+		{
+			audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+		}
+		catch (Exception ex)
+		{
+			System.out.println("*** Cannot find " + fileName + " ***");
+			System.exit(1);
+		}
 
-    AudioFormat audioFormat = audioInputStream.getFormat();
-    DataLine.Info info = new DataLine.Info(SourceDataLine.class,
-                         audioFormat);
-    try
-    {
-      line = (SourceDataLine)AudioSystem.getLine(info);
-      line.open(audioFormat);
-    }
-    catch (LineUnavailableException ex)
-    {
-      System.out.println("*** Audio line unavailable ***");
-      System.exit(1);
-    }
+		AudioFormat audioFormat = audioInputStream.getFormat();
+		DataLine.Info info = new DataLine.Info(SourceDataLine.class,
+				audioFormat);
+		try
+		{
+			line = (SourceDataLine)AudioSystem.getLine(info);
+			line.open(audioFormat);
+		}
+		catch (LineUnavailableException ex)
+		{
+			System.out.println("*** Audio line unavailable ***");
+			System.exit(1);
+		}
 
-    line.start();
+		line.start();
 
-    audioBytes = new byte[(int)soundFile.length()];
+		audioBytes = new byte[(int)soundFile.length()];
 
-    try
-    {
-      numBytes = audioInputStream.read(audioBytes, 0, audioBytes.length);
-    }
-    catch (IOException ex)
-    {
-      System.out.println("*** Cannot read " + fileName + " ***");
-      System.exit(1);
-    }
-  }
+		try
+		{
+			numBytes = audioInputStream.read(audioBytes, 0, audioBytes.length);
+		}
+		catch (IOException ex)
+		{
+			System.out.println("*** Cannot read " + fileName + " ***");
+			System.exit(1);
+		}
+	}
 
-  public void run() {
-	  line.write(audioBytes, 0, numBytes);
-  }
+	/**
+	 * Runs the audio
+	 */
+	public void run() {
+		line.write(audioBytes, 0, numBytes);
+	}
 
-  public void play()
-  {
-	  line.flush();
-      new Thread(this).start();
-  }
+	/**
+	 * Starts playing the audio
+	 */
+	public void play()
+	{
+		line.flush();
+		new Thread(this).start();
+	}
 }

@@ -42,6 +42,10 @@ public class Main extends JFrame {
 		setVisible(true);
 	}
 	
+	/**
+	 * Initializes main
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Main main = new Main();
 	}
@@ -70,6 +74,9 @@ public class Main extends JFrame {
 		game.setPlayer(playerNumber, player);
 	}
 	
+	/**
+	 * Resets the game
+	 */
 	public void resetGame(){
 		game = new GamePanel();
 	}

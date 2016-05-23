@@ -324,15 +324,15 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 			else if(p1 instanceof Builder && p1Ult >= 1800){
 				p1Ult = 0;
 				ArrayList<BreakableBarrier> ultBarriers = new ArrayList<BreakableBarrier>();
-				ultBarriers.add(new BreakableBarrier(p2.getX(), p2.getY(), 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p2.getX()-40, p2.getY(), 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p2.getX()-40, p2.getY()-40, 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p2.getX(), p2.getY()-40, 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p2.getX()+40, p2.getY()-40, 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p2.getX()+40, p2.getY(), 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p2.getX()+40, p2.getY()+40, 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p2.getX(), p2.getY()+40, 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p2.getX()-40, p2.getY()+40, 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX(), p2.getY(), 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX()-40, p2.getY(), 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX()-40, p2.getY()-40, 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX(), p2.getY()-40, 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX()+40, p2.getY()-40, 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX()+40, p2.getY(), 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX()+40, p2.getY()+40, 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX(), p2.getY()+40, 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX()-40, p2.getY()+40, 40, 40, 300, true));
 				
 				for(BreakableBarrier b : ultBarriers){
 					barriers.add(b);
@@ -355,15 +355,15 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 			else if(p2 instanceof Builder && p2Ult >= 1800){
 				p2Ult = 0;
 				ArrayList<BreakableBarrier> ultBarriers = new ArrayList<BreakableBarrier>();
-				ultBarriers.add(new BreakableBarrier(p1.getX(), p1.getY(), 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p1.getX()-40, p1.getY(), 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p1.getX()-40, p1.getY()-40, 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p1.getX(), p1.getY()-40, 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p1.getX()+40, p1.getY()-40, 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p1.getX()+40, p1.getY(), 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p1.getX()+40, p1.getY()+40, 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p1.getX(), p1.getY()+40, 40, 40, true));
-				ultBarriers.add(new BreakableBarrier(p1.getX()-40, p1.getY()+40, 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX(), p1.getY(), 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX()-40, p1.getY(), 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX()-40, p1.getY()-40, 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX(), p1.getY()-40, 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX()+40, p1.getY()-40, 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX()+40, p1.getY(), 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX()+40, p1.getY()+40, 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX(), p1.getY()+40, 40, 40, 300, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX()-40, p1.getY()+40, 40, 40, 300, true));
 				
 				for(BreakableBarrier b : ultBarriers){
 					barriers.add(b);
@@ -600,9 +600,12 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 		return gameStarted;
 	}
 
+	/**
+	 * Resets after 10 lives lost
+	 */
 	public void mouseClicked(MouseEvent e) {
 		if(p1Wins || p2Wins){
-			reset();
+			//reset();
 		}
 	}
 	public void mousePressed(MouseEvent e) { }
@@ -610,6 +613,9 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 	public void mouseEntered(MouseEvent e) { }
 	public void mouseExited(MouseEvent e) { }
 	
+	/**
+	 * Starts playing background sound once game starts
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		backgroundSound.play();
 		

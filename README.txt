@@ -26,36 +26,37 @@ Must have
 ✓Character selection screen
 ✓1 map
 ✓Well done animations for each object
+✓Respawn and lives system
 
 Want to have
 ✓Special skills per class
 ✓Ultimate skills per class
--Main splash screen
+✓Sound effects
+✓Main splash screen
 -Replay and reset system
--Play against computer AI
--Map selection screen
 
 Stretch goals
+-Play against computer AI
 -Co-op/Singleplayer mode
 -Networking
--3 maps
+-3 maps & map selection screen
 -5 characters
 -Powerups/Items
--Multiple AI difficulties
 
 -----------------------------------------------------------
 Class List
      Must Have
-public class Main;
-public class CharacterSelectionScreen;
-public class GamePanel;
+public class Main extends JPanel;
+public class CharacterSelectionScreen extends JPanel implements MouseListener;
+public class GamePanel extends JPanel implements MouseListener,KeyListener;
 public interface Drawable;
 public abstract class Actor implements Drawable;
+public class HitBox;
 public class Animation;
 public class Barrier extends Actor;
 public class BreakableBarrier extends Barrier;
-public class CorruptBarrier extends Barrier;
-public class GravityBarrier extends Barrier;
+public class CorruptedBarrier extends Barrier;
+public class CorruptableBarrier extends Barrier;
 public class Player extends Actor;
 public class Tank extends Player;
 public class Damager extends Player;
@@ -64,35 +65,36 @@ public class Projectile extends Actor;
 public class StandardBullet extends Projectile;
 public class FlowerBullet extends Projectile;
 public class PowerOrbBullet extends Projectile;
-public class LaserBullet extends Projectile;
-public interface Turret;
+public class TankBullet extends Projectile;
+public class DamagerBullet extends Projectile;
+public class BuilderBullet extends Projectile;
+public class Turret extends Actor implements Drawable;
 public class StandardTurret extends Actor implements Turret;
 public class FlowerTurret extends Actor implements Turret;
 public class PowerOrbTurret extends Actor implements Turret;
-public class LaserTurret extends Actor implements Turret;
 public class Map;
-public class Map1 extends Map;
 
      Want-To-Have
-public class ComputerPlayer extends Player;
-public class MainScreen;
-public class MapSelectionScreen;
+public class MainScreen extends JPanel implements MouseListener;
 public class TankBulletSpecial extends Projectile;
 public class DamagerFreezeBullet extends Projectile;
 public class TankForcefield extends Projectile;
+public class EasySound implements Runnable;
 
      Stretch Goals
-public class FastInvisibleDude extends Player;
-public class Sniper extends Player;
-public class Map2 extends Map;
-public class Map3 extends Map;
-public class LevelLoader
+public class ComputerPlayer extends Player;
 public class Levels;
 public class [Level Name] extends Levels;
 public class FileIO;
+public class Server;
+public class Map2 extends Map;
+public class Map3 extends Map;
+public class LevelLoader;
+public class FastInvisibleDude extends Player;
+public class Sniper extends Player;
 public class Powerup implements Drawable;
 public class [Powerup Name] extend Powerup;
-*all the network stuff*
+public class MapSelectionScreen;
 -----------------------------------------------------------
 Responsibility List
      Andrew Zhou
@@ -106,12 +108,13 @@ Responsibility List
 -Animation
 -Barrier functionality and corruption
 -Bullets and projectile
--Game loop
+-Main screen
 -UML
 -Actor
      Leo Yao
--Main class
 -Key input and player movement
 -Collision
 -Javadocs
+-Presentation
+-Sound Effects
 -----------------------------------------------------------

@@ -44,6 +44,9 @@ public abstract class Turret extends Actor implements Drawable {
 		}
 	}
 	
+	/**
+	 * If turret has no heath, explodes
+	 */
 	@Override
 	public void act() {
 		if (currentHealth <= 0) {
@@ -99,10 +102,17 @@ public abstract class Turret extends Actor implements Drawable {
 		this.explodeAnimation = explodeAnimation;
 	}
 
+	/**
+	 * 
+	 * @return if animation is complete
+	 */
 	public boolean animationComplete() {
 		return explodeAnimation.getCurrentFrameID() == explodeAnimation.length() - 1 ? true : false;
 	}
 	
+	/**
+	 * Plays explosion sound
+	 */
 	public void playExplosionSound(){
 		explode.play();
 	}

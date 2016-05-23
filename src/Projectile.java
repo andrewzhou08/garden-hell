@@ -98,7 +98,8 @@ public class Projectile extends Actor {
 			tempY -= 0.5;
 		
 		moveBy((int)(tempX), (int)(tempY));
-	}
+		}
+	
 	/**
 	 * Looks through and finds the actor that is being collided with the actor, player loses health if projectile collides with player
 	 * @param actors ArrayList of actors to test for
@@ -107,15 +108,25 @@ public class Projectile extends Actor {
 	 */
 	public Actor willCollide(ArrayList<Actor> actors, double angle){
 		Rectangle window = new Rectangle(0,0,Main.WINDOW_WIDTH-8,Main.WINDOW_HEIGHT-32);
-		if(this instanceof BuilderBullet || this instanceof DamagerBullet || this instanceof TankBullet || this instanceof TankBulletSpecial){
+		if(this instanceof BuilderBullet || this instanceof DamagerBullet || this instanceof TankBullet || this instanceof TankBulletSpecial || this instanceof DamagerFreezeBullet){
 			for(int i = 0; i<actors.size();i++){
 				Actor a = actors.get(i);
 				if(this.getHitBox().intersects(a.getHitBox())){
-					if(a instanceof Player){
+					if(a instanceof TankForcefield && !(this instanceof DamagerFreezeBullet)){
+						if(!(this instanceof TankBullet)){
+							this.velX = -this.velX;
+							this.velY = -this.velY;
+						}
+					}
+					if(a instanceof Player && !(this instanceof DamagerFreezeBullet)){
 						((Player) a).changeCurrentHealth(-damage);
 						return a;
+					}else if(a instanceof Player && this instanceof DamagerFreezeBullet){
+						((Player)a).setFreezeTime(150);
+						((Player)a).changeCurrentHealth(-damage);
+						return a;
 					}else if(a instanceof BreakableBarrier){
-						if(this instanceof BuilderBullet){
+						if(this instanceof BuilderBullet || this instanceof DamagerFreezeBullet){
 							((BreakableBarrier) a).changeCurrentHealth(-2);
 							return null;
 						}
@@ -123,11 +134,13 @@ public class Projectile extends Actor {
 						return a;
 					}else if (a instanceof Turret && !(this instanceof TankBulletSpecial)){
 						((Turret) a).changeCurrentHealth(-damage);
-						return a;
+						if(!(this instanceof DamagerFreezeBullet))
+							return a;
+						return null;
 					}else if(a instanceof Turret  && this instanceof TankBulletSpecial){
 						((Turret) a).changeCurrentHealth(-2);
 						return null;
-					}else if (a instanceof Barrier && !(this instanceof TankBulletSpecial)){
+					}else if (a instanceof Barrier && !(this instanceof TankBulletSpecial) && !(this instanceof DamagerFreezeBullet)){
 						for(int j = 0; j<actors.size();j++){
 							Actor b = actors.get(j);
 							if(b instanceof Turret){
@@ -149,11 +162,18 @@ public class Projectile extends Actor {
 			for(int i = 0; i<actors.size();i++){
 				Actor a = actors.get(i);
 				if(this.getHitBox().intersects(a.getHitBox())){
-					if(a instanceof Player){
+					if(a instanceof TankForcefield){
+							setVelX(-getVelX());
+							setVelY(-getVelY());
+							moveBy((int)(getVelX()*5), (int)(getVelY()*5));
+							
+					}
+					else if(a instanceof Player){
 						((Player) a).changeCurrentHealth(-10);
 						return a;
 					}
 				}
+				
 			}
 			if(!window.contains(this.getHitBox().getRectangle())){
 				return this;

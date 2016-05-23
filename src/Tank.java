@@ -39,7 +39,7 @@ public class Tank extends Player {
 				getAngle() * Math.PI / 180);
 	}
 	
-	public void initiateUltimate(){
-		
+	public TankForcefield initiateUltimate(){
+		return new TankForcefield(this);
 	}
 }

@@ -20,16 +20,17 @@ public class Player extends Actor {
 
 	private double angle;
 	private int speed;
+	private int permSpeed;
 	private boolean up;
 	private boolean down;
 	private boolean left;
 	private boolean right;
 	private boolean shoot;
-	private boolean special;
 	private Animation moveAnimation;
 	private Animation standAnimation;
 	private int maxHealth;
 	private int currentHealth;
+	private int freezeTime;
 	
 	private int numLives;
 	
@@ -53,17 +54,17 @@ public class Player extends Actor {
 	 */
 	@Override
 	public void act() {
-
-		
 		if (!up && !down && !left && !right && standAnimation != null) {
 			standAnimation.update();
 		}
 		else if (moveAnimation != null) {
-			//moveBy((int)Math.round( (Math.cos(Math.toRadians(angle)) * speed )), 
-			//		(int) Math.round((-(Math.sin(Math.toRadians(angle)) * speed ))));
-			moveX();
-			moveY();
 			moveAnimation.update();
+		}
+		if(freezeTime > 0){
+			freezeTime--;
+			speed = 0;
+		} else {
+			speed = permSpeed;
 		}
 	}
 	/**
@@ -151,6 +152,7 @@ public class Player extends Actor {
 		g2.setColor(Color.green);
 		g2.drawRect(getX(), getY()+getHeight(), getWidth(), 10);
 		g2.fillRect(getX(), getY()+getHeight(), (int)((double)currentHealth/maxHealth *getWidth()), 10);
+		act();
 	}
 	
 	/**
@@ -326,6 +328,7 @@ public class Player extends Actor {
 	 */
 	public void setSpeed(int speed){
 		this.speed = speed;
+		permSpeed = speed;
 	}
 	
 	/**
@@ -384,7 +387,11 @@ public class Player extends Actor {
 		return numLives;
 	}
 	
-	public void setSpecial(boolean special){
-		this.special = special;
+	/**
+	 * Sets time player's frozen
+	 * @param fTime Frozen time
+	 */
+	public void setFreezeTime(int fTime){
+		freezeTime = fTime;
 	}
 }

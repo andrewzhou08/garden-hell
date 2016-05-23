@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -36,6 +37,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 	private int p1Special, p2Special;
 	private int dam1Special, dam2Special;
 	private int p1Ult, p2Ult;
+	private int p1TankUlt, p2TankUlt;
+	private TankForcefield f;
 
 	/**
 	 * Creates new GamePanel. Initializes all needed variables
@@ -114,10 +117,24 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 				isRunning = false;
 			}
 			
-			if(p1Special != 0)
+			if(p1Special > 0)
 				p1Special--;
-			if(p2Special != 0)
+			if(p2Special > 0)
 				p2Special--;
+			if(p1TankUlt > 0){
+				p1TankUlt--;
+				actors.add(f);
+			}
+			else{
+				actors.remove(f);
+			}
+			if(p2TankUlt > 0){
+				p2TankUlt--;
+				actors.add(f);
+			}
+			else{
+				actors.remove(f);
+			}
 			p1Ult++;
 			p2Ult++;
 
@@ -248,7 +265,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 					p1Special = 150;
 					dam1Special = 30;
 				}
-			} else if(p1 instanceof Builder && p1Special <= 90){
+			} else if(p1 instanceof Builder && p1Special <= 60){
 				BreakableBarrier builtBarrier = ((Builder) p1).initiateSpecial();
 				barriers.add(builtBarrier);
 				actors.add(builtBarrier);
@@ -274,7 +291,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 					p2Special = 150;
 					dam2Special = 30;
 				}
-			} else if(p2 instanceof Builder && p2Special <= 90){
+			} else if(p2 instanceof Builder && p2Special <= 60){
 				BreakableBarrier builtBarrier = ((Builder) p2).initiateSpecial();
 				barriers.add(builtBarrier);
 				actors.add(builtBarrier);
@@ -282,25 +299,65 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 			}
 		}
 		if(keyPressed[12]){
-			if(p1 instanceof Tank){
-				
+			if(p1 instanceof Tank && p1Ult >= 60){
+				p1Ult = 0;
+				p1TankUlt = 150;
+				f = ((Tank) p1).initiateUltimate();
+				actors.add(f);
 			}
-			else if(p1 instanceof Damager){
-				
+			else if(p1 instanceof Damager && p1Ult >= 1800){
+				p1Ult = 0;
+				Projectile p = ((Damager)p1).initiateUltimate();
+				bullets.add(p);
 			}
-			else if(p1 instanceof Builder){
+			else if(p1 instanceof Builder && p1Ult >= 60){
+				p1Ult = 0;
+				ArrayList<BreakableBarrier> ultBarriers = new ArrayList<BreakableBarrier>();
+				ultBarriers.add(new BreakableBarrier(p2.getX(), p2.getY(), 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX()-40, p2.getY(), 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX()-40, p2.getY()-40, 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX(), p2.getY()-40, 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX()+40, p2.getY()-40, 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX()+40, p2.getY(), 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX()+40, p2.getY()+40, 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX(), p2.getY()+40, 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p2.getX()-40, p2.getY()+40, 40, 40, true));
 				
+				for(BreakableBarrier b : ultBarriers){
+					barriers.add(b);
+					actors.add(b);
+				}
 			}
 		}
 		if(keyPressed[13]){
-			if(p2 instanceof Tank){
-				
+			if(p2 instanceof Tank && p2Ult >= 1800){
+				p2Ult = 0;
+				p2TankUlt = 150;
+				f = ((Tank) p2).initiateUltimate();
+				actors.add(f);
 			}
-			else if(p2 instanceof Damager){
-				
+			else if(p2 instanceof Damager && p2Ult >= 1800){
+				p2Ult = 0;
+				Projectile p = ((Damager)p2).initiateUltimate();
+				bullets.add(p);
 			}
-			else if(p2 instanceof Builder){
+			else if(p2 instanceof Builder && p2Ult >= 1800){
+				p2Ult = 0;
+				ArrayList<BreakableBarrier> ultBarriers = new ArrayList<BreakableBarrier>();
+				ultBarriers.add(new BreakableBarrier(p1.getX(), p1.getY(), 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX()-40, p1.getY(), 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX()-40, p1.getY()-40, 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX(), p1.getY()-40, 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX()+40, p1.getY()-40, 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX()+40, p1.getY(), 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX()+40, p1.getY()+40, 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX(), p1.getY()+40, 40, 40, true));
+				ultBarriers.add(new BreakableBarrier(p1.getX()-40, p1.getY()+40, 40, 40, true));
 				
+				for(BreakableBarrier b : ultBarriers){
+					barriers.add(b);
+					actors.add(b);
+				}
 			}
 		}
 		
@@ -341,6 +398,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 	public synchronized void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+		
 		g.drawImage(background, 0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT, null);
 		for (Actor a : actors) {
 			a.draw(g2);
@@ -363,7 +421,19 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 		else if(p2Wins){
 			g.drawImage(p2WinsImage, 380, 200, 540, 300, null);
 		}
+		int p1SecondsUlt = (1800-p1Ult) / 30;
+		if(p1SecondsUlt < 0)
+			p1SecondsUlt = 0;
+		
+		int p2SecondsUlt = (1800-p2Ult) / 30;
+		if(p2SecondsUlt < 0)
+			p2SecondsUlt = 0;
+		
+		g.setColor(Color.BLACK);
+		g.drawString("Seconds until ultimate is ready: " + p1SecondsUlt, 10, 50);
+		g.drawString("Seconds until ultimate is ready: " + p2SecondsUlt, 1050, 50);
 	}
+	
 
 	/**
 	 * Handles movement with key inputs

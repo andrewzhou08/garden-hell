@@ -2,16 +2,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
-public class GamePanel extends JPanel implements KeyListener, MouseListener, Runnable {
+public class GamePanel extends JPanel implements KeyListener, MouseListener, Runnable, ActionListener {
 
 	public static final int FPS = 30;
 	public double elapsedTime; //in seconds
@@ -24,6 +28,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 	private Image p1WinsImage, p2WinsImage;
 	private Image heart;
 	private EasySound backgroundSound;
+	private Timer timer;
 
 	private ArrayList<Actor> actors;
 	private ArrayList<Projectile> bullets;
@@ -70,6 +75,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 		dam1Special = dam2Special = 30;
 		p1Ult = p2Ult = 0;
 		backgroundSound = new EasySound("assets/Background.wav");
+		timer = new Timer(106000, this);
 		
 	}
 	/**
@@ -83,6 +89,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 		new Thread(this).start();
 		gameStarted = true;
 		backgroundSound.play();
+		timer.start();
 	}
 
 	/**
@@ -602,5 +609,10 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 	public void mouseReleased(MouseEvent e) { }
 	public void mouseEntered(MouseEvent e) { }
 	public void mouseExited(MouseEvent e) { }
+	
+	public void actionPerformed(ActionEvent arg0) {
+		backgroundSound.play();
+		
+	}
 
 }

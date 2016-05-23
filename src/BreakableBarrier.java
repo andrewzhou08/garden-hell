@@ -37,6 +37,7 @@ public class BreakableBarrier extends Barrier {
 		breakAnimation = new Animation("assets/barrier-breakable/barrier-breakable-breaking(%d).png", 1, 10, 1); 
 		currentHealth = 500;
 		maxHealth = 500;
+		breakingSound = new EasySound("assets/Barrier.wav");
 	}
 	
 	public void act() {

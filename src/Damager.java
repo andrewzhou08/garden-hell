@@ -27,6 +27,7 @@ public class Damager extends Player {
 	public Projectile shoot(){
 		if(skippedFrames == 3){
 			skippedFrames = 0;
+			playShootingSound();
 			return new DamagerBullet((int)(getX() + 20 + Player.DISTANCE_TO_BARREL*Math.cos(super.getAngle()*Math.PI/180)),
 					(int)(getY() + 20 + Player.DISTANCE_TO_BARREL*-Math.sin(super.getAngle()*Math.PI/180)),
 					getAngle() * Math.PI / 180);

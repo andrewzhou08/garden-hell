@@ -6,6 +6,7 @@ public abstract class Turret extends Actor implements Drawable {
 	private int currentHealth;
 	private int maxHealth;
 	private Animation explodeAnimation;
+	private EasySound explode;
 	
 	/**
 	 * Creates a turret object
@@ -20,6 +21,7 @@ public abstract class Turret extends Actor implements Drawable {
 		super(sprite, x-1, y-1, width+2, height+2);
 		this.currentHealth = hp;
 		maxHealth = hp;
+		explode = new EasySound("assets/Turret.wav");
 	}
 	
 	public abstract Projectile shoot();
@@ -99,5 +101,9 @@ public abstract class Turret extends Actor implements Drawable {
 
 	public boolean animationComplete() {
 		return explodeAnimation.getCurrentFrameID() == explodeAnimation.length() - 1 ? true : false;
+	}
+	
+	public void playExplosionSound(){
+		explode.play();
 	}
 }

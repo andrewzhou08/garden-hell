@@ -33,6 +33,8 @@ public class Player extends Actor {
 	private int freezeTime;
 	
 	private int numLives;
+	private EasySound shootSound;
+	private EasySound deathSound;
 	
 	/**
 	 * Creates a new player with x,y coordinates x and y and angle angle
@@ -47,6 +49,8 @@ public class Player extends Actor {
 		maxHealth = hp;
 		currentHealth = hp;
 		numLives = MAX_LIVES;
+		shootSound = new EasySound("assets/Shooting.wav");
+		deathSound = new EasySound("assets/Death.wav");
 	}
 
 	/**
@@ -393,5 +397,13 @@ public class Player extends Actor {
 	 */
 	public void setFreezeTime(int fTime){
 		freezeTime = fTime;
+	}
+	
+	public void playShootingSound(){
+		shootSound.play();
+	}
+	
+	public void playDeathSound(){
+		deathSound.play();
 	}
 }

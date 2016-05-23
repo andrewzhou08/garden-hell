@@ -23,6 +23,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 	private Image background;
 	private Image p1WinsImage, p2WinsImage;
 	private Image heart;
+	private EasySound backgroundSound;
 
 	private ArrayList<Actor> actors;
 	private ArrayList<Projectile> bullets;
@@ -68,6 +69,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 		p1Special = p2Special = 150;
 		dam1Special = dam2Special = 30;
 		p1Ult = p2Ult = 0;
+		backgroundSound = new EasySound("assets/Background.wav");
+		
 	}
 	/**
 	 * Starts the card layout
@@ -79,6 +82,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 			actors.add(b);
 		new Thread(this).start();
 		gameStarted = true;
+		backgroundSound.play();
 	}
 
 	/**
@@ -367,6 +371,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 				currentActor.act();
 			if (currentActor instanceof BreakableBarrier) {
 				if (((BreakableBarrier) currentActor).getCurrentHealth() <= 0) {
+					((BreakableBarrier) currentActor).playSound();
 					if (((BreakableBarrier) currentActor).animationComplete()) {
 						actors.remove(currentActor);
 						i--;
@@ -374,6 +379,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 				}
 			} else if (currentActor instanceof Turret) {
 				if (((Turret) currentActor).getCurrentHealth() <= 0) {
+					((Turret) currentActor).playExplosionSound();
 					if (((Turret) currentActor).animationComplete()) {
 						actors.remove(currentActor);
 						i--;
@@ -382,9 +388,11 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 			}
 		}
 		if(p1.getCurrentHealth()<0){
+			p1.playDeathSound();
 			playerOneDead = true;
 		}
 		if(p2.getCurrentHealth()<0){
+			p2.playDeathSound();
 			playerTwoDead = true;
 		}
 

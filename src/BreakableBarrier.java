@@ -7,6 +7,7 @@ public class BreakableBarrier extends Barrier {
 	private Animation breakAnimation;
 	private int currentHealth;
 	private int maxHealth;
+	private EasySound breakingSound;
 	
 	/**
 	 * Creates new breakable barrier of coordinates x, y and width and height of width,height
@@ -20,6 +21,7 @@ public class BreakableBarrier extends Barrier {
 		breakAnimation = new Animation("assets/barrier-breakable/barrier-breakable-breaking(%d).png", 1, 10, 1); 
 		currentHealth = 500;
 		maxHealth = 500;
+		breakingSound = new EasySound("assets/Barrier.wav");
 	}
 	
 	/**
@@ -105,6 +107,9 @@ public class BreakableBarrier extends Barrier {
 	public boolean animationComplete() {
 		return breakAnimation.getCurrentFrameID() == breakAnimation.length() - 1 ? true : false;
 	}
-
+	
+	public void playSound(){
+		breakingSound.play();
+	}
 
 }

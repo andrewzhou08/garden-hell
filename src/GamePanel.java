@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 	private int dam1Special, dam2Special;
 	private int p1Ult, p2Ult;
 	private int p1TankUlt, p2TankUlt;
-	private TankForcefield f;
+	private TankForcefield f, f2;
 
 	/**
 	 * Creates new GamePanel. Initializes all needed variables
@@ -130,10 +130,10 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 			}
 			if(p2TankUlt > 0){
 				p2TankUlt--;
-				actors.add(f);
+				actors.add(f2);
 			}
 			else{
-				actors.remove(f);
+				actors.remove(f2);
 			}
 			p1Ult++;
 			p2Ult++;
@@ -250,7 +250,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 			if(p1 instanceof Tank && p1Special <= 0){
 				TankBulletSpecial bs = (TankBulletSpecial)(((Tank) p1).initiateSpecial());
 				bullets.add(bs);
-				p1Special = 150;
+				p1Special = 300;
 			} else if(p1 instanceof Damager && p1Special <= 0){
 				dam1Special--;
 				if(dam1Special > 0 && dam1Special % 3 == 0){
@@ -276,7 +276,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 			if(p2 instanceof Tank && p2Special <= 0){
 				TankBulletSpecial bs = (TankBulletSpecial)(((Tank) p2).initiateSpecial());
 				bullets.add(bs);
-				p2Special = 150;
+				p2Special = 300;
 			} else if(p2 instanceof Damager && p2Special <= 0){
 				dam2Special--;
 				if(dam2Special > 0 && dam2Special % 3 == 0){
@@ -299,7 +299,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 			}
 		}
 		if(keyPressed[12]){
-			if(p1 instanceof Tank && p1Ult >= 60){
+			if(p1 instanceof Tank && p1Ult >= 1800){
 				p1Ult = 0;
 				p1TankUlt = 150;
 				f = ((Tank) p1).initiateUltimate();
@@ -310,7 +310,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 				Projectile p = ((Damager)p1).initiateUltimate();
 				bullets.add(p);
 			}
-			else if(p1 instanceof Builder && p1Ult >= 60){
+			else if(p1 instanceof Builder && p1Ult >= 1800){
 				p1Ult = 0;
 				ArrayList<BreakableBarrier> ultBarriers = new ArrayList<BreakableBarrier>();
 				ultBarriers.add(new BreakableBarrier(p2.getX(), p2.getY(), 40, 40, true));
@@ -333,8 +333,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 			if(p2 instanceof Tank && p2Ult >= 1800){
 				p2Ult = 0;
 				p2TankUlt = 150;
-				f = ((Tank) p2).initiateUltimate();
-				actors.add(f);
+				f2 = ((Tank) p2).initiateUltimate();
+				actors.add(f2);
 			}
 			else if(p2 instanceof Damager && p2Ult >= 1800){
 				p2Ult = 0;

@@ -4,15 +4,19 @@ by Andrew Zhou, Heidi Dong, Leo Yao
 -----------------------------------------------------------
 Description
 This game takes a special twist from the generic bullet hell game. Instead of fighting computers, you take on your friends and challenge them in a 1v1 duel. After a minute, the player will encounter challenges such as moving walls that will now damage the player, as well as true bullet hell, where turrets will spawn on top of each wall and continuously shoot at the players for a certain amount of time. After this corruption ends, turrets remain in the arena, but corruption and movement of barriers end.
+There are three classes: Tank, Damager, and Builder.
+The tank class has a large amount of health points. It fires a large bullet as its special, and has a forcefield as its ultimate.
+The damager doesn’t have as much health, but does a lot more damage. The damager’s special is an eight way shot, and its ultimate is a frozen shot where the opponent is frozen for five seconds.
+The builder has average statistics. However, the builder’s special is that it can build a breakable barrier. Additionally, the builder’s ultimate traps the enemy in nine barriers.
 Each player is required to shoot the other player, as well as survive the bullet hell. The last surviving player wins the match.
 
 -----------------------------------------------------------
 Instructions
 Each player can choose a character to play, and it will show which character each player chooses.
-Player 1 uses WASD to control the character, [space] to shoot.
-Player 2 uses Arrow Keys to control the character, [shift] to shoot.
-Press “GO” when both players have finished selecting their characters.
-Game will continue until one player loses all their health.
+Player 1 uses WASD to control the character, [SHIFT] to shoot. [F] is pressed to activate the player’s special ability, and [C] is used to activate the player’s ultimate.
+Player 2 uses Arrow Keys to control the character, [SPACE] to shoot. [ALT] to use special, [COMMA] to use ultimate.
+Click anywhere when both players have finished selecting their characters.
+Game will continue until one player loses all their lives.
 
 -----------------------------------------------------------
 Features List
@@ -24,11 +28,11 @@ Must have
 ✓Well done animations for each object
 
 Want to have
+✓Special skills per class
 ✓Ultimate skills per class
 -Main splash screen
 -Replay and reset system
 -Play against computer AI
-✓Special skills per class
 -Map selection screen
 
 Stretch goals
@@ -73,6 +77,9 @@ public class Map1 extends Map;
 public class ComputerPlayer extends Player;
 public class MainScreen;
 public class MapSelectionScreen;
+public class TankBulletSpecial extends Projectile;
+public class DamagerFreezeBullet extends Projectile;
+public class TankForcefield extends Projectile;
 
      Stretch Goals
 public class FastInvisibleDude extends Player;
@@ -90,16 +97,21 @@ public class [Powerup Name] extend Powerup;
 Responsibility List
      Andrew Zhou
 -Artwork
--Everything that extends Barrier
--Everything that extends Bullet
 -README
+-Turrets
+-Player ultimate and special attacks
+-Character selection screen
+-Map
      Heidi Dong
--Everything that implements Turret
--CharacterSelectionScreen
--GamePanel
+-Animation
+-Barrier functionality and corruption
+-Bullets and projectile
+-Game loop
 -UML
+-Actor
      Leo Yao
--Everything that extends Characters
--Drawable Interface
 -Main class
+-Key input and player movement
+-Collision
+-Javadocs
 -----------------------------------------------------------

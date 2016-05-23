@@ -3,7 +3,7 @@ import java.awt.Graphics2D;
 
 public class TankBulletSpecial extends Projectile {
 	
-	public static final int TANK_BULLET_SPECIAL_DAMAGE = 1800;
+	public static final int TANK_BULLET_SPECIAL_DAMAGE = 1200;
 	private int skippedFrames;
 	
 	/**

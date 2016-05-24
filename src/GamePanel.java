@@ -19,7 +19,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 
 	public static final int FPS = 30;
 	private static final int CORRUPTION_DELAY = FPS * 60;
-	private static final int ULT_ATK_DELAY = FPS * 3;
+	private static final int ULT_ATK_DELAY = FPS * 30;
 	public double elapsedTime;
 
 	private boolean gameStarted;

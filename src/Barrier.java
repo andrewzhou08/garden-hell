@@ -1,5 +1,11 @@
 import java.awt.Graphics2D;
 
+/**
+ * 
+ * Blocks that players must walk around.
+ * @author Heidi
+ *
+ */
 public class Barrier extends Actor {
 			
 	/**

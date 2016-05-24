@@ -69,6 +69,7 @@ public class BreakableBarrier extends Barrier {
 			currentHealth = 0;
 		if (currentHealth <= 0) {
 			breakAnimation.update();
+			playSound();
 		}
 		tempTime--;
 	}

@@ -3,7 +3,7 @@ by Andrew Zhou, Heidi Dong, Leo Yao
 9 May 2016
 -----------------------------------------------------------
 Description
-This game takes a special twist from the generic bullet hell game. Instead of fighting computers, you take on your friends and challenge them in a 1v1 duel. After a minute, the player will encounter challenges such as moving walls that will now damage the player, as well as true bullet hell, where turrets will spawn on top of each wall and continuously shoot at the players for a certain amount of time. After this corruption ends, turrets remain in the arena, but corruption and movement of barriers end.
+This game takes a special twist from the generic bullet hell game. Instead of fighting computers, you take on your friends and challenge them in a 1v1 duel. After a minute, the player will encounter challenges such as moving walls that will now damage the player, as well as true bullet hell, where turrets will spawn on top of each wall and continuously shoot at the players for a certain amount of time. After this corruption ends, the barriers go back to normal.
 There are three classes: Tank, Damager, and Builder.
 The tank class has a large amount of health points. It fires a large bullet as its special, and has a forcefield as its ultimate.
 The damager doesn't have as much health, but does a lot more damage. The damager's special is an eight way shot, and its ultimate is a frozen shot where the opponent is frozen for five seconds.
@@ -30,8 +30,8 @@ Must have
 Want to have
 [x] Special skills per class
 [x] Ultimate skills per class
-[ ] Main splash screen
-[ ] Replay and reset system
+[x] Main splash screen
+[x] Replay and reset system
 [ ] Play against computer AI
 [ ] Map selection screen
 

@@ -324,8 +324,13 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 		g.drawImage(background, 0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT, null);
 		
 		// yay lambda expressions!
-		actors.stream().forEach((Actor a) -> a.draw(g2));
-		bullets.stream().forEach((Projectile p) -> p.draw(g2));
+//		actors.stream().forEach((Actor a) -> a.draw(g2));
+//		bullets.stream().forEach((Projectile p) -> p.draw(g2));
+		
+		for (Actor a : actors)
+			a.draw(g2);
+		for (Projectile p : bullets)
+			p.draw(g2);
 
 		//Draws lives
 		for (int i = 0; i < p1.getLives(); i++) {

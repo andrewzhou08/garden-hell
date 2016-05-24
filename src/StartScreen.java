@@ -1,5 +1,4 @@
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -24,7 +23,7 @@ public class StartScreen extends JPanel implements MouseListener {
 	 * Handles the mouse clicks for selection the players
 	 */
 	public void mouseClicked(MouseEvent e) {
-		if((new Rectangle(505, 505, 299, 78)).contains(getMousePosition()))
+		if ((new Rectangle(505, 503, 297, 81)).contains(getMousePosition()))
 			main.changePanel("2");
 	}
 

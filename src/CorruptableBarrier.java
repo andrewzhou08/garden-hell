@@ -2,6 +2,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class CorruptableBarrier extends Barrier {
 		
@@ -155,7 +156,20 @@ public class CorruptableBarrier extends Barrier {
 	 * 
 	 * @return if the barrier is corrupt
 	 */
-	public boolean getCorruption(){
+	public boolean isCorrupted(){
 		return isCorrupted;
 	}
+
+	public void toggleCorruption() {
+		isCorrupted = !isCorrupted;
+		if (!isCorrupted) {
+			corruptAnimation.reset();
+			hasSpawnedTurrets = false; 
+		}
+	}
+
+	public Collection<?> getSpawnedTurrets() {
+		return turrets;
+	}
+
 }

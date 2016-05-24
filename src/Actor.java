@@ -125,7 +125,7 @@ public abstract class Actor implements Drawable {
 	 * @param angle current actor's angle of movement
 	 * @return Actor that is being collided with
 	 */
-	public  Actor willCollide(ArrayList<Actor> actors, double angle){	// 1 = up, 2 = down, 3 = left, 4 = right
+	public  Actor willCollide(ArrayList<Actor> actors, double angle){
 		Rectangle window = new Rectangle(0,0,Main.WINDOW_WIDTH-8,Main.WINDOW_HEIGHT-32);
 		if(this instanceof Player){
 			Player p =(Player)this;

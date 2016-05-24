@@ -5,7 +5,6 @@ import javax.swing.ImageIcon;
 
 public class TankForcefield extends Actor {
 
-	private Image img;
 	private Tank t;
 	
 	/**
@@ -13,8 +12,7 @@ public class TankForcefield extends Actor {
 	 * @param t tank that the forcefield is on
 	 */
 	public TankForcefield(Tank t) {
-		super(t.getX()-40, t.getY()-40, 120, 120);
-		img = (new ImageIcon("assets/forcefield.png")).getImage();
+		super("assets/forcefield.png", t.getX() - 40, t.getY() - 40, 120, 120);
 		this.t = t;
 	}
 
@@ -23,7 +21,7 @@ public class TankForcefield extends Actor {
 	 */
 	@Override
 	public void act() {
-		super.move(t.getX()-40, t.getY()-40);
+		move(t.getX() - 40, t.getY() - 40);
 	}
 
 	/**
@@ -31,7 +29,7 @@ public class TankForcefield extends Actor {
 	 */
 	@Override
 	public void draw(Graphics2D g2) {
-		g2.drawImage(img, getX(), getY(), getWidth(), getHeight(), null);
+		g2.drawImage(getSprite(), getX(), getY(), getWidth(), getHeight(), null);
 	}
 	
 }

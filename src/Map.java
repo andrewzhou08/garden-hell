@@ -1,22 +1,32 @@
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public class Map {
 
+	public static final Point2D P1_STARTING_LOCATION = new Point2D.Double(1 * Main.CELL_WIDTH, 8 * Main.CELL_WIDTH); 
+	public static final Point2D P2_STARTING_LOCATION = new Point2D.Double(30 * Main.CELL_WIDTH, 8 * Main.CELL_WIDTH);
+	public static final int P1_STARTING_DIRECTION = Player.DIR_RIGHT;
+	public static final int P2_STARTING_DIRECTION = Player.DIR_LEFT;
+	
 	private Player p1, p2;
 	private ArrayList<Barrier> barriers;
 	private ArrayList<CorruptableBarrier> corruptBarriers;
+	
 	/**
-	 * Creates a new map
+	 * Creates a new map with references to the two players
+	 * @param p1 reference to Player object for Player 1
+	 * @param p2 reference to Player object for Player 2
 	 */
-	public Map(){
+	public Map(Player p1, Player p2) {
 		barriers = new ArrayList<Barrier>();
 		corruptBarriers = new ArrayList<CorruptableBarrier>();
+		this.p1 = p1;
+		this.p2 = p2;
+		generateMapBarriers();
 	}
-	/**
-	 * Generates new map barriers for this map
-	 */
-	public void generateMapBarriers(){
+
+	private void generateMapBarriers() {
 		//Two I shaped on left/right sides
 		for(int i = 3; i < 14; i++){
 			corruptBarriers.add(new CorruptableBarrier(3, i, 1, 1));
@@ -118,51 +128,37 @@ public class Map {
 		barriers.add(new BreakableBarrier(19, 14, 1, 1));
 		barriers.add(new BreakableBarrier(20, 14, 1, 1));
 	}
+	
 	/**
 	 * draws the map on the screen
 	 * @param g drawer that draws the map
 	 */
-	public void draw(Graphics2D g){
-		for(Barrier b : barriers){
-			b.draw(g);
-		}
+	public void draw(Graphics2D g2) {
+		barriers.stream().forEach((Barrier b) -> b.draw(g2));
 	}
+	
 	/**
 	 * returns the barriers in the map
 	 * @return barriers of the map
 	 */
-	public ArrayList<Barrier> getBarriers(){
+	public ArrayList<Barrier> getBarriers() {
 		return barriers;
 	}
+	
 	/**
 	 * adds the barrier into the map
 	 * @param barrier barrier that is added in the map
 	 */
-	public void addBarrier(Barrier barrier){
+	public void addBarrier(Barrier barrier) {
 		barriers.add(barrier);
 	}
+	
 	/**
 	 * Gets the barrier at specified index
 	 * @param index index of barrier 
 	 * @return the barrier at specified index
 	 */
-	public Barrier getBarrier(int index){
+	public Barrier getBarrier(int index) {
 		return barriers.get(index);
-	}
-	
-	/**
-	 * Sets player1 for map
-	 * @param p1 player1 of map
-	 */
-	public void setP1(Player p1){
-		this.p1 = p1;
-	}
-	
-	/**
-	 * Sets player2 for map
-	 * @param p2 player2 of map
-	 */
-	public void setP2(Player p2){
-		this.p2 = p2;
 	}
 }

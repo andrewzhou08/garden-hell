@@ -1,6 +1,9 @@
+import java.util.ArrayList;
+
 public class Tank extends Player {
 
 	public static final int HP = 5600;
+	public static final int TANK_ULT_ATK_DELAY = GamePanel.FPS * 5;;
 	
 	private int skippedFrames;
 	
@@ -26,8 +29,9 @@ public class Tank extends Player {
 		if(skippedFrames == 3){
 			skippedFrames = 0;
 			playShootingSound();
-			return new TankBullet((int)(getX() + 20 + Player.DISTANCE_TO_BARREL*Math.cos(super.getAngle()*Math.PI/180)),
-					(int)(getY() + 20 + Player.DISTANCE_TO_BARREL*-Math.sin(super.getAngle()*Math.PI/180)),
+			return new TankBullet(
+					(int) (getX() + 20 + Player.DISTANCE_TO_BARREL * Math.cos(super.getAngle() * Math.PI / 180)),
+					(int) (getY() + 20 + Player.DISTANCE_TO_BARREL * -Math.sin(super.getAngle() * Math.PI / 180)),
 					getAngle() * Math.PI / 180);
 		}
 		skippedFrames++;
@@ -38,17 +42,19 @@ public class Tank extends Player {
 	 * Creates massive tank bullet for special
 	 * @return tank special bullet
 	 */
-	public Projectile initiateSpecial(){
-		return new TankBulletSpecial((int)(getX() + (Player.DISTANCE_TO_BARREL+20)*Math.cos(super.getAngle()*Math.PI/180)),
-				(int)(getY() + (Player.DISTANCE_TO_BARREL+20)*-Math.sin(super.getAngle()*Math.PI/180)),
+	public Projectile initiateSpecial() {
+		return new TankBulletSpecial(
+				(int) (getX() + (Player.DISTANCE_TO_BARREL + 20) * Math.cos(super.getAngle() * Math.PI / 180)),
+				(int) (getY() + (Player.DISTANCE_TO_BARREL + 20) * -Math.sin(super.getAngle() * Math.PI / 180)),
 				getAngle() * Math.PI / 180);
 	}
 	
-	/**
-	 * Creates forcefield as tank ultimate
-	 * @return forcefield of tank
-	 */
-	public TankForcefield initiateUltimate(){
-		return new TankForcefield(this);
+	public void initiateUltimate(ArrayList<Actor> actors, ArrayList<Barrier> barriers, ArrayList<Projectile> bullets) {
+		super.initiateUltimate(actors, barriers, bullets);
+		actors.add(new TankForcefield(this));
 	}
+	
+	public TankForcefield createForcefield(){
+		return new TankForcefield(this);
+	} 
 }

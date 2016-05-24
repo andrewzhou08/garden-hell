@@ -106,7 +106,7 @@ public class Projectile extends Actor {
 	 * @param angle current actor's angle of movement
 	 * @return Actor that is being collided with
 	 */
-	public Actor willCollide(ArrayList<Actor> actors, double angle){
+	public Actor willCollide(ArrayList<Actor> actors){
 		Rectangle window = new Rectangle(0,0,Main.WINDOW_WIDTH-8,Main.WINDOW_HEIGHT-32);
 		if(this instanceof BuilderBullet || this instanceof DamagerBullet || this instanceof TankBullet || this instanceof TankBulletSpecial || this instanceof DamagerFreezeBullet){
 			for(int i = 0; i<actors.size();i++){

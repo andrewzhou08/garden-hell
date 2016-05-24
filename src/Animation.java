@@ -62,4 +62,8 @@ public class Animation {
 	public int length() {
 		return frames.length;
 	}
+
+	public void reset() {
+		currentFrame = 0;
+	}
 }

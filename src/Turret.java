@@ -51,6 +51,7 @@ public abstract class Turret extends Actor implements Drawable {
 	public void act() {
 		if (currentHealth <= 0) {
 			explodeAnimation.update();
+			playSound();
 		}
 	}
 	
@@ -113,7 +114,7 @@ public abstract class Turret extends Actor implements Drawable {
 	/**
 	 * Plays explosion sound
 	 */
-	public void playExplosionSound(){
+	public void playSound(){
 		explode.play();
 	}
 }

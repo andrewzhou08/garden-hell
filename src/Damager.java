@@ -1,6 +1,4 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 public class Damager extends Player {
 
@@ -17,7 +15,7 @@ public class Damager extends Player {
 		super(x, y, angle, HP);
 		setMoveAnimation(new Animation("assets/player-damager/player-damager-moving(%d).png", 1, 4, 6));
 		setStandAnimation(new Animation("assets/player-damager/player-damager-standing(%d).png", 1, 2, 16));
-		super.setSpeed(5);
+		setSpeed(5);
 		skippedFrames = 0;
 	}
 	/**
@@ -25,11 +23,12 @@ public class Damager extends Player {
 	 * @return Projectile shot
 	 */
 	public Projectile shoot(){
-		if(skippedFrames == 3){
+		if (skippedFrames == 3) {
 			skippedFrames = 0;
 			playShootingSound();
-			return new DamagerBullet((int)(getX() + 20 + Player.DISTANCE_TO_BARREL*Math.cos(super.getAngle()*Math.PI/180)),
-					(int)(getY() + 20 + Player.DISTANCE_TO_BARREL*-Math.sin(super.getAngle()*Math.PI/180)),
+			return new DamagerBullet(
+					(int) (getX() + 20 + Player.DISTANCE_TO_BARREL * Math.cos(super.getAngle() * Math.PI / 180)),
+					(int) (getY() + 20 + Player.DISTANCE_TO_BARREL * -Math.sin(super.getAngle() * Math.PI / 180)),
 					getAngle() * Math.PI / 180);
 		}
 		skippedFrames++;
@@ -40,27 +39,24 @@ public class Damager extends Player {
 	 * Returns bullets on all eight sides
 	 * @return bullets for each of the eight sides
 	 */
-	public Projectile[] initializeSpecial(){
-			Projectile[] special = new Projectile[8];
-			for(int i = 0; i < 8; i++){
-				special[i] = new DamagerBullet((int)(getX() + 20 + Player.DISTANCE_TO_BARREL*Math.cos(i*45*Math.PI/180)),
-						(int)(getY() + 20 + Player.DISTANCE_TO_BARREL*-Math.sin(i*45*Math.PI/180)),
-						i*45 * Math.PI / 180);
-			}
-			return special;
+	
+	public ArrayList<Projectile> initiateSpecial() {
+		ArrayList<Projectile> special = new ArrayList<Projectile>(8);
+		for (int i = 0; i < 8; i++) {
+			special.add(new DamagerBullet(
+					(int) (getX() + 20 + Player.DISTANCE_TO_BARREL * Math.cos(i * 45 * Math.PI / 180)),
+					(int) (getY() + 20 + Player.DISTANCE_TO_BARREL * -Math.sin(i * 45 * Math.PI / 180)),
+					i * 45 * Math.PI / 180));
+		}
+		return special;
 	}
 	
-	/**
-	 * Creates a freeze bullet for damager's ultimate
-	 * @return freeze bullet
-	 */
-	public Projectile initiateUltimate(){
-		return new DamagerFreezeBullet((int)(getX() + (Player.DISTANCE_TO_BARREL+20)*Math.cos(super.getAngle()*Math.PI/180)),
-				(int)(getY() + (Player.DISTANCE_TO_BARREL+20)*-Math.sin(super.getAngle()*Math.PI/180)),
-				getAngle() * Math.PI / 180);
+	public void initiateUltimate(ArrayList<Actor> actors, ArrayList<Barrier> barriers, ArrayList<Projectile> bullets) {
+		super.initiateUltimate(actors, barriers, bullets);
+		bullets.add(new DamagerFreezeBullet(
+				(int) (getX() + (Player.DISTANCE_TO_BARREL + 20) * Math.cos(super.getAngle() * Math.PI / 180)),
+				(int) (getY() + (Player.DISTANCE_TO_BARREL + 20) * -Math.sin(super.getAngle() * Math.PI / 180)),
+				getAngle() * Math.PI / 180));
 	}
 	
-	public void act(){
-		super.act();
-	}
 }

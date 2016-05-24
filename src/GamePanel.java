@@ -19,7 +19,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 
 	public static final int FPS = 30;
 	private static final int CORRUPTION_DELAY = FPS * 60;
-	private static final int ULT_ATK_DELAY = FPS * 30;
+	private static final int ULT_ATK_DELAY = FPS * 3;
 	public double elapsedTime;
 
 	private boolean gameStarted;
@@ -30,7 +30,6 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 	private Image p1WinsImage, p2WinsImage;
 	private Image heart;
 	private EasySound backgroundSound;
-	private Timer timer;
 
 	private ArrayList<Actor> actors;
 	private ArrayList<Projectile> bullets;
@@ -249,9 +248,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 		if (keyPressed[12] && p1.getTimeSinceUltAtk() >= ULT_ATK_DELAY) {
 			if (p1 instanceof Tank) {
 				p1TankUlt = 150;
-//				actors.add(new TankForcefield((Tank)p1));
 			}
-
 			else if (p1 instanceof Builder) {
 				((Builder) p1).setUltimateTarget(p2);
 			}
@@ -261,12 +258,11 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Run
 		// p2 ultimate attack
 		if(keyPressed[13] && p2.getTimeSinceUltAtk() >= ULT_ATK_DELAY){
 			if (p2 instanceof Tank) {
-				p2TankUlt = 150;
-//				f2 = ((Tank) p2).createForcefield();
-//				actors.add(f2);
+//				p2TankUlt = 150;
 			}
 			else if (p2 instanceof Builder) {
 				((Builder) p2).setUltimateTarget(p1);
+				p2.initiateUltimate(actors, barriers, bullets);
 			}
 			p2.initiateUltimate(actors, barriers, bullets);
 		}
